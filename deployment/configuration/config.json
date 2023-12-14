@@ -1,0 +1,330 @@
+{
+  "@openmrs/esm-login-app": {
+    "logo": {
+      "src": "/openmrs/spa/logo.png"
+    }
+  },
+  "@openmrs/esm-primary-navigation-app": {
+    "logo": {
+      "src": "/openmrs/spa/logo.png"
+    }
+  },
+  "@openmrs/esm-patient-programs-app": {
+    "customUrl": ""
+  },
+  "@openmrs/esm-patient-forms-app": {
+    "customFormsUrl": "",
+    "showConfigurableForms": false
+  },
+  "@openmrs/esm-styleguide": {
+    "Brand color #1": "#183D1A",
+    "Brand color #2": "#1D491F",
+    "Brand color #3": " #2C6D2F"
+  },
+  "@openmrs/esm-patient-chart-app": {
+    "extensionSlots": {
+      "patient-highlights-bar-slot": {
+        "remove": ["patient-flag-tags"]
+      },
+      "patient-chart-summary-dashboard-slot": {
+        "add": ["programs-overview-widget"],
+        "remove": [
+          "patient-clinical-view-overview",
+          "immunization-overview-widget",
+          "offline-tools-patient-chart-actions-widget"
+        ]
+      },
+      "patient-chart-dashboard-slot": {
+        "remove": [
+          "clinical-view-summary-dashboard",
+          "offline-tools-patient-chart-actions-dashboard-link"
+        ]
+      }
+    }
+  },
+  "@openmrs/esm-home-app": {
+    "extensionSlots": {
+      "homepage-widgets-slot": {
+        "remove": ["home-appointments"]
+      }
+    }
+  },
+  "@openmrs/esm-patient-registration-app": {
+    "defaultPatientIdentifierTypes": [
+      "58a4732e-1359-11df-a1f1-0026b9348838",
+      "f2d6ff1a-8440-4d35-a150-1d4b5a930c5e"
+    ],
+    "sections": [
+      "demographics",
+      "contact",
+      "custom",
+      "relationships",
+      "nextOfKin"
+    ],
+    "sectionDefinitions": [
+      {
+        "id": "custom",
+        "name": "Demographics",
+        "fields": ["maritalStatus", "occupation", "education"]
+      },
+      {
+        "id": "contact",
+        "name": "Contact Details",
+        "fields": [
+          "address",
+          "phone",
+          "alternatePhone",
+          "address.address1",
+          "email",
+          "address.address6",
+          "address.address5",
+          "address.cityVillage",
+          "address.address2",
+          "healthCenter"
+        ]
+      },
+      {
+        "id": "nextOfKin",
+        "name": "Next of Kin Details",
+        "fields": [
+          "nextOfKinName",
+          "nextOfkinRelationsip",
+          "nextOfkinPhone",
+          "nextOfKinAddress"
+        ]
+      }
+    ],
+    "fieldDefinitions": [
+      {
+        "id": "phone",
+        "type": "person attribute",
+        "uuid": "72a759a8-1359-11df-a1f1-0026b9348838",
+        "label": "Telephone contact",
+        "validation": {
+          "required": true,
+          "matches": "^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
+        }
+      },
+      {
+        "id": "alternatePhone",
+        "type": "person attribute",
+        "uuid": "c725f524-c14a-4468-ac19-4a0e6661c930",
+        "label": "Alternate phone number",
+        "validation": {
+          "matches": "^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
+        }
+      },
+      {
+        "id": "address.address1",
+        "type": "address",
+        "label": "Postal Address"
+      },
+      {
+        "id": "email",
+        "type": "person attribute",
+        "uuid": "2f65dbcb-3e58-45a3-8be7-fd1dc9aa0faa",
+        "label": "Email address",
+        "validation": {
+          "matches": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+        }
+      },
+      {
+        "id": "address.address6",
+        "type": "address",
+        "label": "Location"
+      },
+      {
+        "id": "address.address5",
+        "type": "address",
+        "label": "Sub-location"
+      },
+      {
+        "id": "address.cityVillage",
+        "type": "address",
+        "label": "Village",
+        "validation": {
+          "required": true
+        }
+      },
+      {
+        "id": "address.address2",
+        "type": "address",
+        "label": "Landmark"
+      },
+      {
+        "id": "healthCenter",
+        "type": "person attribute",
+        "uuid": "254e3b6a-eeec-4714-9c5f-776cc4d30191",
+        "label": "Nearest Health Center "
+      },
+      {
+        "id": "maritalStatus",
+        "type": "obs",
+        "uuid": "a899a9f2-1350-11df-a1f1-0026b9348838",
+        "label": "Marital status",
+        "customConceptAnswers": [
+          {
+            "uuid": "159715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Married polygamous"
+          },
+          {
+            "uuid": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Married monogamous"
+          },
+          {
+            "uuid": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Divorced"
+          },
+          {
+            "uuid": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Widowed"
+          },
+          {
+            "uuid": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Cohabiting"
+          },
+          {
+            "uuid": "1057AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Single"
+          }
+        ]
+      },
+      {
+        "id": "occupation",
+        "type": "obs",
+        "uuid": "a8a0a00e-1350-11df-a1f1-0026b9348838",
+        "customConceptAnswers": [
+          {
+            "uuid": "1538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Farmer"
+          },
+          {
+            "uuid": "1540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Employee"
+          },
+          {
+            "uuid": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Trader"
+          },
+          {
+            "uuid": "159465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Student"
+          },
+          {
+            "uuid": "159466AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Driver"
+          },
+          {
+            "uuid": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "None"
+          },
+          {
+            "uuid": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Other"
+          }
+        ]
+      },
+      {
+        "id": "education",
+        "type": "obs",
+        "uuid": "a89e48ae-1350-11df-a1f1-0026b9348838",
+        "label": "Education",
+        "customConceptAnswers": [
+          {
+            "uuid": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "None"
+          },
+          {
+            "uuid": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Primary school education"
+          },
+          {
+            "uuid": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "Secondary school education"
+          },
+          {
+            "uuid": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label": "College, university or polytechnic"
+          }
+        ]
+      },
+      {
+        "id": "nextOfKinName",
+        "type": "person attribute",
+        "uuid": "72a75bec-1359-11df-a1f1-0026b9348838",
+        "label": "Name"
+      },
+      {
+        "id": "nextOfkinRelationsip",
+        "type": "person attribute",
+        "uuid": "5730994e-c267-426b-87b6-c152b606973d",
+        "label": "Relationship"
+      },
+      {
+        "id": "nextOfkinPhone",
+        "type": "person attribute",
+        "uuid": "a657a4f1-9c0f-444b-a1fd-445bb91dd12d",
+        "label": "Phone Number",
+        "validation": {
+          "matches": "^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
+        }
+      },
+      {
+        "id": "nextOfKinAddress",
+        "type": "person attribute",
+        "uuid": "a4e4028d-07fe-42e0-8a56-060562e630fb",
+        "label": "Postal Address"
+      }
+    ],
+    "registrationObs": {
+      "encounterTypeUuid": "de1f9d67-b73e-4e1b-90d0-036166fc6995",
+      "registrationFormUuid": "add7abdc-59d1-11e8-9c2d-fa7ae01bbebc"
+    },
+    "fieldConfigurations": {
+      "name": {
+        "displayCapturePhoto": false,
+        "allowUnidentifiedPatients": false
+      },
+      "dateOfBirth": {
+        "useEstimatedDateOfBirth": {
+          "enabled": true,
+          "dayOfMonth": 15,
+          "month": 5
+        }
+      },
+      "gender": [
+        {
+          "id": "male",
+          "value": "Male",
+          "label": "Male"
+        },
+        {
+          "id": "female",
+          "value": "Female",
+          "label": "Female"
+        }
+      ],
+      "address": {
+        "useAddressHierarchy": {
+          "useAddressHierarchyLabel": {
+            "countyDistrict": "County",
+            "address4": "Ward",
+            "stateProvince": "Sub county"
+          },
+          "searchAddressByLevel": true
+        }
+      }
+    }
+  },
+  "@openmrs/esm-patient-vitals-app": {
+    "vitals": {
+      "useFormEngine": true,
+      "formName": "Record Triage Details",
+      "formUuid": "1b269cab-1434-49f1-b0e1-ad7c0ab2e770",
+      "encounterTypeUuid": "'d1059fb9-a079-4feb-a749-eedd709ae542'"
+    },
+    "concepts": {
+      "generalPatientNoteUuid": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    }
+  }
+}
