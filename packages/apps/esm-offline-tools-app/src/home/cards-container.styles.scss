@@ -1,0 +1,15 @@
+@use '@carbon/styles/scss/spacing';
+@import '../root.scss';
+
+.overviewCardContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: spacing.$spacing-05;
+  padding: spacing.$spacing-05;
+  padding-top: 0rem;
+  background-color: #ededed;
+}
+
+:global(.omrs-breakpoint-gt-tablet) .overviewCardContainer {
+  grid-template-columns: repeat(3, 1fr);
+}

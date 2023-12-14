@@ -1,0 +1,29 @@
+@use '@carbon/styles/scss/spacing';
+@import '../../implementer-tools.styles.scss';
+
+.secretButton {
+  background: none;
+  color: #474b6b;
+  border: none;
+  font: inherit;
+  text-align: left;
+}
+
+.error {
+  margin-left: 1em;
+  color: orange;
+  font-size: 11pt;
+}
+
+.overriddenValue {
+  color: #2020a0;
+}
+
+.elementValue {
+  display: flex;
+  align-items: center;
+}
+
+.editValueButton {
+  margin-left: spacing.$spacing-05;
+}

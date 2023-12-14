@@ -1,0 +1,17 @@
+@use '@carbon/styles/scss/spacing';
+@import '../root.scss';
+
+.pageHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: spacing.$spacing-05;
+  background-color: #ededed;
+
+  .pageHeader {
+    @extend .productiveHeading03;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

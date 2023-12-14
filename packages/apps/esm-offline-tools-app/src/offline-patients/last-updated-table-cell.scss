@@ -1,0 +1,17 @@
+@use '@carbon/styles/scss/spacing';
+@import '~@openmrs/esm-styleguide/src/vars';
+@import '../root.scss';
+
+.errorIcon {
+  color: $danger;
+}
+
+.pendingIcon {
+  color: #ff832b;
+}
+
+.cellContainer {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-02;
+}

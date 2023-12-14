@@ -1,0 +1,26 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
+@import '../root.scss';
+
+.layer {
+  margin: spacing.$spacing-06;
+}
+
+.emptyStateContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .emptyStateDescription {
+    @include type.type-style('body-01');
+    color: $text-02;
+    white-space: pre-line;
+    text-align: center;
+  }
+
+  .heading {
+    @extend .productiveHeading01;
+    color: $ui-05;
+  }
+}

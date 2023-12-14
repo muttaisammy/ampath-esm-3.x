@@ -1,0 +1,36 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
+@import '../../../implementer-tools.styles.scss';
+
+.activeUuid {
+  @include type.type-style('body-compact-01');
+  color: $ui-05;
+  margin-bottom: spacing.$spacing-03;
+  padding-bottom: spacing.$spacing-03;
+  border-bottom: 1px solid $ui-03;
+}
+
+.autocomplete,
+.autocomplete > [role='combobox'] {
+  position: relative;
+  width: 20em;
+}
+
+.listbox {
+  box-shadow: 0 0 spacing.$spacing-03;
+}
+
+.smallListCell {
+  padding: spacing.$spacing-03;
+}
+
+.loader {
+  margin: 1rem;
+}
+
+.emptyResults {
+  @include type.type-style('body-compact-01');
+  background-color: $ui-02;
+  color: $text-02;
+  min-height: 1rem;
+}
