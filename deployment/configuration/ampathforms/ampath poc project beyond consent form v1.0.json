@@ -1,0 +1,201 @@
+{
+	"name": "AMPATH POC Project Beyond Consent Form v1.0",
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"referencedForms": [],
+	"pages": [
+		{
+			"label": "Project Beyond Consent",
+			"sections": [
+				{
+					"label": "Project Beyond Consent",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Consent date:",
+							"required": "true",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate"
+						},
+						{
+							"label": "Encounter provider:",
+							"type": "encounterProvider",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider"
+						},
+						{
+							"label": "Encounter location:",
+							"required": "true",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						},
+						{
+							"label": "Medication delivery method",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "4abd58b4-bfbe-40a1-a3ac-3953223a84a6",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "How do you currently receive/get your ARV medication?",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "ab4e94d0-7bec-42fc-94c9-8b291d9e91f7",
+										"answers": [
+											{
+												"concept": "20838ff5-7a28-4877-889c-300155627a6f",
+												"label": "Pick from the pharmacy"
+											},
+											{
+												"concept": "771b200c-8525-4425-b763-7e1cdca1b01f",
+												"label": "Delivered by a peer to a group in the community"
+											},
+											{
+												"concept": "7e5e7759-e9f7-4b16-b904-041fcdddb390",
+												"label": "Individual delivery by a peer mentor or health care provider"
+											},
+											{
+												"concept": "5af988e4-09d8-41a4-9438-30f2b62d90b8",
+												"label": "Delivered by a family member"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"id": "patientConsent"
+								},
+								{
+									"label": "Other specify:",
+									"type": "obs",
+									"id": "otherDelivery",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "patientConsent !== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+									}
+								}
+							],
+							"id": "medDelMethod"
+						},
+						{
+							"label": "Are you comfortable keeping all your medicines at home?",
+							"type": "obs",
+							"id": "medsHome",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "6a064ca7-024f-4a0a-b67b-b530287471eb",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							}
+						},
+						{
+							"label": "If no, where do you keep some of your medicines?",
+							"type": "obs",
+							"id": "medKeep",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "90c1c75c-f059-440c-84a9-61177c2e723b"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "medsHome !== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Does the patient consent for teleconsultations through phone calls?",
+							"type": "obs",
+							"id": "telecom",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "6ef9b8e3-ba2d-4d24-82e4-3afd4ecc3c34",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							}
+						},
+						{
+							"label": "Does the patient consent for physical tracing by program staff/home visit where necessary?",
+							"type": "obs",
+							"id": "physicalTrace",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "0035c116-31c7-48e3-9479-f9931b3ec3c6",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							}
+						},
+						{
+							"label": "Does the patient consent for delivery of medicines to home or place of choice?",
+							"type": "obs",
+							"id": "homeDel",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "aaff0b06-6436-4ab4-8956-070f5d75d9c8",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							}
+						},
+						{
+							"label": "Project beyond consent form (Upload the form here):",
+							"type": "obs",
+							"default": "",
+							"id": "beyondConsent",
+							"questionOptions": {
+								"concept": "3e491ddf-ad07-4ab7-be73-48ed4983363c",
+								"rendering": "file"
+							},
+							"validators": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

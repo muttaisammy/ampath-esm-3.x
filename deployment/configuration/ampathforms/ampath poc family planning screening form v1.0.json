@@ -1,0 +1,511 @@
+{
+	"name": "ampath_poc_family_planning_screening_form_v1.0",
+	"uuid": "xxxx",
+	"processor": "EncounterFormProcessor",
+	"referencedForms": [
+		{
+			"formName": "component_oncology_family-planning-v1.0",
+			"alias": "fp1",
+			"ref": {
+				"uuid": "3187af27-7421-4a00-9b24-ba94d36de1c1",
+				"display": "Family Planning v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_oncology_ob-history-v1.0",
+			"alias": "gynhist12",
+			"ref": {
+				"uuid": "221ee925-6cc8-4182-8bb2-3587c58d86d6",
+				"display": "Ob History v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_oncology_feeding-v1.0",
+			"alias": "feed",
+			"ref": {
+				"uuid": "2cea635c-bff9-4ee6-9472-b5345c313283",
+				"display": "Feeding v1.0 Component"
+			}
+		}
+	],
+	"pages": [
+		{
+			"label": "Encounter Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit Date",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Pre-clinic Review",
+			"sections": [
+				{
+					"label": "Purpose of Visit",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was this visit scheduled?",
+							"id": "scheduledVisit",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89ff9a6-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a8a06cc4-1350-11df-a1f1-0026b9348838",
+										"label": "New"
+									},
+									{
+										"concept": "a89b6440-1350-11df-a1f1-0026b9348838",
+										"label": "Scheduled visit"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Family Planning",
+			"sections": [
+				{
+					"label": "OB/Gyn History",
+					"questions": [
+						{
+							"label": "Menstruation status:",
+							"id": "menStatus",
+							"required": "true",
+							"questionOptions": {
+								"concept": "a8a185d2-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"label": "Menstruating",
+										"concept": "a8ad2b4e-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Postmenopausal",
+										"concept": "5cc1c1a7-dfcc-47dc-ad73-c386c188fad8"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "sex !== 'F'"
+							}
+						},
+						{
+							"label": "LMP:",
+							"id": "lmpDate1",
+							"questionOptions": {
+								"concept": "a89ff758-1350-11df-a1f1-0026b9348838",
+								"rendering": "date"
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "date"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "!isEmpty(pattype1) && pattype1 === '375e6d4a-ba94-41ac-8ac3-5a56015c4d92' && isEmpty(myValue)",
+									"message": "Patient is antenatal.Please provide LMP."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "menStatus !== 'a8ad2b4e-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Is the patient pregnant?",
+							"id": "pregnant",
+							"questionOptions": {
+								"concept": "6b4f1d00-0a27-41dd-a299-fb7dc730819c",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "menStatus !== 'a8ad2b4e-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "EDD:",
+							"id": "delDate",
+							"questionOptions": {
+								"concept": "a8aaddbc-1350-11df-a1f1-0026b9348838",
+								"rendering": "date",
+								"calculate": {
+									"calculateExpression": "moment(lmpDate1).isValid() ? moment(lmpDate1).add(280, 'days').toDate():''"
+								}
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(lmpDate1)).isAfter((new moment(myValue)), 'day') || (new moment(lmpDate1)).isSame((new moment(myValue)), 'day')",
+									"message": "EDD should be greater than the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "pregnant !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Breastfeeding",
+					"questions": [
+						{
+							"label": "Mother breastfeeding?",
+							"id": "breFeeding",
+							"questionOptions": {
+								"concept": "a8a18208-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								],
+								"rendering": "select"
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "sex !== 'F'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Family Planning",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "On family planning:",
+							"required": "true",
+							"id": "onFamilyPlanning",
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('774961c6-232f-4332-8a9f-f5c55ebe86d0')) ? undefined : HD.getObject('prevEnc').getValue('774961c6-232f-4332-8a9f-f5c55ebe86d0')",
+							"questionOptions": {
+								"concept": "774961c6-232f-4332-8a9f-f5c55ebe86d0",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								],
+								"rendering": "select"
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"type": "obsGroup",
+							"label": "Family planning, detailed",
+							"questionOptions": {
+								"concept": "767e8060-5272-4927-ab78-97534a4499ef",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Family planning method:",
+									"required": "true",
+									"id": "fpMethod",
+									"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('a894b1cc-1350-11df-a1f1-0026b9348838')) ? undefined : HD.getObject('prevEnc').getValue('a894b1cc-1350-11df-a1f1-0026b9348838')",
+									"questionOptions": {
+										"concept": "a894b1cc-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a893516a-1350-11df-a1f1-0026b9348838",
+												"label": "Condoms"
+											},
+											{
+												"concept": "a123d949-31f3-4abf-98e3-8504e17ebc00",
+												"label": "3-year implant"
+											},
+											{
+												"concept": "feb48308-a56f-4754-8e8f-8c1698e570cb",
+												"label": "5-year implant"
+											},
+											{
+												"concept": "eaa5796d-0b1c-478b-8c9d-d23cf4c3bddc",
+												"label": "Vasectomy"
+											},
+											{
+												"concept": "a8a71330-1350-11df-a1f1-0026b9348838",
+												"label": "Injectables (Depo)"
+											},
+											{
+												"concept": "a8a71650-1350-11df-a1f1-0026b9348838",
+												"label": "IUD"
+											},
+											{
+												"concept": "4a740e33-fee5-4a2b-b679-1904722e3d9e",
+												"label": "Lactation method"
+											},
+											{
+												"concept": "a897dbd6-1350-11df-a1f1-0026b9348838",
+												"label": "OCP"
+											},
+											{
+												"concept": "a8a714c0-1350-11df-a1f1-0026b9348838",
+												"label": "Rhythm method"
+											},
+											{
+												"concept": "a8a713f8-1350-11df-a1f1-0026b9348838",
+												"label": "Bilateral tubal ligation"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										],
+										"rendering": "multiCheckbox"
+									},
+									"type": "obs",
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && onFamilyPlanning === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Patient on family planning. Please provide a method."
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "onFamilyPlanning !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"type": "obs",
+									"label": "Family planning: Other (specify)",
+									"id": "otherfp",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(fpMethod) || !arrayContains(fpMethod, 'a8aaf3e2-1350-11df-a1f1-0026b9348838')"
+									}
+								}
+							],
+							"id": "__wIxKGGu3G"
+						},
+						{
+							"type": "obs",
+							"label": "Approximate start date (If FP is 3-year implant/5-year implant/Injectables/Vasectomy/IUD/Bilateral tubal ligation)",
+							"id": "appStartDate",
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('a89ae092-1350-11df-a1f1-0026b9348838')) ? undefined : HD.getObject('prevEnc').getValue('a89ae092-1350-11df-a1f1-0026b9348838')",
+							"questionOptions": {
+								"concept": "a89ae092-1350-11df-a1f1-0026b9348838",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Start date should be before the encounter date."
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && !(isEmpty(fpMethod) || !arrayContainsAny(fpMethod,['a123d949-31f3-4abf-98e3-8504e17ebc00','feb48308-a56f-4754-8e8f-8c1698e570cb','eaa5796d-0b1c-478b-8c9d-d23cf4c3bddc','a8a71330-1350-11df-a1f1-0026b9348838','a8a71650-1350-11df-a1f1-0026b9348838','a8a713f8-1350-11df-a1f1-0026b9348838']))",
+									"message": "Start date is required."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "isEmpty(fpMethod) || arrayContains(['a8aaf3e2-1350-11df-a1f1-0026b9348838','a8a714c0-1350-11df-a1f1-0026b9348838','a897dbd6-1350-11df-a1f1-0026b9348838','4a740e33-fee5-4a2b-b679-1904722e3d9e','a893516a-1350-11df-a1f1-0026b9348838'],fpMethod)"
+							}
+						},
+						{
+							"label": "If not on family planning, reason:",
+							"required": "true",
+							"id": "reasonNotOnFamilyPlanning",
+							"questionOptions": {
+								"concept": "88ad5975-4762-4108-a967-072f12f91b0b",
+								"answers": [
+									{
+										"concept": "2d6f977e-3b3f-4ea9-82ee-fde1fb4bdf56",
+										"label": "Not sexual active"
+									},
+									{
+										"concept": "a89d109c-1350-11df-a1f1-0026b9348838",
+										"label": "Currently pregnant"
+									},
+									{
+										"concept": "37b27c86-cabb-4c82-9166-d67d2271a8a3",
+										"label": "Thinks can't get pregnant"
+									},
+									{
+										"concept": "fb82f3b4-bcec-4cd2-a0a4-545b02d28a4d",
+										"label": "Wants to get pregnant"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								],
+								"rendering": "select"
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && onFamilyPlanning === 'a899b42e-1350-11df-a1f1-0026b9348838'",
+									"message": "Patient on family planning. Please provide a method."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "onFamilyPlanning !== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Assessment Notes",
+			"sections": [
+				{
+					"label": "Assessment Notes",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Please enter your assessment below:",
+							"type": "obs",
+							"id": "assNote",
+							"required": "false",
+							"default": "",
+							"questionOptions": {
+								"concept": "23f710cc-7f9c-4255-9b6b-c3e240215dba",
+								"rendering": "textarea",
+								"rows": 18
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Management Plan",
+			"sections": [
+				{
+					"label": "Plan",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "obsGroup",
+							"label": "Referrals ordered detailed",
+							"id": "referralPlan",
+							"questionOptions": {
+								"concept": "a8a07c8c-1350-11df-a1f1-0026b9348838",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Referrals (check all that apply):",
+									"id": "careReferral",
+									"required": "true",
+									"questionOptions": {
+										"concept": "a89c2344-1350-11df-a1f1-0026b9348838",
+										"rendering": "multiCheckbox",
+										"answers": [
+											{
+												"concept": "a899e0ac-1350-11df-a1f1-0026b9348838",
+												"label": "None"
+											},
+											{
+												"concept": "a8a8aefc-1350-11df-a1f1-0026b9348838",
+												"label": "Family planning services"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "concern !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Other referrals:",
+									"id": "otherCareref",
+									"type": "obs",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(careReferral)"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

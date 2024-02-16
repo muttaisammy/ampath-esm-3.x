@@ -1,0 +1,724 @@
+{
+    "name": "AMPATH POC Death Reporting Form V1.1",
+    "version": "1.0",
+    "encounterType": "uuid",
+    "processor": "EncounterFormProcessor",
+    "form": "uuid",
+    "pages": [
+        {
+            "label": "Death Reporting",
+            "sections": [
+                {
+                    "label": "Encounter Details",
+                    "isExpanded": "true",
+                    "questions": [
+                        {
+                            "label": "Death reporting date:",
+                            "type": "encounterDatetime",
+                            "id": "encDate",
+                            "required": "true",
+                            "default": "",
+                            "questionOptions": {
+                                "rendering": "date"
+                            },
+                            "validators": [
+                                {
+                                    "type": "date"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "encounterProvider",
+                            "label": "Provider:",
+                            "required": "true",
+                            "default": "",
+                            "questionOptions": {
+                                "rendering": "ui-select-extended"
+                            },
+                            "id": "encProvider"
+                        },
+                        {
+                            "type": "encounterLocation",
+                            "label": "Facility name (site/satellite clinic required):",
+                            "required": "true",
+                            "questionOptions": {
+                                "rendering": "ui-select-extended"
+                            },
+                            "id": "encLocation"
+                        }
+                    ]
+                },
+                {
+                    "label": "Status Before Death",
+                    "isExpanded": "true",
+                    "questions": [
+                        {
+                            "label": "Date enrolled into CCC:",
+                            "required": "true",
+                            "type": "obs",
+                            "id": "enrollDate",
+                            "questionOptions": {
+                                "concept": "edda0fe9-73ba-4dbe-8739-dd8d0a8f1700",
+                                "rendering": "date"
+                            },
+                            "validators": [
+                                {
+                                    "type": "date",
+                                    "allowFutureDates": "false"
+                                },
+                                {
+                                    "type": "js_expression",
+                                    "failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+                                    "message": "Date should not be greater than encounter date."
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Entry point into HIV care:",
+                            "type": "obs",
+                            "questionOptions": {
+                                "rendering": "select",
+                                "concept": "a8a17e48-1350-11df-a1f1-0026b9348838",
+                                "answers": [
+                                    {
+                                        "label": "PMTCT",
+                                        "concept": "a89fbedc-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "IPD",
+                                        "concept": "a8a8b0b4-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "TB clinic",
+                                        "concept": "6b15e4fa-6897-4d69-adcf-5908abade719"
+                                    },
+                                    {
+                                        "label": "OPD",
+                                        "concept": "a8a09ac8-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "PITC",
+                                        "concept": "a8a359a2-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "Other",
+                                        "concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838"
+                                    }
+                                ]
+                            },
+                            "validators": [],
+                            "id": "entryPoint"
+                        },
+                        {
+                            "label": "Transfer in:",
+                            "required": "true",
+                            "type": "obs",
+                            "id": "transIn",
+                            "questionOptions": {
+                                "concept": "97772927-7aa2-4c30-be98-85183e4b0efe",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            },
+                            "validators": []
+                        },
+                        {
+                            "label": "Marital status:",
+                            "type": "obs",
+                            "questionOptions": {
+                                "rendering": "select",
+                                "concept": "a899a9f2-1350-11df-a1f1-0026b9348838",
+                                "answers": [
+                                    {
+                                        "label": "Married Polygamous ",
+                                        "concept": "a8b03712-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "Cohabiting",
+                                        "concept": "a899af10-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "Married monogamous ",
+                                        "concept": "a8aa76b0-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "Widowed",
+                                        "concept": "a899ae34-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "Divorced",
+                                        "concept": "a899ad58-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "Single",
+                                        "concept": "a899ac7c-1350-11df-a1f1-0026b9348838"
+                                    }
+                                ]
+                            },
+                            "validators": [],
+                            "id": "maritalStatus"
+                        },
+                        {
+                            "label": "Date of HIV diagnosis:",
+                            "id": "hivDiag",
+                            "type": "obs",
+                            "questionOptions": {
+                                "concept": "6d557eec-82f7-4840-a865-a02ac69d93a5",
+                                "rendering": "date"
+                            },
+                            "validators": [
+                                {
+                                    "type": "js_expression",
+                                    "failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+                                    "message": "Date should not be greater than encounter date."
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Was client initiated on CTX?",
+                            "id": "ctxStart",
+                            "type": "obs",
+                            "questionOptions": {
+                                "concept": "a8a396f6-1350-11df-a1f1-0026b9348838",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "label": "Yes",
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "No",
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Date started:",
+                            "id": "dateStarted",
+                            "type": "obs",
+                            "questionOptions": {
+                                "concept": "2e19ea02-ae77-4e60-a2e2-15d1c6b173fb",
+                                "rendering": "date"
+                            },
+                            "validators": [
+                                {
+                                    "type": "js_expression",
+                                    "failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+                                    "message": "Date should not be greater than encounter date."
+                                }
+                            ],
+                            "hide": {
+                                "hideWhenExpression": "ctxStart !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+                            }
+                        },
+                        {
+                            "label": "Date completed:",
+                            "id": "dateCompleted",
+                            "type": "obs",
+                            "questionOptions": {
+                                "concept": "3355dee5-fcdb-41d9-8ddd-a354b79b39b4",
+                                "rendering": "date"
+                            },
+                            "validators": [
+                                {
+                                    "type": "js_expression",
+                                    "failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+                                    "message": "Date should not be greater than encounter date."
+                                }
+                            ],
+                            "hide": {
+                                "hideWhenExpression": "ctxStart !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+                            }
+                        },
+                        {
+                            "label": "Any ADR experinced?",
+                            "id": "adrExp",
+                            "type": "obs",
+                            "questionOptions": {
+                                "concept": "a89eb8c0-1350-11df-a1f1-0026b9348838",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "label": "Yes",
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "No",
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Status of the client at the time of death:",
+                            "id": "statusatDeath",
+                            "type": "obs",
+                            "questionOptions": {
+                                "concept": "caea3302-68fb-48d9-b3c8-8981a2625dc7",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "label": "Active",
+                                        "concept": "72443cac-4822-4dce-8460-794af7af8167"
+                                    },
+                                    {
+                                        "label": "Defaulter",
+                                        "concept": "a89e3bf2-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "IIT",
+                                        "concept": "a8a6f56c-1350-11df-a1f1-0026b9348838"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Stability assessment before death:",
+                            "type": "obsGroup",
+                            "questionOptions": {
+                                "rendering": "repeating",
+                                "concept": "a093f1d0-8dc3-4ed9-887f-76abc76b1383"
+                            },
+                            "questions": [
+                                {
+                                    "label": "Date:",
+                                    "type": "obs",
+                                    "id": "eventDate",
+                                    "questionOptions": {
+                                        "concept": "bb85532e-8f7e-476f-81d7-5580e0385852",
+                                        "rendering": "date"
+                                    }
+                                },
+                                {
+                                    "label": "CD4:",
+                                    "type": "obs",
+                                    "id": "cd4",
+                                    "questionOptions": {
+                                        "concept": "a8a8bb18-1350-11df-a1f1-0026b9348838",
+                                        "rendering": "number"
+                                    }
+                                },
+                                {
+                                    "label": "Viral load trends:",
+                                    "type": "obs",
+                                    "id": "vlTrends",
+                                    "questionOptions": {
+                                        "concept": "f15e19b3-6522-4dbe-92ed-552012e050a9",
+                                        "rendering": "number"
+                                    }
+                                },
+                                {
+                                    "label": "Z score:",
+                                    "type": "obs",
+                                    "id": "vlTrends",
+                                    "questionOptions": {
+                                        "concept": "f15e19b3-6522-4dbe-92ed-552012e050a9",
+                                        "rendering": "number"
+                                    }
+                                },
+                                {
+                                    "label": "Weight:",
+                                    "type": "obs",
+                                    "id": "weight",
+                                    "questionOptions": {
+                                        "concept": "a8a660ca-1350-11df-a1f1-0026b9348838",
+                                        "rendering": "number"
+                                    }
+                                },
+                                {
+                                    "label": "BMI:",
+                                    "type": "obs",
+                                    "id": "bmi",
+                                    "questionOptions": {
+                                        "concept": "a89c60c0-1350-11df-a1f1-0026b9348838",
+                                        "rendering": "number"
+                                    }
+                                },
+                                {
+                                    "label": "ART regimen:",
+                                    "type": "obs",
+                                    "id": "artRegimen",
+                                    "questionOptions": {
+                                        "concept": "50f8ff96-7904-4167-b82a-cd7001c5d0bb",
+                                        "rendering": "multiCheckbox",
+                                        "answers": [
+                                            {
+                                                "concept": "1c4a75d0-cc91-4752-b0a5-4b833326ff7a",
+                                                "label": "TDF300mg/3TC300mg/EFV600mg"
+                                            },
+                                            {
+                                                "concept": "ea501f4e-cbc5-4942-b9c8-0ac415929f08",
+                                                "label": "TDF300mg/3TC300mg/EFV400mg"
+                                            },
+                                            {
+                                                "concept": "18e86e1f-92b8-40cd-8266-0df0ab0a4a50",
+                                                "label": "DTG50mg/3TC300mg/TDF300mg"
+                                            },
+                                            {
+                                                "concept": "6a73f32d-1870-4527-af6e-74443251ded2",
+                                                "label": "NVP200/ZDV300/3TC150"
+                                            },
+                                            {
+                                                "concept": "a89cc876-1350-11df-a1f1-0026b9348838",
+                                                "label": "3TC300mg/TDF300mg"
+                                            },
+                                            {
+                                                "concept": "a896758e-1350-11df-a1f1-0026b9348838",
+                                                "label": "3TC150mg/ZDV300mg"
+                                            },
+                                            {
+                                                "concept": "a8afcf84-1350-11df-a1f1-0026b9348838",
+                                                "label": "Emtri200mg/TDF300(Truvada)"
+                                            },
+                                            {
+                                                "concept": "a897e7c0-1350-11df-a1f1-0026b9348838",
+                                                "label": "Aluvia (Kaletra)200mg/LPV50mg"
+                                            },
+                                            {
+                                                "concept": "a8afc066-1350-11df-a1f1-0026b9348838",
+                                                "label": "Atazanavir300/Ritonavir100"
+                                            },
+                                            {
+                                                "concept": "dabf36cb-dd9a-4542-a8ef-874c1ee5be4a",
+                                                "label": "FTC200mg/RPV25mg/TDF245mg(Eviplera)"
+                                            },
+                                            {
+                                                "concept": "98b0baf6-0b73-4429-9264-6233684b0969",
+                                                "label": "Dolutegravir 50mg"
+                                            },
+                                            {
+                                                "concept": "a897f8a0-1350-11df-a1f1-0026b9348838",
+                                                "label": "Abacavir 300mg"
+                                            },
+                                            {
+                                                "concept": "a89673f4-1350-11df-a1f1-0026b9348838",
+                                                "label": "Lamivudine 150mg"
+                                            },
+                                            {
+                                                "concept": "a8afbd64-1350-11df-a1f1-0026b9348838",
+                                                "label": "Raltegravir 400mg"
+                                            },
+                                            {
+                                                "concept": "a897ea4a-1350-11df-a1f1-0026b9348838",
+                                                "label": "Zidovudine 300mg"
+                                            },
+                                            {
+                                                "concept": "68a0a5dd-1e91-43a2-8dce-c6e84a14de04",
+                                                "label": "Darunavir 600mg"
+                                            },
+                                            {
+                                                "concept": "1baf254e-1429-4fd9-8db1-edf6523cea13",
+                                                "label": "Ritonavir 100mg"
+                                            },
+                                            {
+                                                "concept": "42ef7c4d-d6fb-49c0-a46e-019c42dea203",
+                                                "label": "Ritonavir 80mg"
+                                            },
+                                            {
+                                                "concept": "38fbba9c-4b26-412d-9659-8dd649514d66",
+                                                "label": "Etravirine 100mg"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "label": "Reason for switch:",
+                                    "type": "obs",
+                                    "id": "reasonSwitch",
+                                    "questionOptions": {
+                                        "concept": "7f0d1dfd-cbcd-468b-b489-f153045cb3a9",
+                                        "rendering": "select",
+                                        "answers": [
+                                            {
+                                                "label": "New drug",
+                                                "concept": "aed80704-c027-466c-97e9-1639ae9a41d6"
+                                            },
+                                            {
+                                                "label": "Pregnant",
+                                                "concept": "e38b3e51-8a27-4bf6-b0c8-e0b285e4bb2f"
+                                            },
+                                            {
+                                                "label": "Toxicity",
+                                                "concept": "a890d1ba-1350-11df-a1f1-0026b9348838"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "label": "Opportunistic infections:",
+                                    "type": "obs",
+                                    "id": "ois",
+                                    "questionOptions": {
+                                        "concept": "a8ae835e-1350-11df-a1f1-0026b9348838",
+                                        "rendering": "problem"
+                                    }
+                                },
+                                {
+                                    "label": "Morrisky (MMS 4):",
+                                    "type": "obs",
+                                    "id": "mms4",
+                                    "questionOptions": {
+                                        "concept": "315472dc-2b5e-4add-b3b7-bbcf21a8959b",
+                                        "rendering": "number",
+                                        "max":"4",
+                                        "min":"0"
+                                    }
+                                },
+                                {
+                                    "label": "Morrisky (MMS 8):",
+                                    "type": "obs",
+                                    "id": "mms8",
+                                    "questionOptions": {
+                                        "concept": "857caa4e-b566-4a43-ab78-f911c1a8a727",
+                                        "rendering": "number",
+                                        "max":"8",
+                                        "min":"0"
+                                    }
+                                },
+                                {
+                                    "label": "WHO Staging:",
+                                    "type": "obs",
+                                    "id": "staging",
+                                    "questionOptions": {
+                                        "concept": "a8a8331e-1350-11df-a1f1-0026b9348838",
+                                        "rendering": "select",
+                                        "answers": [
+                                            {
+                                                "label": "WHO Stage 1, adult",
+                                                "concept": "a89b2606-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "WHO Stage 2, adult",
+                                                "concept": "a89b26d8-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "WHO Stage 3, adult",
+                                                "concept": "a89b27be-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "WHO Stage 4, adult",
+                                                "concept": "a89b289a-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "WHO Stage 1, peds",
+                                                "concept": "a89b33d0-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "WHO Stage 2, peds",
+                                                "concept": "a89b34ac-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "WHO Stage 3, peds",
+                                                "concept": "a89b3588-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "WHO Stage 4, peds",
+                                                "concept": "a89b3664-1350-11df-a1f1-0026b9348838"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "label": "Death Details",
+                    "isExpanded": "true",
+                    "questions": [
+                        {
+                            "label": "Date of death:",
+                            "required": "true",
+                            "type": "obs",
+                            "id": "deathDate",
+                            "questionOptions": {
+                                "concept": "a89df3d6-1350-11df-a1f1-0026b9348838",
+                                "rendering": "date"
+                            },
+                            "validators": [
+                                {
+                                    "type": "date",
+                                    "allowFutureDates": "false"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Where did the person die?",
+                            "required": "true",
+                            "type": "obsGroup",
+                            "questionOptions": {
+                                "concept": "a8afd1c8-1350-11df-a1f1-0026b9348838",
+                                "rendering": "group"
+                            },
+                            "questions": [
+                                {
+                                    "label": "Where did the person die?",
+                                    "required": "true",
+                                    "type": "obs",
+                                    "id": "deathLoc",
+                                    "questionOptions": {
+                                        "rendering": "select",
+                                        "concept": "a8afd100-1350-11df-a1f1-0026b9348838",
+                                        "answers": [
+                                            {
+                                                "label": "Home",
+                                                "concept": "a89df17e-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "Hospital",
+                                                "concept": "a8afd042-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "Unknown",
+                                                "concept": "a899b50a-1350-11df-a1f1-0026b9348838"
+                                            },
+                                            {
+                                                "label": "Other",
+                                                "concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838"
+                                            }
+                                        ]
+                                    },
+                                    "validators": []
+                                },
+                                {
+                                    "label": "Death location, specify:",
+                                    "id": "deathLocSpec",
+                                    "type": "obs",
+                                    "questionOptions": {
+                                        "rendering": "text",
+                                        "concept": "a8a06fc6-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    "validators": [],
+                                    "hide": {
+                                        "hideWhenExpression": "deathLoc !== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+                                    }
+                                }
+                            ],
+                            "id": "__FruxErLyI"
+                        },
+                        {
+                            "label": "Verbal autopsy:",
+                            "id": "verbalAutopsy",
+                            "type": "obs",
+                            "questionOptions": {
+                                "rendering": "text",
+                                "concept": "f3709dd3-d5fa-45f3-9eac-d5db8ec8eecf"
+                            },
+                            "validators": []
+                        },
+                        {
+                            "label": "Clinical notes:",
+                            "id": "notes",
+                            "type": "obs",
+                            "questionOptions": {
+                                "rendering": "text",
+                                "concept": "5e4dc798-2cce-4a1a-97e9-bcf22d64b07c",
+                                "rows": "10"
+                            },
+                            "validators": []
+                        },
+                        {
+                            "label": "Cause of death?",
+                            "type": "obsGroup",
+                            "questionOptions": {
+                                "rendering": "group",
+                                "concept": "a8af9910-1350-11df-a1f1-0026b9348838"
+                            },
+                            "questions": [
+                                {
+                                    "label": "What was the probable cause of death?",
+                                    "required": "true",
+                                    "id": "deathCause",
+                                    "type": "obs",
+                                    "questionOptions": {
+                                        "concept": "a89df750-1350-11df-a1f1-0026b9348838",
+                                        "rendering": "select",
+                                        "answers": [
+                                            {
+                                                "concept": "a890a96a-1350-11df-a1f1-0026b9348838",
+                                                "label": "HIV disease resulting in TB "
+                                            },
+                                            {
+                                                "concept": "acdceb9b-4b84-4e9c-bba4-eaf486b3b4b5",
+                                                "label": "HIV disease resulting in cancer "
+                                            },
+                                            {
+                                                "concept": "a890e4b6-1350-11df-a1f1-0026b9348838",
+                                                "label": "HIV disease resulting in other infectious and parasitic disease (malaria, typhoid, cholera)"
+                                            },
+                                            {
+                                                "concept": "e0b25daf-c3da-4ba9-b786-a37b2f05ef31",
+                                                "label": "Other non-infectious HIV related disease "
+                                            },
+                                            {
+                                                "concept": "a8986880-1350-11df-a1f1-0026b9348838",
+                                                "label": "Other natural causes (heart disease, diabetes, hypertension)"
+                                            },
+                                            {
+                                                "concept": "a89df67e-1350-11df-a1f1-0026b9348838",
+                                                "label": "Non-natural causes (accident, murder, suicide, war, trauma)"
+                                            },
+                                            {
+                                                "concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+                                                "label": "Unknown cause "
+                                            },
+                                            {
+                                                "concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+                                                "label": "Other"
+                                            }
+                                        ]
+                                    },
+                                    "validators": []
+                                },
+                                {
+                                    "label": "Cause of death, Specify:",
+                                    "id": "deathSpecify",
+                                    "type": "obs",
+                                    "questionOptions": {
+                                        "concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+                                        "rendering": "text"
+                                    },
+                                    "validators": [],
+                                    "hide": {
+                                        "hideWhenExpression": "isEmpty(deathCause) || !arrayContains(deathCause, 'a8aaf3e2-1350-11df-a1f1-0026b9348838')"
+                                    }
+                                }
+                            ],
+                            "id": "__LtsvEFEqE"
+                        },
+                        {
+                            "label": "Could the death have been prevented or anticipated?",
+                            "required": "true",
+                            "id": "anticipated",
+                            "type": "obs",
+                            "questionOptions": {
+                                "concept": "feb51022-aac8-4cc8-bb93-ef109a3621e0",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "label": "Yes",
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+                                    },
+                                    {
+                                        "label": "No",
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+                                    }
+                                ]
+                            },
+                            "validators": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

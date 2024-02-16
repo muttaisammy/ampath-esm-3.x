@@ -1,0 +1,1285 @@
+{
+	"name": "POC HIV Family/Partner History Form v1.0",
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"referencedForms": [],
+	"pages": [
+		{
+			"label": "Family History",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended",
+								"concept": ""
+							},
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider"
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Elicitation Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Do you have children below 19 years?",
+							"type": "obs",
+							"id": "child19",
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('0df3af2d-4eeb-4552-8395-51ef32270842')) ? undefined : HD.getObject('prevEnc').getValue('0df3af2d-4eeb-4552-8395-51ef32270842')",
+							"required": "true",
+							"questionOptions": {
+								"concept": "0df3af2d-4eeb-4552-8395-51ef32270842",
+								"rendering": "select",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Not applicable - Child",
+										"concept": "a89ad3a4-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "If no, provide reasons?",
+							"type": "obs",
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('0a5c8a1c-da00-4a6f-b96f-2200abdc1ce5')) ? undefined : HD.getObject('prevEnc').getValue('0a5c8a1c-da00-4a6f-b96f-2200abdc1ce5')",
+							"id": "noChild",
+							"questionOptions": {
+								"concept": "0a5c8a1c-da00-4a6f-b96f-2200abdc1ce5",
+								"rendering": "select",
+								"answers": [
+									{
+										"label": "No child",
+										"concept": "70396be4-76e0-4beb-95b6-fad29a984671"
+									},
+									{
+										"label": "All children above 19 years",
+										"concept": "30abdbdb-123e-4551-b26a-a4633e002147"
+									}
+								]
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && !isEmpty(child19) && child19 === 'a8ad2b4e-1350-11df-a1f1-0026b9348838'",
+									"message": "Please provide reason."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "sex !== 'F' || child19 !== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Have your children been elicited by your female partner?",
+							"type": "obs",
+							"id": "childElicit",
+							"questionOptions": {
+								"concept": "a9adf0f2-0c17-446d-8c41-1dd311e27475",
+								"rendering": "select",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && sex === 'M' && !isEmpty(child19) && child19 === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+									"message": "Please provide reason."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "sex !== 'M' || child19 !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If no, what is the reason:",
+							"type": "obs",
+							"id": "noChildElicit",
+							"questionOptions": {
+								"concept": "ea847c02-c269-47c2-b43b-a82fb259f399",
+								"rendering": "select",
+								"answers": [
+									{
+										"label": "Partner unknown HIV status",
+										"concept": "5b2826b9-9f78-42da-b9af-b85ee69f7297"
+									},
+									{
+										"label": "Partner known positive and not in care",
+										"concept": "b823cbd4-1b30-4cdb-aebe-ba1192ae1c24"
+									},
+									{
+										"label": "Partner deceased",
+										"concept": "a89335d6-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && !isEmpty(childElicit) && childElicit === 'a8ad2b4e-1350-11df-a1f1-0026b9348838'",
+									"message": "Please provide reason."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Do you consent to have them followed up and tested for HIV?",
+							"type": "obs",
+							"id": "testConsent",
+							"questionOptions": {
+								"concept": "9d9ccb6b-73ae-48dd-83f9-12c782ce6685",
+								"rendering": "select",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "((child19 !== 'a899b35c-1350-11df-a1f1-0026b9348838') || (sex === 'M' && childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838'))"
+							}
+						},
+						{
+							"label": "Do you have any sexual partner to elicit?",
+							"type": "obs",
+							"id": "sexualElicit",
+							"required": "true",
+							"questionOptions": {
+								"concept": "79f74b25-3f97-4367-a57d-7571bba1d7b4",
+								"rendering": "select",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "child19 === 'a89ad3a4-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If no, what is the reason:",
+							"type": "obs",
+							"id": "nosexualElicit",
+							"questionOptions": {
+								"concept": "d445be56-f197-44c3-9966-d0be759adb0d",
+								"rendering": "select",
+								"answers": [
+									{
+										"label": "No sexual partner for the last one year",
+										"concept": "37179db7-663d-4d28-af0a-e8f58abc2e0d"
+									},
+									{
+										"label": "Decline to give sexual partner information",
+										"concept": "05927284-7104-4ff6-b914-97f7a81ee026"
+									},
+									{
+										"label": "No additional partner-for re-elicitation",
+										"concept": "2adb8a7d-ab8a-4509-841a-91601bdd8f5f"
+									},
+									{
+										"label": "Other",
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && !isEmpty(sexualElicit) && sexualElicit === 'a8ad2b4e-1350-11df-a1f1-0026b9348838'",
+									"message": "Please provide reason."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "sexualElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Contact history list:",
+							"type": "obsGroup",
+							"questionOptions": {
+								"rendering": "repeating",
+								"concept": "aeddf768-5ac0-45e4-934b-bf69730a8c2d"
+							},
+							
+							"questions": [
+								{
+									"label": "Name of contact:",
+									"required": "true",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "58fd4938-8976-4c43-b01a-6ce794d4f80b",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "160750"
+											},
+											{
+												"type": "local",
+												"value": "7069"
+											}
+										]
+									},
+									"id": "familyMember",
+									"validators": [],
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "Sex of contact:",
+									"required": "true",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a0d2e0f8-5109-497a-9313-fcc3576d1185",
+										"answers": [
+											{
+												"concept": "a8affc16-1350-11df-a1f1-0026b9348838",
+												"label": "Female"
+											},
+											{
+												"concept": "a8affaea-1350-11df-a1f1-0026b9348838",
+												"label": "Male"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"id": "gender",
+									"validators": [],
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "Specify other gender:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "gender !== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "sexOther"
+								},
+								{
+									"label": "Date of birth:",
+									"required": "true",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "date",
+										"concept": "4bbafe39-c284-415c-9689-6d36c4b95e4f",
+										"calculate": {
+											"calculateExpression": "parseInt(memberAge) > 0 ? ((moment()).subtract(parseInt(memberAge),'year')).set({'month':'05','date':'15'}).format() : ((moment()).subtract(parseInt(memberAge),'year')).format() "
+										}
+									},
+									"validators": [
+										{
+											"type": "date"
+										},
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+											"message": "DOB should not be greater than encounter date."
+										}
+									],
+									"id": "dob",
+									
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "Age (Years):",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "a5a1b505-e646-47cc-8445-d3048959a702",
+										"max": "120",
+										"min": "0",
+										"calculate": {
+											"calculateExpression": "(moment().endOf('year')).diff(moment(dob),'years')"
+										}
+									},
+									"id": "memberAge"
+								},
+								{
+									"label": "Phone number:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "bcb3220f-57b5-467e-ad8a-282df45a3642"
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "(myValue).length > 10",
+											"message": "Phone number digits should not be more than 10"
+										}
+									],
+									"id": "phoneNumber",
+									
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "Alternative phone number:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "32cf15bd-3517-4dfa-b681-f87eed74e57b"
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "(myValue).length > 10",
+											"message": "Phone number digits should not be more than 10"
+										}
+									],
+									"id": "altphoneNumber",
+									
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "Physical address/nearest landmark:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "2c0d1507-d8ce-454d-8bed-0cb59dcd573f"
+									},
+									"id": "address",
+									"validators": [],
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "Marital status:",
+									"required": "true",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a899a9f2-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a8aa76b0-1350-11df-a1f1-0026b9348838",
+												"label": "Married monogamous"
+											},
+											{
+												"concept": "a8b03712-1350-11df-a1f1-0026b9348838",
+												"label": "Married polygamous"
+											},
+											{
+												"concept": "a899ad58-1350-11df-a1f1-0026b9348838",
+												"label": "Divorced"
+											},
+											{
+												"concept": "a899ae34-1350-11df-a1f1-0026b9348838",
+												"label": "Widowed"
+											},
+											{
+												"concept": "a899ac7c-1350-11df-a1f1-0026b9348838",
+												"label": "Single"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											},
+											{
+												"concept": "a89ad3a4-1350-11df-a1f1-0026b9348838",
+												"label": "N/A (Child)"
+											}
+										]
+									},
+								
+									"id": "maritalStatus",
+									"validators": [],
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "What is the relationship with your contact?",
+									"required": "true",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a89ec0f4-1350-11df-a1f1-0026b9348838",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1675"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1560"
+											}
+										],
+										"answers": [
+											{
+												"concept": "a898c0dc-1350-11df-a1f1-0026b9348838",
+												"label": "Mother"
+											},
+											{
+												"concept": "a898c1a4-1350-11df-a1f1-0026b9348838",
+												"label": "Father"
+											},
+											{
+												"concept": "a898c262-1350-11df-a1f1-0026b9348838",
+												"label": "Sibling"
+											},
+											{
+												"concept": "a89defe4-1350-11df-a1f1-0026b9348838",
+												"label": "Child"
+											},
+											{
+												"concept": "a89ebc80-1350-11df-a1f1-0026b9348838",
+												"label": "Sexual partner-spouse"
+											},
+											{
+												"concept": "a89ebd3e-1350-11df-a1f1-0026b9348838",
+												"label": "Sexual partner-other"
+											},
+											{
+												"concept": "52471304-8097-41d7-982f-5fc2c3ca19b0",
+												"label": "Co-wife"
+											},
+											{
+												"concept": "a890d57a-1350-11df-a1f1-0026b9348838",
+												"label": "Injectable drug user"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"id": "relation",
+									"validators": [],
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "Are you living with your contact?",
+									"required": "true",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "e9ac6790-3d15-4246-baed-0eae6dafbadb",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										]
+									},
+									"id": "livingClient",
+									"validators": [],
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "Do you know their HIV status?",
+									"required": "true",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "2ec514cf-a764-45b8-b554-eb2993f2de9b",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										]
+									},
+									"id": "awareStatus",
+									"validators": [],
+							"hide": {
+								"hideWhenExpression": "((!arrayContains( ['a899b35c-1350-11df-a1f1-0026b9348838'], child19))|| (childElicit !== 'a899b42e-1350-11df-a1f1-0026b9348838' && sex === 'M' )) && sexualElicit !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+								},
+								{
+									"label": "If yes, what is their HIV status?",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "9e4d6436-4040-46a3-a0ae-6dbc0acfe593",
+										"answers": [
+											{
+												"concept": "a896f3a6-1350-11df-a1f1-0026b9348838",
+												"label": "Positive"
+											},
+											{
+												"concept": "a896d2cc-1350-11df-a1f1-0026b9348838",
+												"label": "Negative"
+											},
+											{
+												"concept": "2477d1ad-4288-4f84-9065-f63fc05e9347",
+												"label": "Exposed infant"
+											}
+										]
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(awareStatus) && arrayContains (['a899b35c-1350-11df-a1f1-0026b9348838'],awareStatus )",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "isEmpty(awareStatus) || awareStatus!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "hivStatus"
+								},
+								{
+									"label": "Do you know when the contact was tested?",
+									"type": "obs",
+									"required": "true",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a4198496-58f1-4a79-9879-9929aa817403",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a89e6ae6-1350-11df-a1f1-0026b9348838",
+												"label": "Dont know"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "awareStatus !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "contactTested"
+								},
+								{
+									"label": "Reported test year:",
+									"type": "obs",
+									"id": "testYear",
+									"questionOptions": {
+										"concept": "2a1066f8-35c7-48b3-ad53-d692ca6bda3d",
+										"rendering": "number"
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(contactTested) && arrayContains (['a899b35c-1350-11df-a1f1-0026b9348838'],contactTested )",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "isEmpty(contactTested) || !arrayContains(['a899b35c-1350-11df-a1f1-0026b9348838'],contactTested)"
+									}
+								},
+								{
+									"label": "Eligible for testing?",
+									"id": "eligible",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "157a9ffe-8175-4b43-a785-cec2858cc9c3",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										]
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(awareStatus) && awareStatus === 'a899b42e-1350-11df-a1f1-0026b9348838'",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "awareStatus!== 'a899b42e-1350-11df-a1f1-0026b9348838' && hivStatus!== 'a896d2cc-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Preferred date of testing:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "date",
+										"concept": "64807fb6-0ca3-4def-a62a-2d5f66c4328a"
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(eligible) && eligible === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Required!"
+										},
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+											"message": "Date should be greater than encounter date."
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "eligible !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "preferDate"
+								},
+								{
+									"label": "Is the contact in care?",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a8afba58-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											},
+											{
+												"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+												"label": "Unknown"
+											}
+										]
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(hivStatus) && hivStatus === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "hivStatus !== 'a896f3a6-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "inCare"
+								},
+								{
+									"label": "Screened for IPV?",
+									"id": "ipvScreen",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "db130cba-4b55-4882-ad4d-10f34a05a3d7",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										]
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(eligible) && eligible === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "!arrayContains (['a899b42e-1350-11df-a1f1-0026b9348838','a899b50a-1350-11df-a1f1-0026b9348838'],inCare) && eligible !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "IPV screening outcome:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "02a5b950-53fa-4da8-b244-257b99cef73a",
+										"answers": [
+											{
+												"concept": "920709bc-dde6-4d21-863e-851e63c084e4",
+												"label": "Sexual"
+											},
+											{
+												"concept": "a89fc8be-1350-11df-a1f1-0026b9348838",
+												"label": "Physical"
+											},
+											{
+												"concept": "217976ec-26cc-4709-bb82-5bf5398c9ba4",
+												"label": "Emotional"
+											},
+											{
+												"concept": "a899e0ac-1350-11df-a1f1-0026b9348838",
+												"label": "No IPV"
+											},
+											{
+												"concept": "a89ad3a4-1350-11df-a1f1-0026b9348838",
+												"label": "N/A (Child)"
+											}
+										]
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(ipvScreen) && ipvScreen === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "ipvScreen!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "ipvScreenOutcome"
+								},
+								{
+									"label": "Preferred PNS approach:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "faddc0fc-4db0-4801-8d11-d3812c7429e7",
+										"answers": [
+											{
+												"concept": "a241e7ee-e325-44b1-bb89-72c1f32ae0de",
+												"label": "Dual referral"
+											},
+											{
+												"concept": "8282e7cb-b651-42b9-9c1a-ad01b649605a",
+												"label": "Provider referral"
+											},
+											{
+												"concept": "01b957da-23bb-4862-819d-036364fe3faf",
+												"label": "Contract referral"
+											},
+											{
+												"concept": "0ee6e201-24e8-4ac4-b9d2-1680f452958e",
+												"label": "Passive referral"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "!arrayContains (['a899b42e-1350-11df-a1f1-0026b9348838','a899b50a-1350-11df-a1f1-0026b9348838'],inCare) && eligible !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "pnsApproach"
+								},
+								{
+									"label": "If eligible, has the contact been tested?",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a8a4636a-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "eligible !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "contactTested1"
+								},
+								{
+									"label": "Contact current HIV test results:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a8a46428-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a896f3a6-1350-11df-a1f1-0026b9348838",
+												"label": "Positive"
+											},
+											{
+												"concept": "a896d2cc-1350-11df-a1f1-0026b9348838",
+												"label": "Negative"
+											},
+											{
+												"concept": "a89a7ae4-1350-11df-a1f1-0026b9348838",
+												"label": "Indeterminate"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "contactTested1 !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "hivResults"
+								},
+								{
+									"label": "Test date:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "date",
+										"concept": "d08980cd-a981-4e3f-a2f1-e41a73b3501e"
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(hivResults)",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "isEmpty(hivResults)"
+									},
+									"id": "testingDate"
+								},
+								{
+									"label": "Linked to care?",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a8a4abc2-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "hivResults !== 'a896f3a6-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "linkedCare"
+								},
+								{
+									"label": "Reason not linked:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "09cc96b9-5333-4fd1-bd1b-2443b9ebd4ad",
+										"answers": [
+											{
+												"concept": "a89d25fa-1350-11df-a1f1-0026b9348838",
+												"label": "Declined"
+											},
+											{
+												"concept": "735870d3-c05b-423e-a79f-f382ad269c87",
+												"label": "Preferred to be linked elsewhere"
+											},
+											{
+												"concept": "a89eb97e-1350-11df-a1f1-0026b9348838",
+												"label": "Requested more time"
+											},
+											{
+												"concept": "8e878f8c-4db7-4b37-8613-61596da1cc0d",
+												"label": "Wish to disclose to partner first"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "linkedCare !== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "linkedReason"
+								},
+								{
+									"label": "Which county are they accessing care?",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "9d20dbba-4947-412d-8b62-2bff766132d7",
+										"answers": [
+											{
+												"label": "Baringo",
+												"concept": "e08d10b5-456b-4421-aa79-e2dd1017a6da"
+											},
+											{
+												"label": "Bomet",
+												"concept": "251a1427-c85c-484b-a7a3-985f0cb9a92a"
+											},
+											{
+												"label": "Bungoma",
+												"concept": "7d7a869c-979b-4105-983c-e6f610f4dc1e"
+											},
+											{
+												"label": "Busia",
+												"concept": "efde545c-aa53-49f7-9304-b7337e1b5c64"
+											},
+											{
+												"label": "Elgeyo Marakwet",
+												"concept": "160ced0e-3173-46c7-9300-515adeeaa77e"
+											},
+											{
+												"label": "Embu",
+												"concept": "e62faad3-b2c3-4e2d-a734-8859ced7f823"
+											},
+											{
+												"label": "Garissa",
+												"concept": "46cb59df-c4d7-49c9-99a6-8f8ee1ddc526"
+											},
+											{
+												"label": "Homa Bay",
+												"concept": "0c37d31b-6c59-4073-a24e-853594dba6d9"
+											},
+											{
+												"label": "Isiolo",
+												"concept": "30d075b7-d340-4f4a-96d7-30bc8fa10164"
+											},
+											{
+												"label": "Kajiado",
+												"concept": "9bb448c7-a32f-4489-8a9d-a279045581bd"
+											},
+											{
+												"label": "Kakamega",
+												"concept": "4ae1f7ef-ee83-41cd-a8ea-458d6e913924"
+											},
+											{
+												"label": "Kericho",
+												"concept": "257ac0ea-85c6-4d05-9bce-be66f3ca0054"
+											},
+											{
+												"label": "Kiambu",
+												"concept": "6c917467-102b-4268-bbc2-0cfabf6521a8"
+											},
+											{
+												"label": "Kilifi",
+												"concept": "d2b7ade5-840b-449a-881c-be9b7e57bd1a"
+											},
+											{
+												"label": "Kirinyaga",
+												"concept": "24f18c6b-d2bf-47c3-8d8d-d7624680563a"
+											},
+											{
+												"label": "Kisii",
+												"concept": "d47d156a-7e4d-42fc-9c66-c7a153125c5f"
+											},
+											{
+												"label": "Kisumu",
+												"concept": "b3cd7e4e-0bd2-4818-87d4-8768ba88e706"
+											},
+											{
+												"label": "Kitui",
+												"concept": "ee9fdd32-fa61-4045-a5d3-fbd83c289492"
+											},
+											{
+												"label": "Kwale",
+												"concept": "df012ba9-edcb-454b-95f5-5688bb85f9c0"
+											},
+											{
+												"label": "Laikipia",
+												"concept": "5d36a389-eb05-4e07-a41d-b6060c990c30"
+											},
+											{
+												"label": "Lamu",
+												"concept": "96b1c753-09ba-4a67-b8e1-385aeb4a941d"
+											},
+											{
+												"label": "Machakos",
+												"concept": "ad60697d-cfd9-4eb6-9870-84faaa126653"
+											},
+											{
+												"label": "Makueni",
+												"concept": "9eefb3e9-e6e2-4560-9c23-cd27a7034b7d"
+											},
+											{
+												"label": "Mandera",
+												"concept": "4148b3f8-3d84-4d97-ba0d-0187beff4ee0"
+											},
+											{
+												"label": "Marsabit",
+												"concept": "d2cc5bcd-820f-4498-9603-b8e737a3b678"
+											},
+											{
+												"label": "Meru",
+												"concept": "6f13a0a0-72a7-429d-be15-b71c4337dabd"
+											},
+											{
+												"label": "Migori",
+												"concept": "b529c900-9e3e-446e-9fb8-4983b48eb56c"
+											},
+											{
+												"label": "Mombasa",
+												"concept": "1a81fd05-535e-4d5d-991f-5e07082608f6"
+											},
+											{
+												"label": "Murang,a",
+												"concept": "61a7e6bd-65e9-471d-a81f-e0d2d8641af0"
+											},
+											{
+												"label": "Nairobi",
+												"concept": "92a21d56-ff39-4e50-bee8-1af924ad8749"
+											},
+											{
+												"label": "Nakuru",
+												"concept": "e2dedf8a-e013-4d5e-8596-484f137a218b"
+											},
+											{
+												"label": "Nandi",
+												"concept": "fc38093d-13e0-4d7e-8f5a-18619116c4d9"
+											},
+											{
+												"label": "Narok",
+												"concept": "2da03c3b-86ff-4ed6-8c82-48f9a95380c0"
+											},
+											{
+												"label": "Nyandarua",
+												"concept": "8234dc27-5fb0-4ee5-9e58-844b1d5f122e"
+											},
+											{
+												"label": "Nyamira",
+												"concept": "05b89a50-29e4-465c-8f76-33f050a100e0"
+											},
+											{
+												"label": "Nyeri",
+												"concept": "fa289671-03c9-4852-b0e5-39f63c53fec0"
+											},
+											{
+												"label": "Samburu",
+												"concept": "6ed55aee-e0e9-4657-98ff-b1fe723b1222"
+											},
+											{
+												"label": "Siaya",
+												"concept": "e6de2549-a86a-44da-be39-1a05f923e233"
+											},
+											{
+												"label": "Taita Taveta",
+												"concept": "697daf21-c0d9-4627-b906-809abb96a0ed"
+											},
+											{
+												"label": "Tana River",
+												"concept": "f6b97374-62be-44f3-b266-89a65c827faa"
+											},
+											{
+												"label": "Tharaka Nithi",
+												"concept": "f8449efd-252a-4b61-a2e9-7542d9d26580"
+											},
+											{
+												"label": "Trans Nzoia",
+												"concept": "27fb861a-8e25-4de9-bd49-48dc762d6cbf"
+											},
+											{
+												"label": "Turkana",
+												"concept": "ce57b52d-1971-430f-94d9-d11049d9ae0e"
+											},
+											{
+												"label": "Uasin Gishu",
+												"concept": "4532910a-b76b-4846-b905-006aee061bfb"
+											},
+											{
+												"label": "Vihiga",
+												"concept": "2343557c-1626-4a13-80dd-0fa88d996d1e"
+											},
+											{
+												"label": "Wajir",
+												"concept": "cf42b004-8fc4-48e6-967f-e2a0e41f662c"
+											},
+											{
+												"label": "West Pokot",
+												"concept": "a325268f-33f5-4a60-946d-ff4b69494b3f"
+											}
+										]
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(inCare) && inCare === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "inCare !== 'a899b35c-1350-11df-a1f1-0026b9348838' && linkedCare !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "county"
+								},
+								{
+									"label": "Which facility are they enrolled?",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "99f8ac81-cea1-43eb-88fb-29a9ea2d77cf"
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(inCare) && inCare === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "inCare !== 'a899b35c-1350-11df-a1f1-0026b9348838' && linkedCare !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "facility"
+								},
+								{
+									"label": "CCC No:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "45821d60-95fb-45f5-a267-c7e04cb25480",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "162053 (CCC NUMBER)"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "inCare !== 'a899b35c-1350-11df-a1f1-0026b9348838' && linkedCare !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "cccNumber"
+								},
+								{
+									"label": "Enrolled in HEI clinic:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "3a005810-6dc0-48cb-a74b-6c49ba78c659",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										]
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(hivStatus) && hivStatus === '2477d1ad-4288-4f84-9065-f63fc05e9347'",
+											"message": "Required!"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "hivStatus !== '2477d1ad-4288-4f84-9065-f63fc05e9347'"
+									},
+									"id": "heiClinic"
+								},
+								{
+									"label": "HEI No:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "31f75b43-40aa-4a15-95e4-963d6bb203b6"
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(heiClinic) && heiClinic === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Required!"
+										},
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "!isEmpty(myValue) && (myValue.split('-').length !== 3 || myValue.split('-')[0].length !== 5 || myValue.split('-')[1].length !== 4 || myValue.split('-')[2].length !== 4)",
+											"message": "HEI Format is not correct"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "heiClinic !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									},
+									"id": "heiNumber"
+								}
+							],
+							"id": "__stHpD1HCz"
+						},
+						{
+							"label": "Clinical Notes",
+							"isExpanded": "true",
+							"questions": [
+								{
+									"label": "Please enter clinical notes below:",
+									"type": "obs",
+									"id": "assNote",
+									"default": "",
+									"questionOptions": {
+										"concept": "23f710cc-7f9c-4255-9b6b-c3e240215dba",
+										"rendering": "textarea",
+										"rows": 5
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

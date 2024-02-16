@@ -1,0 +1,2212 @@
+{
+	"name": "AMPATH POC TB Mortality Form V1.0",
+	"version": "1.0",
+	"encounterType": "uuid",
+	"processor": "EncounterFormProcessor",
+	"form": "uuid",
+	"pages": [
+		{
+			"label": "Encounter Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Death reporting date:",
+							"type": "encounterDatetime",
+							"id": "encDate",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider:",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider"
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Patient Details",
+			"sections": [
+				{
+					"label": "Patient Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Marital status:",
+							"type": "obs",
+							"id": "maritalStatus",
+							"questionOptions": {
+								"concept": "a899a9f2-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899ac7c-1350-11df-a1f1-0026b9348838",
+										"label": "Single"
+									},
+									{
+										"concept": "a8aa76b0-1350-11df-a1f1-0026b9348838",
+										"label": "Married"
+									},
+									{
+										"concept": "a899ad58-1350-11df-a1f1-0026b9348838",
+										"label": "Divorced/Separated"
+									},
+									{
+										"concept": "a899ae34-1350-11df-a1f1-0026b9348838",
+										"label": "Widowed"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Occupation:",
+							"type": "obs",
+							"id": "occupation",
+							"questionOptions": {
+								"concept": "a8a0a00e-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a8aaf158-1350-11df-a1f1-0026b9348838",
+										"label": "Works within a healthcare setting"
+									},
+									{
+										"concept": "a8aaf158-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Source of patient:",
+							"type": "obs",
+							"id": "patientSource",
+							"questionOptions": {
+								"concept": "faddc0fc-4db0-4801-8d11-d3812c7429e7",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "ab396b67-273c-4c97-9f90-f858d79b13b1",
+										"label": "Referred from outside of facility"
+									},
+									{
+										"concept": "59312903-dde9-4f7a-b6cf-7b41863b7e81",
+										"label": "Referred from within facility"
+									},
+									{
+										"concept": "0ee6e201-24e8-4ac4-b9d2-1680f452958e",
+										"label": "Self referral"
+									}
+								]
+							},
+							"validators": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "TB History",
+			"sections": [
+				{
+					"label": "TB History Prior Death",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Primary method of TB diagnosis (choose all that apply):",
+							"type": "obs",
+							"id": "tbDiag",
+							"questionOptions": {
+								"concept": "a8a0d498-1350-11df-a1f1-0026b9348838",
+								"rendering": "multiCheckbox",
+								"answers": [
+									{
+										"concept": "9364c765-eeec-4b03-b938-ea7874560d88",
+										"label": "Gene Xpert"
+									},
+									{
+										"concept": "a8945d4e-1350-11df-a1f1-0026b9348838",
+										"label": "AFB Smear Microscopy"
+									},
+									{
+										"concept": "a8a462a2-1350-11df-a1f1-0026b9348838",
+										"label": "Culture"
+									},
+									{
+										"concept": "",
+										"label": "TB LAM"
+									},
+									{
+										"concept": "a8908192-1350-11df-a1f1-0026b9348838",
+										"label": "X-ray"
+									},
+									{
+										"concept": "a89d278a-1350-11df-a1f1-0026b9348838",
+										"label": "TST"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Date of TB diagnosis:",
+							"type": "obs",
+							"id": "dateDiag",
+							"questionOptions": {
+								"concept": "0c45e27d-5add-458b-ad69-58f3cca5f6a1",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date should be before the encounter date."
+								}
+							]
+						},
+						{
+							"label": "Type of TB:",
+							"type": "obs",
+							"id": "tbType",
+							"questionOptions": {
+								"concept": "a8a37e1e-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a8a1ae2c-1350-11df-a1f1-0026b9348838",
+										"label": "Pulmonary Bactriologically Confirmed"
+									},
+									{
+										"concept": "a8909cfe-1350-11df-a1f1-0026b9348838",
+										"label": "Pulmonary TB"
+									},
+									{
+										"concept": "a8a37e1e-1350-11df-a1f1-0026b9348838",
+										"label": "Clinically Diagnosed EPTB"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Specify location:",
+							"type": "obs",
+							"id": "loc",
+							"questionOptions": {
+								"concept": "afe76b02-874e-41b8-9e86-0abc1d500696",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "e2881147-8e6d-4fe7-bca3-5893e4580670",
+										"label": "Pleural TB with pleural effusion"
+									},
+									{
+										"concept": "77de5b35-1e83-4ad4-8756-dd9db1792012",
+										"label": "Tuberculous Meningitis"
+									},
+									{
+										"concept": "a89cf90e-1350-11df-a1f1-0026b9348838",
+										"label": "Miliary TB"
+									},
+									{
+										"concept": "a89d278a-1350-11df-a1f1-0026b9348838",
+										"label": "TB of the skin"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Confirmed Drug Resistance:",
+							"type": "obs",
+							"id": "drugRes",
+							"questionOptions": {
+								"concept": "ed3d053d-ab6c-4cfb-ac7c-9a9dffee40fb",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "If drug resistant specify type below:",
+							"type": "obs",
+							"id": "drugResType",
+							"questionOptions": {
+								"concept": "ed3d053d-ab6c-4cfb-ac7c-9a9dffee40fb",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "0919c107-e624-48b8-8ba9-f0482def94f3",
+										"label": "RR TB"
+									},
+									{
+										"concept": "b7beb524-da2e-4499-939e-a947596b049c",
+										"label": "MDR TB"
+									},
+									{
+										"concept": "42403503-1c3f-4761-a71c-ae0e2cf71034",
+										"label": "INH Monoresistance"
+									},
+									{
+										"concept": "214581ff-2e48-4bf0-b9f6-e21ebc889229",
+										"label": "PDR TB"
+									},
+									{
+										"concept": "fedce6d3-7b3d-436d-90a8-066e1bfdba6b",
+										"label": "Other monoresistance"
+									},
+									{
+										"concept": "79ec0014-7152-4a8a-9759-d7b54d6e1b73",
+										"label": "Pre XDR"
+									},
+									{
+										"concept": "07b8d43e-629c-41ac-9683-a19dc3f011fe",
+										"label": "XDR"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "drugRes !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Type of patient:",
+							"type": "obs",
+							"id": "patientType",
+							"questionOptions": {
+								"concept": "a8a388d2-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a8a48066-1350-11df-a1f1-0026b9348838",
+										"label": "New"
+									},
+									{
+										"concept": "a8a3874c-1350-11df-a1f1-0026b9348838",
+										"label": "Treatment after loss to followup"
+									},
+									{
+										"concept": "a8a385c6-1350-11df-a1f1-0026b9348838",
+										"label": "Relapse"
+									},
+									{
+										"concept": "a8a3868e-1350-11df-a1f1-0026b9348838",
+										"label": "Treatment after failure"
+									},
+									{
+										"concept": "6b509e5e-32ce-4b7c-91a2-4cba7a524211",
+										"label": "Previous Treatment History Unknown"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Others previously treated"
+									},
+									{
+										"concept": "a8a38814-1350-11df-a1f1-0026b9348838",
+										"label": "Transferred In"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Specify health facility:",
+							"type": "obs",
+							"id": "healthFac",
+							"questionOptions": {
+								"concept": "99f8ac81-cea1-43eb-88fb-29a9ea2d77cf",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "patientType !== 'a8a38814-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Was the patient initiated on anti-TB treatment?",
+							"type": "obs",
+							"id": "tbEver",
+							"questionOptions": {
+								"concept": "a89ea9c0-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Initiation date:",
+							"type": "obs",
+							"id": "dateInit",
+							"questionOptions": {
+								"concept": "a899e5f2-1350-11df-a1f1-0026b9348838",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date should be before the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "tbEver !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Time from TB diagnosis to anti-TB drug initiation (days):",
+							"type": "obs",
+							"id": "tbdiagTime",
+							"questionOptions": {
+								"concept": "8b665afc-331b-411d-89db-64c948fdd3f0",
+								"rendering": "number"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "tbEver !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If yes, which anti-TB regimen was patient initiated on?",
+							"type": "obs",
+							"id": "tbregimenEver",
+							"questionOptions": {
+								"concept": "a8a38d64-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a8a37fae-1350-11df-a1f1-0026b9348838",
+										"label": "2RHZE/4RH"
+									},
+									{
+										"concept": "9710863a-f974-4f13-9f54-edb188e8b090",
+										"label": "2RHZE/10RH"
+									},
+									{
+										"concept": "a8a3243c-1350-11df-a1f1-0026b9348838",
+										"label": "DRTB regimen"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other specify"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "tbEver !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Which anti-TB regimen was patient on at the time of death?",
+							"type": "obs",
+							"id": "tbregimendeath",
+							"questionOptions": {
+								"concept": "654b2610-7214-416d-bb6c-402c408611ef",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a8a37fae-1350-11df-a1f1-0026b9348838",
+										"label": "2RHZE/4RH"
+									},
+									{
+										"concept": "9710863a-f974-4f13-9f54-edb188e8b090",
+										"label": "2RHZE/10RH"
+									},
+									{
+										"concept": "a8a3243c-1350-11df-a1f1-0026b9348838",
+										"label": "DRTB regimen"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other specify"
+									}
+								]
+							},
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "Nutritional Assessment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was nutritional assessment conducted for the patient at the last visit or within the month prior to death?",
+							"type": "obs",
+							"id": "nutriAss",
+							"questionOptions": {
+								"concept": "d257e641-d9ad-49b9-9c8d-c9495b16ae81",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "If yes, what were the anthropo- metric findings?",
+							"type": "obsGroup",
+							"id": "metric",
+							"questionOptions": {
+								"concept": "6fded80b-19b1-4f3c-999b-43211e5305a4",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "BMI:",
+									"type": "obs",
+									"id": "bmi",
+									"questionOptions": {
+										"concept": "a89c60c0-1350-11df-a1f1-0026b9348838",
+										"rendering": "number"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "nutriAss !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "MUAC:",
+									"type": "obs",
+									"id": "muac",
+									"questionOptions": {
+										"concept": "a89c6188-1350-11df-a1f1-0026b9348838",
+										"rendering": "number"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "nutriAss !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Z Score:",
+									"type": "obs",
+									"id": "score",
+									"questionOptions": {
+										"concept": "f15e19b3-6522-4dbe-92ed-552012e050a9",
+										"rendering": "number"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "nutriAss !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								}
+							]
+						},
+						{
+							"label": "Which interventions did the patient receive?",
+							"type": "obs",
+							"id": "intervention",
+							"questionOptions": {
+								"concept": "a8a8afd8-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "55f41f90-5650-4292-8fb2-8c1eadd95cb1",
+										"label": "Therapeutic feeds"
+									},
+									{
+										"concept": "c628cfde-b2ed-4d23-939b-93a5d592f7cd",
+										"label": "Nutritional counselling"
+									},
+									{
+										"concept": "a8f53762-bc6f-4385-bbc8-41aba4294b2d",
+										"label": "Vitamin A pyridoxine"
+									},
+									{
+										"concept": "82f703f6-13c5-4c5a-91eb-199211031d41",
+										"label": "Supplementary"
+									},
+									{
+										"concept": "a899e0ac-1350-11df-a1f1-0026b9348838",
+										"label": "None"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "nutriAss !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "TB treatment outcome/status at death:",
+							"type": "obs",
+							"id": "deathStatus",
+							"questionOptions": {
+								"concept": "4c3a7281-6af8-4ba2-88c8-37c8fb1ffc1b",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a8a6f56c-1350-11df-a1f1-0026b9348838",
+										"label": "LTFU/ Treatment interruptor"
+									},
+									{
+										"concept": "a8afcc82-1350-11df-a1f1-0026b9348838",
+										"label": "Active on treatment"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "Adherence to TB Treatment:",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Intensive Phase:",
+							"type": "obs",
+							"id": "iPhase",
+							"questionOptions": {
+								"concept": "71ef0121-0c4c-4b29-858a-b89650321bb2",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a89b6440-1350-11df-a1f1-0026b9348838",
+										"label": "Attended all scheduled visits"
+									},
+									{
+										"concept": "1b7346af-42d0-48bd-a66c-418a47da041e",
+										"label": "Missed a visit(s) and traced back"
+									},
+									{
+										"concept": "bea9c288-0650-4b42-a324-1d6d51591c72",
+										"label": "Missed a visit (s) and not traced back"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Continuation Phase:",
+							"type": "obs",
+							"id": "cPhase",
+							"questionOptions": {
+								"concept": "4a322b16-8e97-4f0c-913d-0a96b0df14fe",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a89b6440-1350-11df-a1f1-0026b9348838",
+										"label": "Attended all scheduled visits"
+									},
+									{
+										"concept": "1b7346af-42d0-48bd-a66c-418a47da041e",
+										"label": "Missed a visit(s) and traced back"
+									},
+									{
+										"concept": "bea9c288-0650-4b42-a324-1d6d51591c72",
+										"label": "Missed a visit (s) and not traced back"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Did the client have an adverse drug reaction to anti-TB medication?",
+							"type": "obs",
+							"id": "drugReact",
+							"questionOptions": {
+								"concept": "7ec2198e-6019-4b2b-bb7d-2ddfbd558fd5",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Type of ADR and grade",
+							"type": "obsGroup",
+							"id": "adrTypeDet",
+							"questionOptions": {
+								"concept": "1a38715f-4b57-436e-99dd-b3c922654646",
+								"rendering": "group"
+							},
+								"questions": [
+									{
+										"label": "If yes, specify the type of ADR and grade below:",
+										"type": "obs",
+										"id": "adrType",
+										"questionOptions": {
+											"concept": "c2ecd5f7-4b47-47ae-b706-3dc5ed98b4db",
+											"rendering": "select",
+											"answers": [
+												{
+													"concept": "a895776a-1350-11df-a1f1-0026b9348838",
+													"label": "Rash"
+												},
+												{
+													"concept": "a8909060-1350-11df-a1f1-0026b9348838",
+													"label": "Hepatitis"
+												},
+												{
+													"concept": "a897fe86-1350-11df-a1f1-0026b9348838",
+													"label": "Peripheral Neuropathy"
+												},
+												{
+													"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+													"label": "Other"
+												}
+											]
+										},
+										"validators": [],
+										"hide": {
+											"hideWhenExpression": "drugReact !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+										}
+									},
+									{
+										"label": "Rash grading:",
+										"type": "obs",
+										"id": "rashGrade",
+										"questionOptions": {
+											"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+											"rendering": "select",
+											"answers": [
+												{
+													"concept": "bf0a8aca-a423-4066-add6-aa576378676c",
+													"label": "Grade I"
+												},
+												{
+													"concept": "37b18fe1-4255-4176-8bb8-0796bf06a332",
+													"label": "Grade II"
+												},
+												{
+													"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+													"label": "Grade III"
+												},
+												{
+													"concept": "32a7b58b-71da-4ecb-b314-6b7bf5b5ca6c",
+													"label": "Grade IV"
+												},
+												{
+													"concept": "c4ad173e-7ae9-4a70-96ac-2b116e73f482",
+													"label": "Not graded"
+												}
+											]
+										},
+										"validators": [],
+										"hide": {
+											"hideWhenExpression": "adrType !== 'a895776a-1350-11df-a1f1-0026b9348838'"
+										}
+									},
+									{
+										"label": "Hepatitis grading:",
+										"type": "obs",
+										"id": "hepatitisGrade",
+										"questionOptions": {
+											"concept": "8006e4f1-69c3-4cbb-8031-512bf2f5a010",
+											"rendering": "select",
+											"answers": [
+												{
+													"concept": "bf0a8aca-a423-4066-add6-aa576378676c",
+													"label": "Grade I"
+												},
+												{
+													"concept": "37b18fe1-4255-4176-8bb8-0796bf06a332",
+													"label": "Grade II"
+												},
+												{
+													"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+													"label": "Grade III"
+												},
+												{
+													"concept": "32a7b58b-71da-4ecb-b314-6b7bf5b5ca6c",
+													"label": "Grade IV"
+												},
+												{
+													"concept": "c4ad173e-7ae9-4a70-96ac-2b116e73f482",
+													"label": "Not graded"
+												}
+											]
+										},
+										"validators": [],
+										"hide": {
+											"hideWhenExpression": "adrType !== 'a8909060-1350-11df-a1f1-0026b9348838'"
+										}
+									},
+									{
+										"label": "Peripheral neuropathy grading:",
+										"type": "obs",
+										"id": "pnGrade",
+										"questionOptions": {
+											"concept": "f5fd74ad-6fd0-421d-aa1f-f5e978ae6bbb",
+											"rendering": "select",
+											"answers": [
+												{
+													"concept": "bf0a8aca-a423-4066-add6-aa576378676c",
+													"label": "Grade I"
+												},
+												{
+													"concept": "37b18fe1-4255-4176-8bb8-0796bf06a332",
+													"label": "Grade II"
+												},
+												{
+													"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+													"label": "Grade III"
+												},
+												{
+													"concept": "32a7b58b-71da-4ecb-b314-6b7bf5b5ca6c",
+													"label": "Grade IV"
+												},
+												{
+													"concept": "c4ad173e-7ae9-4a70-96ac-2b116e73f482",
+													"label": "Not graded"
+												}
+											]
+										},
+										"validators": [],
+										"hide": {
+											"hideWhenExpression": "adrType !== 'a897fe86-1350-11df-a1f1-0026b9348838'"
+										}
+									},
+									{
+										"label": "Other grading:",
+										"type": "obs",
+										"id": "otherGrade",
+										"questionOptions": {
+											"concept": "9d17c14e-6690-43f2-87df-2d237f78d135",
+											"rendering": "select",
+											"answers": [
+												{
+													"concept": "bf0a8aca-a423-4066-add6-aa576378676c",
+													"label": "Grade I"
+												},
+												{
+													"concept": "37b18fe1-4255-4176-8bb8-0796bf06a332",
+													"label": "Grade II"
+												},
+												{
+													"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+													"label": "Grade III"
+												},
+												{
+													"concept": "32a7b58b-71da-4ecb-b314-6b7bf5b5ca6c",
+													"label": "Grade IV"
+												},
+												{
+													"concept": "c4ad173e-7ae9-4a70-96ac-2b116e73f482",
+													"label": "Not graded"
+												}
+											]
+										},
+										"validators": [],
+										"hide": {
+											"hideWhenExpression": "adrType !== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+										}
+									}
+								]
+							},
+						
+						{
+							"label": "Were there any drug–drug inter- actions between anti-TB and other medications in the course of TB treatment?",
+							"type": "obs",
+							"id": "drugDrugInt",
+							"questionOptions": {
+								"concept": "da9a2c84-5bfb-4a69-b249-a07426129712",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "If yes, specify:",
+							"type": "obs",
+							"id": "drugDrugSpec",
+							"questionOptions": {
+								"concept": "35e6d12b-8653-43d8-ab04-4e64a01d9b18",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "drugDrugInt !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "HIV History",
+			"sections": [
+				{
+					"label": "HIV Diagnosis",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was a HIV test done?",
+							"type": "obs",
+							"id": "hivDone",
+							"questionOptions": {
+								"concept": "71bb9660-cb25-48d0-ab90-2dc39df8e9ab",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Date of HIV test:",
+							"type": "obs",
+							"id": "dateHiv",
+							"questionOptions": {
+								"concept": "64807fb6-0ca3-4def-a62a-2d5f66c4328a",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date should be before the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "hivDone !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "HIV test results:",
+							"type": "obs",
+							"id": "hivResults",
+							"questionOptions": {
+								"concept": "a89c6c64-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a896f3a6-1350-11df-a1f1-0026b9348838",
+										"label": "Positive"
+									},
+									{
+										"concept": "a896d2cc-1350-11df-a1f1-0026b9348838",
+										"label": "Negative"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown/Indeterminate"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "hivDone !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If positive, was the client enrolled in HIV care?",
+							"type": "obs",
+							"id": "hivEnroll",
+							"questionOptions": {
+								"concept": "a8afba58-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "hivResults !== 'a896f3a6-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				},
+				{
+					"label": "TB/HIV Care Treatment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "WHO stage at enrollment:",
+							"type": "obs",
+							"id": "whoEnroll",
+							"questionOptions": {
+								"concept": "1ea9d6ba-2084-4bc0-97a6-46fe677d40e5",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a89b2606-1350-11df-a1f1-0026b9348838",
+										"label": "Stage 1"
+									},
+									{
+										"concept": "a89b26d8-1350-11df-a1f1-0026b9348838",
+										"label": "Stage 2"
+									},
+									{
+										"concept": "a89b27be-1350-11df-a1f1-0026b9348838",
+										"label": "Stage 3"
+									},
+									{
+										"concept": "a89b289a-1350-11df-a1f1-0026b9348838",
+										"label": "Stage 4"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Date of WHO staging:",
+							"type": "obs",
+							"id": "dateWhoEnroll",
+							"questionOptions": {
+								"concept": "711b9d27-3e1b-4a46-941d-8b5a294f57f6",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date should be before the encounter date."
+								}
+							]
+						},
+						{
+							"label": "Was the patient initiated on ART?",
+							"type": "obs",
+							"id": "initiateArt",
+							"questionOptions": {
+								"concept": "a89ae254-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Date of initiation:",
+							"type": "obs",
+							"id": "dateInitiate",
+							"questionOptions": {
+								"concept": "a89d200a-1350-11df-a1f1-0026b9348838",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date should be before the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "initiateArt !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Initial ART regimen:",
+							"type": "obs",
+							"id": "initialReg",
+							"questionOptions": {
+								"concept": "50f8ff96-7904-4167-b82a-cd7001c5d0bb",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "18e86e1f-92b8-40cd-8266-0df0ab0a4a50",
+										"label": "DTG50mg/3TC300mg/TDF300mg"
+									},
+									{
+										"concept": "1c4a75d0-cc91-4752-b0a5-4b833326ff7a",
+										"label": "TDF300mg/3TC300mg/EFV600mg"
+									},
+									{
+										"concept": "ea501f4e-cbc5-4942-b9c8-0ac415929f08",
+										"label": "TDF300mg/3TC300mg/EFV400mg"
+									},
+									{
+										"concept": "6a73f32d-1870-4527-af6e-74443251ded2",
+										"label": "NVP200mg/ZDV300mg/3TC150mg"
+									},
+									{
+										"concept": "e78843da-fdb6-446d-8e99-873c278b3540",
+										"label": "ABC600mg/3TC300mg"
+									},
+									{
+										"concept": "b58a28d2-36de-11e0-93be-0026b9348838",
+										"label": "ABC 60mg/3TC 30mg"
+									},
+									{
+										"concept": "e4ef489e-0ff1-4876-aab6-0d198cadb6b1",
+										"label": "ABC 120mg/3TC 60mg"
+									},
+									{
+										"concept": "a89cc876-1350-11df-a1f1-0026b9348838",
+										"label": "3TC300mg/TDF300mg"
+									},
+									{
+										"concept": "a896758e-1350-11df-a1f1-0026b9348838",
+										"label": "3TC150mg/ZDV300mg"
+									},
+									{
+										"concept": "4677ad3e-3120-11e0-8090-0026b9348838",
+										"label": "Efavirenz 600mg"
+									},
+									{
+										"concept": "d6262526-3113-11e0-8090-0026b9348838",
+										"label": "Lamivudine 150mg"
+									},
+									{
+										"concept": "52441ef8-3126-11e0-8090-0026b9348838",
+										"label": " Abacavir 300mg"
+									},
+									{
+										"concept": "21d417bc-3114-11e0-8090-0026b9348838",
+										"label": " Zidovudine 300mg "
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "initiateArt !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "ART regimen during TB treatment:",
+							"type": "obs",
+							"id": "artTbReg",
+							"questionOptions": {
+								"concept": "1830827e-5479-49be-9a1c-5265dfb6f6b4",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "18e86e1f-92b8-40cd-8266-0df0ab0a4a50",
+										"label": "DTG50mg/3TC300mg/TDF300mg"
+									},
+									{
+										"concept": "1c4a75d0-cc91-4752-b0a5-4b833326ff7a",
+										"label": "TDF300mg/3TC300mg/EFV600mg"
+									},
+									{
+										"concept": "ea501f4e-cbc5-4942-b9c8-0ac415929f08",
+										"label": "TDF300mg/3TC300mg/EFV400mg"
+									},
+									{
+										"concept": "6a73f32d-1870-4527-af6e-74443251ded2",
+										"label": "NVP200mg/ZDV300mg/3TC150mg"
+									},
+									{
+										"concept": "e78843da-fdb6-446d-8e99-873c278b3540",
+										"label": "ABC600mg/3TC300mg"
+									},
+									{
+										"concept": "b58a28d2-36de-11e0-93be-0026b9348838",
+										"label": "ABC 60mg/3TC 30mg"
+									},
+									{
+										"concept": "e4ef489e-0ff1-4876-aab6-0d198cadb6b1",
+										"label": "ABC 120mg/3TC 60mg"
+									},
+									{
+										"concept": "a89cc876-1350-11df-a1f1-0026b9348838",
+										"label": "3TC300mg/TDF300mg"
+									},
+									{
+										"concept": "a896758e-1350-11df-a1f1-0026b9348838",
+										"label": "3TC150mg/ZDV300mg"
+									},
+									{
+										"concept": "4677ad3e-3120-11e0-8090-0026b9348838",
+										"label": "Efavirenz 600mg"
+									},
+									{
+										"concept": "d6262526-3113-11e0-8090-0026b9348838",
+										"label": "Lamivudine 150mg"
+									},
+									{
+										"concept": "52441ef8-3126-11e0-8090-0026b9348838",
+										"label": " Abacavir 300mg"
+									},
+									{
+										"concept": "21d417bc-3114-11e0-8090-0026b9348838",
+										"label": " Zidovudine 300mg "
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "initiateArt !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "ART regimen at the time of death:",
+							"type": "obs",
+							"id": "artRegDeath",
+							"questionOptions": {
+								"concept": "de9d5e9d-a6dc-4fee-aa5b-30ec9b79e243",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "18e86e1f-92b8-40cd-8266-0df0ab0a4a50",
+										"label": "DTG50mg/3TC300mg/TDF300mg"
+									},
+									{
+										"concept": "1c4a75d0-cc91-4752-b0a5-4b833326ff7a",
+										"label": "TDF300mg/3TC300mg/EFV600mg"
+									},
+									{
+										"concept": "ea501f4e-cbc5-4942-b9c8-0ac415929f08",
+										"label": "TDF300mg/3TC300mg/EFV400mg"
+									},
+									{
+										"concept": "6a73f32d-1870-4527-af6e-74443251ded2",
+										"label": "NVP200mg/ZDV300mg/3TC150mg"
+									},
+									{
+										"concept": "e78843da-fdb6-446d-8e99-873c278b3540",
+										"label": "ABC600mg/3TC300mg"
+									},
+									{
+										"concept": "b58a28d2-36de-11e0-93be-0026b9348838",
+										"label": "ABC 60mg/3TC 30mg"
+									},
+									{
+										"concept": "e4ef489e-0ff1-4876-aab6-0d198cadb6b1",
+										"label": "ABC 120mg/3TC 60mg"
+									},
+									{
+										"concept": "a89cc876-1350-11df-a1f1-0026b9348838",
+										"label": "3TC300mg/TDF300mg"
+									},
+									{
+										"concept": "a896758e-1350-11df-a1f1-0026b9348838",
+										"label": "3TC150mg/ZDV300mg"
+									},
+									{
+										"concept": "4677ad3e-3120-11e0-8090-0026b9348838",
+										"label": "Efavirenz 600mg"
+									},
+									{
+										"concept": "d6262526-3113-11e0-8090-0026b9348838",
+										"label": "Lamivudine 150mg"
+									},
+									{
+										"concept": "52441ef8-3126-11e0-8090-0026b9348838",
+										"label": " Abacavir 300mg"
+									},
+									{
+										"concept": "21d417bc-3114-11e0-8090-0026b9348838",
+										"label": " Zidovudine 300mg "
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "CD4 Count At Baseline",
+							"type": "obsGroup",
+							"id": "4baseline",
+							"questionOptions": {
+								"concept": "58386470-8f7e-46f8-9789-7b41496f2e31",
+								"rendering": "group"
+							},
+								"questions": [
+									{
+										"label": "CD4 count at baseline:",
+										"type": "obs",
+										"id": "cd4Baseline",
+										"questionOptions": {
+											"concept": "a8a8bb18-1350-11df-a1f1-0026b9348838",
+											"rendering": "select",
+											"answers": [
+												{
+													"concept": "a89c1ef8-1350-11df-a1f1-0026b9348838",
+													"label": "Done"
+												},
+												{
+													"concept": "a899ea48-1350-11df-a1f1-0026b9348838",
+													"label": "Not done"
+												}
+											]
+										},
+										"validators": []
+									},
+									{
+										"label": "CD4 count :",
+										"type": "obs",
+										"id": "cd4count",
+										"questionOptions": {
+											"concept": "a8a8bb18-1350-11df-a1f1-0026b9348838",
+											"rendering": "number",
+											"showDate": "true",
+											"shownDateOptions": {
+												"validators": []
+											}
+										},
+										"validators": [],
+										"hide": {
+											"hideWhenExpression": "cd4Baseline !== 'a89c1ef8-1350-11df-a1f1-0026b9348838'"
+										}
+									}
+								]
+							},
+						
+						{
+							"label": "Most Recent CD4 Count",
+							"type": "obsGroup",
+							"id": "4recent",
+							"questionOptions": {
+								"concept": "0cffbc29-49fc-4815-ba61-78114c7d5dc1",
+								"rendering": "group"
+							},
+								"questions": [
+									{
+										"label": "Most recent CD4 count:",
+										"type": "obs",
+										"id": "cd4Recent",
+										"questionOptions": {
+											"concept": "c09446b4-a7a0-41bf-b499-5bbd67970925",
+											"rendering": "select",
+											"answers": [
+												{
+													"concept": "a89c1ef8-1350-11df-a1f1-0026b9348838",
+													"label": "Done"
+												},
+												{
+													"concept": "69db9a47-21c5-4398-89f7-1c03a1392240",
+													"label": "Not done"
+												}
+											]
+										},
+										"validators": []
+									},
+									{
+										"label": "CD4 count :",
+										"type": "obs",
+										"id": "cd4countr",
+										"questionOptions": {
+											"concept": "a899ea48-1350-11df-a1f1-0026b9348838",
+											"rendering": "number",
+											"showDate": "true",
+											"shownDateOptions": {
+												"validators": []
+											}
+										},
+										"validators": [],
+										"hide": {
+											"hideWhenExpression": "cd4Recent !== 'a89c1ef8-1350-11df-a1f1-0026b9348838'"
+										}
+									}
+								]
+							},
+						
+						{
+							"label": "Most Recent Viral Load",
+							"type": "obsGroup",
+							"id": "vlrecentgroup",
+							"questionOptions": {
+								"concept": "0cffbc29-49fc-4815-ba61-78114c7d5dc1",
+								"rendering": "group"
+							},
+								"questions": [
+									{
+										"label": "Most recent viral load test:",
+										"type": "obs",
+										"id": "vlRecent",
+										"questionOptions": {
+											"concept": "928313fa-14c7-4362-8bba-c9dcd3160b77",
+											"rendering": "select",
+											"answers": [
+												{
+													"concept": "a89c1ef8-1350-11df-a1f1-0026b9348838",
+													"label": "Done"
+												},
+												{
+													"concept": "69db9a47-21c5-4398-89f7-1c03a1392240",
+													"label": "Not done/ineligible"
+												},
+												{
+													"concept": "a899ea48-1350-11df-a1f1-0026b9348838",
+													"label": "Not done/Eligible"
+												}
+											]
+										},
+										"validators": []
+									},
+									{
+										"label": "Number of copies:",
+										"type": "obs",
+										"id": "noCopies",
+										"questionOptions": {
+											"concept": "a8982474-1350-11df-a1f1-0026b9348838",
+											"rendering": "number",
+											"showDate": "true",
+											"shownDateOptions": {
+												"validators": [],
+												"hide": {
+													"hideWhenExpression": "vlRecent !== 'a89c1ef8-1350-11df-a1f1-0026b9348838'"
+												}
+											}
+										},
+										"validators": []
+									}
+								]
+							},
+						
+						{
+							"label": "LDL:",
+							"type": "obs",
+							"id": "ldl1",
+							"questionOptions": {
+								"concept": "a89c3e56-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a89c3f1e-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a89c3c08-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "vlRecent !== 'a89c1ef8-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Was the patient initiated on CTX/ Dapsone?",
+							"type": "obs",
+							"id": "ctxInitiate",
+							"questionOptions": {
+								"concept": "a8a396f6-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Date of initiation:",
+							"type": "obs",
+							"id": "initiateDate",
+							"questionOptions": {
+								"concept": "2e19ea02-ae77-4e60-a2e2-15d1c6b173fb",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date should be before the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "ctxInitiate !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Was the patient on an appropriate combination of anti TB and ARV drug regimens?",
+							"type": "obs",
+							"id": "combine",
+							"questionOptions": {
+								"concept": "8e1fbe6f-6db7-4e57-be43-3edf0ae24f68",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Were there any drug-drug inter- actions during anti-retroviral therapy (Check the 6 months prior to death?)",
+							"type": "obs",
+							"id": "drugInter",
+							"questionOptions": {
+								"concept": "7a7c57c0-98fc-4bb3-bbbd-08f677c28db5",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "Adverse Drug Reaction",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Did the patient have an adverse drug reaction to ARVs?",
+							"type": "obs",
+							"id": "adrArv",
+							"questionOptions": {
+								"concept": "a8a16f5c-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Type of ADR",
+							"type": "obsGroup",
+							"id": "adrTypeDetArv",
+							"questionOptions": {
+								"concept": "a8a16e94-1350-11df-a1f1-0026b9348838",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "If yes, specify the type of ADR and grade below:",
+									"type": "obs",
+									"id": "adrTypeArv",
+									"questionOptions": {
+										"concept": "a8a16dcc-1350-11df-a1f1-0026b9348838",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "a895776a-1350-11df-a1f1-0026b9348838",
+												"label": "Rash"
+											},
+											{
+												"concept": "a8909060-1350-11df-a1f1-0026b9348838",
+												"label": "Hepatitis"
+											},
+											{
+												"concept": "a897fe86-1350-11df-a1f1-0026b9348838",
+												"label": "Peripheral Neuropathy"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "adrArv !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Rash grading:",
+									"type": "obs",
+									"id": "rashGrade",
+									"questionOptions": {
+										"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "bf0a8aca-a423-4066-add6-aa576378676c",
+												"label": "Grade I"
+											},
+											{
+												"concept": "37b18fe1-4255-4176-8bb8-0796bf06a332",
+												"label": "Grade II"
+											},
+											{
+												"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+												"label": "Grade III"
+											},
+											{
+												"concept": "32a7b58b-71da-4ecb-b314-6b7bf5b5ca6c",
+												"label": "Grade IV"
+											},
+											{
+												"concept": "c4ad173e-7ae9-4a70-96ac-2b116e73f482",
+												"label": "Not graded"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "adrTypeArv !== 'a895776a-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Hepatitis grading:",
+									"type": "obs",
+									"id": "hepatitisGrade",
+									"questionOptions": {
+										"concept": "8006e4f1-69c3-4cbb-8031-512bf2f5a010",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "bf0a8aca-a423-4066-add6-aa576378676c",
+												"label": "Grade I"
+											},
+											{
+												"concept": "37b18fe1-4255-4176-8bb8-0796bf06a332",
+												"label": "Grade II"
+											},
+											{
+												"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+												"label": "Grade III"
+											},
+											{
+												"concept": "32a7b58b-71da-4ecb-b314-6b7bf5b5ca6c",
+												"label": "Grade IV"
+											},
+											{
+												"concept": "c4ad173e-7ae9-4a70-96ac-2b116e73f482",
+												"label": "Not graded"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "adrTypeArv !== 'a8909060-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Peripheral neuropathy grading:",
+									"type": "obs",
+									"id": "pnGrade",
+									"questionOptions": {
+										"concept": "f5fd74ad-6fd0-421d-aa1f-f5e978ae6bbb",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "bf0a8aca-a423-4066-add6-aa576378676c",
+												"label": "Grade I"
+											},
+											{
+												"concept": "37b18fe1-4255-4176-8bb8-0796bf06a332",
+												"label": "Grade II"
+											},
+											{
+												"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+												"label": "Grade III"
+											},
+											{
+												"concept": "32a7b58b-71da-4ecb-b314-6b7bf5b5ca6c",
+												"label": "Grade IV"
+											},
+											{
+												"concept": "c4ad173e-7ae9-4a70-96ac-2b116e73f482",
+												"label": "Not graded"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "adrTypeArv !== 'a897fe86-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Other grading:",
+									"type": "obs",
+									"id": "otherGrade",
+									"questionOptions": {
+										"concept": "9d17c14e-6690-43f2-87df-2d237f78d135",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "bf0a8aca-a423-4066-add6-aa576378676c",
+												"label": "Grade I"
+											},
+											{
+												"concept": "37b18fe1-4255-4176-8bb8-0796bf06a332",
+												"label": "Grade II"
+											},
+											{
+												"concept": "41f24b47-08ee-42a9-840f-e96640a1ca06",
+												"label": "Grade III"
+											},
+											{
+												"concept": "32a7b58b-71da-4ecb-b314-6b7bf5b5ca6c",
+												"label": "Grade IV"
+											},
+											{
+												"concept": "c4ad173e-7ae9-4a70-96ac-2b116e73f482",
+												"label": "Not graded"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "adrTypeArv !== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+									}
+								}
+							]
+						},
+						{
+							"label": "Was the patient adhering to clinic appointments for HIV medication? (Check the 6 months prior to death):",
+							"type": "obs",
+							"id": "clinicAppt",
+							"questionOptions": {
+								"concept": "08a7070f-fe99-4e31-a516-4657dff19f8d",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a89b6440-1350-11df-a1f1-0026b9348838",
+										"label": "Kept all scheduled appointments"
+									},
+									{
+										"concept": "a89cefd6-1350-11df-a1f1-0026b9348838",
+										"label": "Missed appointment(s), but not defaulted"
+									},
+									{
+										"concept": "1b7346af-42d0-48bd-a66c-418a47da041e",
+										"label": "Defaulted and traced back"
+									},
+									{
+										"concept": "a8a6f56c-1350-11df-a1f1-0026b9348838",
+										"label": "Lost to follow up"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "What was the Morisky Medication Adherence Scale (MMAS-4) score for the client in the last visit?",
+							"type": "obs",
+							"id": "morisky",
+							"questionOptions": {
+								"concept": "2c363a0e-7cf9-42cd-9778-1301b09c4484",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a8b0f882-1350-11df-a1f1-0026b9348838",
+										"label": "0 (Good)"
+									},
+									{
+										"concept": "fdaf8b47-ea14-4d28-80fa-e1da58a30e8b",
+										"label": "1-2 (Inadequate)"
+									},
+									{
+										"concept": "a8b0f94a-1350-11df-a1f1-0026b9348838",
+										"label": "3-4 (Poor)"
+									}
+								]
+							},
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "IPT For HIV Positive Clients",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was the patient ever initiated on TPT?",
+							"type": "obs",
+							"id": "tptIntiate",
+							"questionOptions": {
+								"concept": "59077bc1-7ef7-4b27-a33b-113e2841bd4f",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "TPT initiation date:",
+							"type": "obs",
+							"id": "tptIntiate",
+							"questionOptions": {
+								"concept": "67785e82-c2f7-4417-8ada-cc8e85abbfc1",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date should be before the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "tptIntiate !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If yes, indicate the outcome of TPT:",
+							"type": "obs",
+							"id": "tptOutcome",
+							"questionOptions": {
+								"concept": "dca65c77-b5f3-4a3f-b7bb-c1d446e793ec",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a89c1ef8-1350-11df-a1f1-0026b9348838",
+										"label": "Treatment completed (Indicate completion date below)"
+									},
+									{
+										"concept": "a8af50f4-1350-11df-a1f1-0026b9348838",
+										"label": "Discontinued"
+									},
+									{
+										"concept": "a8a6f56c-1350-11df-a1f1-0026b9348838",
+										"label": "Lost-to follow up"
+									},
+									{
+										"concept": "a89335d6-1350-11df-a1f1-0026b9348838",
+										"label": "Died"
+									},
+									{
+										"concept": "a89e3ad0-1350-11df-a1f1-0026b9348838",
+										"label": "Transferred out"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "tptIntiate !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If discontinued, indicate reason for stopping:",
+							"type": "obs",
+							"id": "discReason",
+							"questionOptions": {
+								"concept": "a89c1e12-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a89eb8c0-1350-11df-a1f1-0026b9348838",
+										"label": "Side effects"
+									},
+									{
+										"concept": "ecafa614-49c5-4eba-84c7-b85b0d9e2c46",
+										"label": "Pill burden"
+									},
+									{
+										"concept": "a89ce50e-1350-11df-a1f1-0026b9348838",
+										"label": "Poor adherence"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "tptOutcome !== 'a8af50f4-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "TPT completion date:",
+							"type": "obs",
+							"id": "tptComplete",
+							"questionOptions": {
+								"concept": "d4f18a59-9bb4-4089-8cd6-1410491569a0",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date should be before the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "tptOutcome !== 'a8af50f4-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Death Details",
+			"sections": [
+				{
+					"label": "Death Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was the patient diagnosed with any other opportunistic infection in the 12 months prior to death?",
+							"type": "obs",
+							"id": "oiDiag",
+							"questionOptions": {
+								"concept": "7c4d5370-b171-472a-8e9e-eba2f069ab70",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Specify type (s) of OI:",
+							"type": "obs",
+							"id": "oiType",
+							"questionOptions": {
+								"concept": "12299eed-d1ef-42b1-abdf-312e72e00d8c",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "oiDiag !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "cormobidities detailed",
+							"id": "coDetail",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "ebf02efb-b28c-49e8-9caf-65e96dbfa0a9",
+								"rendering": "grouping"
+							},
+								"questions": [
+									{
+										"label": "Did the patient have any co- morbidity prior to death?",
+										"type": "obs",
+										"id": "cormobidities",
+										"questionOptions": {
+											"concept": "0ac4af8a-1b8e-4404-b445-c0471d6f7576",
+											"rendering": "select",
+											"answers": [
+												{
+													"concept": "25fe773f-b5ee-4c72-92eb-e2a7e6a34ec6",
+													"label": "Newly Diagnosed Diabetic"
+												},
+												{
+													"concept": "b9f48f36-3bbc-423b-a827-83a8747d5a50",
+													"label": "Known Diabetic"
+												},
+												{
+													"concept": "a8986880-1350-11df-a1f1-0026b9348838",
+													"label": "Hypertension"
+												},
+												{
+													"concept": "871d8c1f-f297-49ec-9fb2-3f7c6f1830ef",
+													"label": "Smoking"
+												},
+												{
+													"concept": "a89ced88-1350-11df-a1f1-0026b9348838",
+													"label": "Alcoholism"
+												},
+												{
+													"concept": "a8909e8e-1350-11df-a1f1-0026b9348838",
+													"label": "Pregnancy"
+												},
+												{
+													"concept": "acdceb9b-4b84-4e9c-bba4-eaf486b3b4b5",
+													"label": "Cancer"
+												},
+												{
+													"concept": "a899e0ac-1350-11df-a1f1-0026b9348838",
+													"label": "None"
+												},
+												{
+													"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+													"label": "Other"
+												}
+											]
+										},
+										"validators": []
+									},
+									{
+										"label": "Specify other (s) type of co morbidity:",
+										"type": "obs",
+										"id": "comorSpecify",
+										"questionOptions": {
+											"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+											"rendering": "text"
+										},
+										"validators": [],
+										"hide": {
+											"hideWhenExpression": "cormobidities !== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+										}
+									}
+								]
+							},
+						
+						{
+							"label": "Place of death:",
+							"type": "obs",
+							"id": "deathPlace",
+							"questionOptions": {
+								"concept": "a8afd100-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "ff3243bf-05f6-426d-aa49-969034962e45",
+										"label": "In patient health facility"
+									},
+									{
+										"concept": "a8a09ac8-1350-11df-a1f1-0026b9348838",
+										"label": "Outpatient health facility"
+									},
+									{
+										"concept": "a89df17e-1350-11df-a1f1-0026b9348838",
+										"label": "Home"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other unknown"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Possible contributors to cause of death from the variables above? (check any/all that apply):",
+							"type": "obs",
+							"id": "conributors",
+							"questionOptions": {
+								"concept": "2ab3975b-6d64-413b-806c-b6d878c15d53",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a2c49302-edb4-4baa-8440-2448eafd0ec1",
+										"label": "Drug/Substance abuse"
+									},
+									{
+										"concept": "4973ae46-a052-4f91-acfe-74ac1d70e221",
+										"label": "Advanced HIV disease"
+									},
+									{
+										"concept": "a890b126-1350-11df-a1f1-0026b9348838",
+										"label": "Malnutrition"
+									},
+									{
+										"concept": "01eedbcc-ea21-40cc-b150-fcaca5eef501",
+										"label": "Drug interactions"
+									},
+									{
+										"concept": "e43ddeb6-3984-499c-a280-3bade1039608",
+										"label": "HIV treatment failure"
+									},
+									{
+										"concept": "a8a3868e-1350-11df-a1f1-0026b9348838",
+										"label": "TB treatment failure"
+									},
+									{
+										"concept": "7c4d5370-b171-472a-8e9e-eba2f069ab70",
+										"label": "Other OIs"
+									},
+									{
+										"concept": "0ac4af8a-1b8e-4404-b445-c0471d6f7576",
+										"label": "Other co-morbidities"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "Cause of death",
+							"id": "deathcausedeta",
+							"type": "obsGroup",
+							"questionOptions": {
+								"rendering": "group",
+								"concept": "a8af9910-1350-11df-a1f1-0026b9348838"
+							},
+							"questions": [
+								{
+									"label": "What was the probable cause of death? (This should be based on multidisciplinary team discussion)",
+									"required": "true",
+									"id": "deathCause",
+									"type": "obs",
+									"questionOptions": {
+										"concept": "a89df750-1350-11df-a1f1-0026b9348838",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "a890a96a-1350-11df-a1f1-0026b9348838",
+												"label": "HIV disease resulting in TB "
+											},
+											{
+												"concept": "acdceb9b-4b84-4e9c-bba4-eaf486b3b4b5",
+												"label": "HIV disease resulting in cancer "
+											},
+											{
+												"concept": "a890e4b6-1350-11df-a1f1-0026b9348838",
+												"label": "HIV disease resulting in other infectious and parasitic disease (malaria, typhoid, cholera)"
+											},
+											{
+												"concept": "e0b25daf-c3da-4ba9-b786-a37b2f05ef31",
+												"label": "Other non-infectious HIV related disease "
+											},
+											{
+												"concept": "a8986880-1350-11df-a1f1-0026b9348838",
+												"label": "Other natural causes (heart disease, diabetes, hypertension)"
+											},
+											{
+												"concept": "a89df67e-1350-11df-a1f1-0026b9348838",
+												"label": "Non-natural causes (accident, murder, suicide, war, trauma)"
+											},
+											{
+												"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+												"label": "Unknown cause "
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"validators": []
+								},
+								{
+									"label": "Cause of death, Specify",
+									"id": "deathSpecify",
+									"type": "obs",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(deathCause) || !arrayContains(deathCause, 'a8aaf3e2-1350-11df-a1f1-0026b9348838')"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,1439 @@
+{
+	"name": "AMPATH POC Dermatology Initial Encounter Form v1.0",
+	"uuid": "xxxx",
+	"processor": "EncounterFormProcessor",
+	"referencedForms": [
+		{
+			"formName": "component_hpi-v1.0",
+			"alias": "hpi1",
+			"ref": {
+				"uuid": "ae1d152e-73e1-487b-b086-bf0af2156a4a",
+				"display": "Hpi Component"
+			}
+		},
+		{
+			"formName": "component_physical-exams-v1.1",
+			"alias": "ph11",
+			"ref": {
+				"uuid": "2eae0d14-3dbf-4e73-8466-687142f1e94d",
+				"display": "Physical Exams v1.1 Component"
+			}
+		},
+		{
+			"formName": "component_dermatology-image-v1.2",
+			"alias": "image12",
+			"ref": {
+				"uuid": "0d5e67b4-f07b-4b8c-af9d-2d24d9a8656f",
+				"display": "Dermatology Image v1.2 Component"
+			}
+		},
+		{
+			"formName": "component_dermatology-medication-v1.0",
+			"alias": "dm10",
+			"ref": {
+				"uuid": "f70fe850-c484-46df-b826-5a0d30f4f211",
+				"display": "Dermatology Medication Component v1.0"
+			}
+		},
+		{
+			"formName": "component_other-medication",
+			"alias": "om",
+			"ref": {
+				"uuid": "46205439-ccbf-4f60-80e1-d765861f6257",
+				"display": "Other Medication Component"
+			}
+		},
+		{
+			"formName": "component_other-medication-v1.0",
+			"alias": "om1",
+			"ref": {
+				"uuid": "b8830564-e0f3-4062-90f3-f588e7f1ce4d",
+				"display": "Other Medication v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_problem-list-v1.1",
+			"alias": "pl11",
+			"ref": {
+				"uuid": "4192ad57-5e4c-4003-b21c-f21efef6403b",
+				"display": "Problem List Component v1.1"
+			}
+		},
+		{
+			"formName": "component_assessment-v1.0",
+			"alias": "ass1",
+			"ref": {
+				"uuid": "b0cbea4c-725a-4a0b-82f3-e5600e5e3086",
+				"display": "Assessment v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_lab-orders-v1.4",
+			"alias": "labOrders14",
+			"ref": {
+				"uuid": "a88daa6b-412c-4b52-9c2a-f4b2a00dc25f",
+				"display": "Lab Orders v1.4 Component"
+			}
+		},
+		{
+			"formName": "component_dermatology-assessment-v1.0",
+			"alias": "dermAss10",
+			"ref": {
+				"uuid": "b4a15f30-44e7-44c0-8c74-650c85a759c8",
+				"display": "Dermatology assessment v1.0 Component"
+			}
+		},
+		{
+			"ref": {
+				"uuid": "b17c28a6-5161-4332-8d45-ac377ad27192",
+				"display": "Patient state"
+			},
+			"formName": "component_patient-state-v1.0",
+			"alias": "pstate"
+		}
+	],
+	"pages": [
+		{
+			"label": "Enc Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "HPI",
+			"sections": [
+				{
+					"label": "HPI",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "When did the first lesion appear?",
+							"type": "obs",
+							"required": "true",
+							"id": "lesionAppearance",
+							"default": "",
+							"questionOptions": {
+								"concept": "419913f6-def0-4a69-abee-79c86e7bd9d7",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Date should be before the encounter date."
+								}
+							]
+						},
+						{
+							"label": "Where did the first lesion appear on the body?",
+							"id": "lesionLocation",
+							"required": "true",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "b0ad090c-8b7c-4e9e-a52e-44b5eeb58d5b",
+								"rendering": "multiCheckbox",
+								"answers": [
+									{
+										"label": "Scalp",
+										"concept": "4b7c1e3b-7846-47f4-9c2e-c406891e2c59"
+									},
+									{
+										"label": "Hair",
+										"concept": "335f80c8-78f3-461d-887e-42c396959bb1"
+									},
+									{
+										"label": "Face",
+										"concept": "71c328a8-f615-4fe3-906b-95994f144ad0"
+									},
+									{
+										"label": "Eyes",
+										"concept": "cf1d1ea6-6bbc-412b-bd74-1c32d5a837b0"
+									},
+									{
+										"label": "Lips",
+										"concept": "5407c66e-a707-4ba3-a9f7-1705e3d34620"
+									},
+									{
+										"label": "Oropharynx",
+										"concept": "9fb85617-404c-44fd-a196-a1110162a38e"
+									},
+									{
+										"label": "Neck",
+										"concept": "c89840e1-cc91-492d-8ae8-67de9dd67abb"
+									},
+									{
+										"label": "Chest",
+										"concept": "a89c6638-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Axilla",
+										"concept": "a8a67a60-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Abdomen",
+										"concept": "a89c6700-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Back",
+										"concept": "9a78590e-db0f-4e24-9791-15819e225535"
+									},
+									{
+										"label": "Buttocks",
+										"concept": "6edd8ee8-f097-4038-8b39-9fd1389abe6e"
+									},
+									{
+										"label": "Anus",
+										"concept": "70ea5c3e-416a-4e71-ae7c-a023e5ea1da2"
+									},
+									{
+										"label": "Genitalia",
+										"concept": "20c2a323-fbab-439d-b36a-e7e646ad3b68"
+									},
+									{
+										"label": "Arm, right",
+										"concept": "a89b4e4c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Arm, left",
+										"concept": "a89b4a3c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Hand, right",
+										"concept": "8cd6ab13-38f5-43d3-bd00-096406fa8062"
+									},
+									{
+										"label": "Hand, left",
+										"concept": "02511d7e-66af-4f26-afd3-0db06910cb2e"
+									},
+									{
+										"label": "Leg, right",
+										"concept": "a89b5162-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Leg, left",
+										"concept": "a89b4fe6-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Foot, right",
+										"concept": "39b74c2b-7fcf-4a2a-ae15-5d7b9259c6f8"
+									},
+									{
+										"label": "Foot, left",
+										"concept": "69a2c1e3-c34e-4a3b-a408-b9eabf7a9faf"
+									},
+									{
+										"label": "Nails",
+										"concept": "96634b39-4bbf-4498-bcfb-173edfd40a63"
+									}
+								]
+							}
+						},
+						{
+							"label": "Associated symptoms:",
+							"type": "obs",
+							"required": "true",
+							"id": "assSymp",
+							"questionOptions": {
+								"concept": "a8a6ddb6-1350-11df-a1f1-0026b9348838",
+								"rendering": "multiCheckbox",
+								"answers": [
+									{
+										"concept": "a8983ae0-1350-11df-a1f1-0026b9348838",
+										"label": "Itch"
+									},
+									{
+										"concept": "8917a921-3b41-41d5-9a64-08ebe470e6e5",
+										"label": "Pain"
+									},
+									{
+										"concept": "a899e0ac-1350-11df-a1f1-0026b9348838",
+										"label": "None"
+									}
+								]
+							}
+						},
+						{
+							"label": "When did the patient first go to a clinic for help for this problem?",
+							"type": "obs",
+							"required": "true",
+							"id": "firstClinic",
+							"default": "",
+							"questionOptions": {
+								"concept": "12aa37c2-2728-42e5-8e72-da99549010eb",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Clinic date should be before the encounter date."
+								}
+							]
+						},
+						{
+							"type": "obsGroup",
+							"label": "Prior treatments:",
+							"questionOptions": {
+								"concept": "7bf5e0ee-e289-432b-a01c-a8ce27e39a1a",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Prior treatments:",
+									"type": "obs",
+									"required": "true",
+									"id": "priortx",
+									"questionOptions": {
+										"concept": "6db3450d-23df-4c66-8f57-acf360b22956",
+										"rendering": "multiCheckbox",
+										"answers": [
+											{
+												"concept": "b78539cb-7b13-4e5d-b305-91d9ca343d31",
+												"label": "Topical steroid"
+											},
+											{
+												"concept": "ac52fd4c-18f9-415e-a53f-eec05d44be13",
+												"label": "Oral steroid"
+											},
+											{
+												"concept": "863e0ae9-619f-41f8-8a95-d550f5e83ba6",
+												"label": "Intramuscular steroid"
+											},
+											{
+												"concept": "475cd7e1-6317-4279-8ff0-58a3dfc74903",
+												"label": "Topical antibiotic"
+											},
+											{
+												"concept": "f95a3057-f6fa-41de-9c88-f4fb73fa8617",
+												"label": "Oral antibiotic"
+											},
+											{
+												"concept": "efb28cf0-a4d6-423f-b4d1-481e73f26425",
+												"label": "Topical antifungal"
+											},
+											{
+												"concept": "8c28bb88-88a9-4a9c-b565-4c6c9d512d5d",
+												"label": "Oral antifungal"
+											},
+											{
+												"concept": "a8aca1ce-1350-11df-a1f1-0026b9348838",
+												"label": "Traditional medicine"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											},
+											{
+												"concept": "a899e0ac-1350-11df-a1f1-0026b9348838",
+												"label": "None"
+											}
+										]
+									}
+								},
+								{
+									"label": "Other prior treatment, specify:",
+									"type": "obs",
+									"id": "otherPriotx",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(priortx) || !arrayContains(priortx, 'a8aaf3e2-1350-11df-a1f1-0026b9348838')"
+									}
+								}
+							],
+							"id": "__9s8wJsuzx"
+						},
+						{
+							"label": "Please indicate relevant history, review of systems, current medications:",
+							"type": "obs",
+							"required": "true",
+							"id": "reviewHistory",
+							"default": "",
+							"questionOptions": {
+								"concept": "48645b9f-b8d2-4441-a36c-f56464dac39d",
+								"rendering": "textarea",
+								"rows": 8
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Exam",
+			"sections": [
+				{
+					"label": "Physical Examination",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Areas involved:",
+							"type": "obs",
+							"required": "true",
+							"id": "areasInf",
+							"questionOptions": {
+								"concept": "6d0a7a0a-89e2-4c09-87f1-a6c9dd160216",
+								"rendering": "multiCheckbox",
+								"answers": [
+									{
+										"label": "Scalp",
+										"concept": "4b7c1e3b-7846-47f4-9c2e-c406891e2c59"
+									},
+									{
+										"label": "Hair",
+										"concept": "335f80c8-78f3-461d-887e-42c396959bb1"
+									},
+									{
+										"label": "Face",
+										"concept": "71c328a8-f615-4fe3-906b-95994f144ad0"
+									},
+									{
+										"label": "Eyes",
+										"concept": "cf1d1ea6-6bbc-412b-bd74-1c32d5a837b0"
+									},
+									{
+										"label": "Lips",
+										"concept": "5407c66e-a707-4ba3-a9f7-1705e3d34620"
+									},
+									{
+										"label": "Oropharynx",
+										"concept": "9fb85617-404c-44fd-a196-a1110162a38e"
+									},
+									{
+										"label": "Neck",
+										"concept": "c89840e1-cc91-492d-8ae8-67de9dd67abb"
+									},
+									{
+										"label": "Chest",
+										"concept": "a89c6638-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Axilla",
+										"concept": "a8a67a60-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Abdomen",
+										"concept": "a89c6700-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Back",
+										"concept": "9a78590e-db0f-4e24-9791-15819e225535"
+									},
+									{
+										"label": "Buttocks",
+										"concept": "6edd8ee8-f097-4038-8b39-9fd1389abe6e"
+									},
+									{
+										"label": "Anus",
+										"concept": "70ea5c3e-416a-4e71-ae7c-a023e5ea1da2"
+									},
+									{
+										"label": "Genitalia",
+										"concept": "20c2a323-fbab-439d-b36a-e7e646ad3b68"
+									},
+									{
+										"label": "Arm, right",
+										"concept": "a89b4e4c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Arm, left",
+										"concept": "a89b4a3c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Hand, right",
+										"concept": "8cd6ab13-38f5-43d3-bd00-096406fa8062"
+									},
+									{
+										"label": "Hand, left",
+										"concept": "02511d7e-66af-4f26-afd3-0db06910cb2e"
+									},
+									{
+										"label": "Leg, right",
+										"concept": "a89b5162-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Leg, left",
+										"concept": "a89b4fe6-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Foot, right",
+										"concept": "39b74c2b-7fcf-4a2a-ae15-5d7b9259c6f8"
+									},
+									{
+										"label": "Foot, left",
+										"concept": "69a2c1e3-c34e-4a3b-a408-b9eabf7a9faf"
+									},
+									{
+										"label": "Nails",
+										"concept": "96634b39-4bbf-4498-bcfb-173edfd40a63"
+									}
+								]
+							}
+						},
+						{
+							"label": "State exam findings:",
+							"type": "obs",
+							"required": "true",
+							"id": "phyText11",
+							"questionOptions": {
+								"concept": "a8a0cc32-1350-11df-a1f1-0026b9348838",
+								"rendering": "textarea",
+								"rows": 15
+							}
+						}
+					]
+				},
+				{
+					"label": "Dermatology Image",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "obsGroup",
+							"label": "Please attach at least two photos: 1)close-up of lesions 2)further away to show distribution. Additional photos also welcome",
+							"questionOptions": {
+								"concept": "b8100e97-b5b4-42e3-b4fb-a05c63e1e088",
+								"rendering": "repeating"
+							},
+							"questions": [
+								{
+									"label": "Image",
+									"type": "obs",
+									"default": "",
+									"id": "dermImage",
+									"questionOptions": {
+										"concept": "a37628f8-f046-44cc-8f41-831696da3d7f",
+										"rendering": "file"
+									},
+									"validators": []
+								},
+								{
+									"label": "Anatomic location of the image:",
+									"id": "dermLocation",
+									"type": "obs",
+									"questionOptions": {
+										"concept": "6d0a7a0a-89e2-4c09-87f1-a6c9dd160216",
+										"rendering": "select",
+										"answers": [
+											{
+												"label": "Scalp",
+												"concept": "4b7c1e3b-7846-47f4-9c2e-c406891e2c59"
+											},
+											{
+												"label": "Hair",
+												"concept": "335f80c8-78f3-461d-887e-42c396959bb1"
+											},
+											{
+												"label": "Face",
+												"concept": "71c328a8-f615-4fe3-906b-95994f144ad0"
+											},
+											{
+												"label": "Eyes",
+												"concept": "cf1d1ea6-6bbc-412b-bd74-1c32d5a837b0"
+											},
+											{
+												"label": "Lips",
+												"concept": "5407c66e-a707-4ba3-a9f7-1705e3d34620"
+											},
+											{
+												"label": "Oropharynx",
+												"concept": "9fb85617-404c-44fd-a196-a1110162a38e"
+											},
+											{
+												"label": "Neck",
+												"concept": "c89840e1-cc91-492d-8ae8-67de9dd67abb"
+											},
+											{
+												"label": "Chest",
+												"concept": "a89c6638-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Axilla",
+												"concept": "a8a67a60-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Abdomen",
+												"concept": "a89c6700-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Back",
+												"concept": "9a78590e-db0f-4e24-9791-15819e225535"
+											},
+											{
+												"label": "Buttocks",
+												"concept": "6edd8ee8-f097-4038-8b39-9fd1389abe6e"
+											},
+											{
+												"label": "Anus",
+												"concept": "70ea5c3e-416a-4e71-ae7c-a023e5ea1da2"
+											},
+											{
+												"label": "Genitalia",
+												"concept": "20c2a323-fbab-439d-b36a-e7e646ad3b68"
+											},
+											{
+												"label": "Arm, right",
+												"concept": "a89b4e4c-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Arm, left",
+												"concept": "a89b4a3c-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Hand, right",
+												"concept": "8cd6ab13-38f5-43d3-bd00-096406fa8062"
+											},
+											{
+												"label": "Hand, left",
+												"concept": "02511d7e-66af-4f26-afd3-0db06910cb2e"
+											},
+											{
+												"label": "Leg, right",
+												"concept": "a89b5162-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Leg, left",
+												"concept": "a89b4fe6-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Foot, right",
+												"concept": "39b74c2b-7fcf-4a2a-ae15-5d7b9259c6f8"
+											},
+											{
+												"label": "Foot, left",
+												"concept": "69a2c1e3-c34e-4a3b-a408-b9eabf7a9faf"
+											},
+											{
+												"label": "Nails",
+												"concept": "96634b39-4bbf-4498-bcfb-173edfd40a63"
+											}
+										]
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(dermImage)",
+											"message": "Please provide anatomic location of the image."
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "isEmpty(dermImage)"
+									}
+								},
+								{
+									"label": "Describe your image below:",
+									"id": "imageTextOther",
+									"type": "obs",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(dermImage)",
+											"message": "Please provide a brief description of the image."
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "isEmpty(dermImage)"
+									}
+								}
+							],
+							"id": "__DCJ7tzEqF"
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Investigations",
+			"sections": [
+				{
+					"label": "Investigations",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Are there new/additional labs available for review?",
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('')) ? undefined : HD.getObject('prevEnc').getValue('')",
+							"type": "control",
+							"required": "true",
+							"id": "addlab",
+							"questionOptions": {
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"validators": []
+						},
+						{
+							"label": "If yes, what are the relevant labs?",
+							"type": "obs",
+							"id": "labText",
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('6f5207f4-6785-433b-943e-c2d03e7d3ea7')) ? undefined : HD.getObject('prevEnc').getValue('6f5207f4-6785-433b-943e-c2d03e7d3ea7')",
+							"questionOptions": {
+								"concept": "6f5207f4-6785-433b-943e-c2d03e7d3ea7",
+								"rendering": "textarea",
+								"rows": 15
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && !isEmpty(addlab) && addlab === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+									"message": "Please provide the relevant labs."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "addlab !=='a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Are there new/additional biopsies available for review?",
+							"type": "control",
+							"required": "true",
+							"id": "addbiopsy",
+							"questionOptions": {
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "If yes, what are the biopsy results? ",
+							"type": "obs",
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('757741c5-a867-49f5-a817-7ba3079801fc')) ? undefined : HD.getObject('prevEnc').getValue('757741c5-a867-49f5-a817-7ba3079801fc')",
+							"id": "biopsyText",
+							"questionOptions": {
+								"concept": "757741c5-a867-49f5-a817-7ba3079801fc",
+								"rendering": "textarea",
+								"rows": 15
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && !isEmpty(addbiopsy) && addbiopsy === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+									"message": "Please provide the relevant biopsies."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "addbiopsy !=='a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Dx",
+			"sections": [
+				{
+					"label": "Diagnoses",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Diagnoses",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "20399031-f3cd-45a4-a85a-ab5dac50e581",
+								"rendering": "repeating"
+							},
+							"questions": [
+								{
+									"label": "Diagnostic category:",
+									"id": "probAdded",
+									"questionOptions": {
+										"concept": "bf245772-05c8-4e0f-8589-bcb8c7882ea6",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "69e4cfd0-d59e-4616-8563-1ec7fec56100",
+												"label": "Fungal skin infection"
+											},
+											{
+												"concept": "9652913f-3cd8-4a0b-add3-08d7171808f6",
+												"label": "Bacterial skin infection"
+											},
+											{
+												"concept": "b3d83979-e384-4ef1-999d-43d309720942",
+												"label": "Viral skin infection"
+											},
+											{
+												"concept": "cbd78a4a-9fa6-4906-9284-61b5fa91b804",
+												"label": "Mycobacterial skin infection"
+											},
+											{
+												"concept": "2104969e-3308-430e-8225-c04b4e0ce9a5",
+												"label": "Protozoal skin infection"
+											},
+											{
+												"concept": "0f4ac6da-ec93-4940-b2d0-47757e35eede",
+												"label": "Skin infestation"
+											},
+											{
+												"concept": "a899c59a-1350-11df-a1f1-0026b9348838",
+												"label": "Drug reaction"
+											},
+											{
+												"concept": "c1391b41-c093-4c10-9c2f-48f485ffba89",
+												"label": "Connective tissue disease"
+											},
+											{
+												"concept": "42e4d048-c875-43fd-84dc-b85402d9ecca",
+												"label": "Immunobullous disease"
+											},
+											{
+												"concept": "994c223b-6f49-4ac6-a391-f069666476f5",
+												"label": "Nutritional skin disease"
+											},
+											{
+												"concept": "b44ac421-d212-486b-bef3-213384eb6fea",
+												"label": "Pigmentary condition"
+											},
+											{
+												"concept": "a898055c-1350-11df-a1f1-0026b9348838",
+												"label": "Eczematous condition"
+											},
+											{
+												"concept": "6ca8fb2f-6e41-4fc3-8d24-e54994730918",
+												"label": "Papulosquamous condition"
+											},
+											{
+												"concept": "c5b72bab-9e4a-4bb8-8e50-fd82891b9ff4",
+												"label": "Lichenoid condition"
+											},
+											{
+												"concept": "a8980d0e-1350-11df-a1f1-0026b9348838",
+												"label": "Acneiform/follicular occlusion disorder"
+											},
+											{
+												"concept": "a89dc8b6-1350-11df-a1f1-0026b9348838",
+												"label": "Malignancy, cutaneous or metastatic"
+											},
+											{
+												"concept": "81fbf994-255a-465a-9779-29945d779456",
+												"label": "Benign tumors/proliferation"
+											},
+											{
+												"concept": "68f19388-4a7b-4796-9b79-4c6c91e312bc",
+												"label": "Other, skin"
+											},
+											{
+												"concept": "a89a7ae4-1350-11df-a1f1-0026b9348838",
+												"label": "Indeterminate"
+											}
+										]
+									},
+									"type": "obs",
+									"required": "true",
+									"validators": []
+								},
+								{
+									"label": "Favoured diagnosis:",
+									"type": "obs",
+									"required": "true",
+									"id": "ddxtext",
+									"questionOptions": {
+										"concept": "d8069ab8-8a5b-488f-b50b-f72cfd15a6f1",
+										"rendering": "textarea"
+									}
+								},
+								{
+									"label": "Differential diagnosis:(Write 'None' if none)",
+									"type": "obs",
+									"required": "true",
+									"id": "otherDiag",
+									"questionOptions": {
+										"concept": "e7db67f1-9d26-413d-b1aa-65dd915227d1",
+										"rendering": "textarea"
+									}
+								}
+							],
+							"id": "__DIIoCyMuG"
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "A/P",
+			"sections": [
+				{
+					"label": "Assessment/Plan",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "obsGroup",
+							"label": "Differential diagnosis",
+							"questionOptions": {
+								"concept": "20399031-f3cd-45a4-a85a-ab5dac50e581",
+								"rendering": "group"
+							},
+							"questions": [],
+							"id": "__0xpvxqLyK"
+						},
+						{
+							"label": "Please enter assessment/plan below:",
+							"type": "obs",
+							"required": "true",
+							"id": "cliNotes",
+							"default": "",
+							"questionOptions": {
+								"concept": "5e4dc798-2cce-4a1a-97e9-bcf22d64b07c",
+								"rendering": "textarea",
+								"rows": "5"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Tx Plan",
+			"sections": [
+				{
+					"label": "Topical Medication",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Were topical medications prescribed today?",
+							"id": "topMed",
+							"required": "true",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "a89c26b4-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"type": "obsGroup",
+							"label": "Topical medication category",
+							"questionOptions": {
+								"concept": "1895f12e-58fa-4118-b054-fe7ce79d5697",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "If yes, select all categories of medication",
+									"id": "TopMedCat",
+									"questionOptions": {
+										"concept": "a387a093-b5b4-4bad-91f3-0b83c2495086",
+										"answers": [
+											{
+												"concept": "b78539cb-7b13-4e5d-b305-91d9ca343d31",
+												"label": "Topical steroid"
+											},
+											{
+												"concept": "475cd7e1-6317-4279-8ff0-58a3dfc74903",
+												"label": "Topical antibiotic"
+											},
+											{
+												"concept": "efb28cf0-a4d6-423f-b4d1-481e73f26425",
+												"label": "Topical antifungal"
+											},
+											{
+												"concept": "6b62c486-6568-4131-b0ab-370bf5828de0",
+												"label": "Topical antiscabetic"
+											},
+											{
+												"concept": "8cb8f468-cfb0-4df1-9603-34efae7484da",
+												"label": "Topical antiviral"
+											},
+											{
+												"concept": "270a0dec-82e5-46bc-9fe4-aab2bf4d4519",
+												"label": "Topical retinoid"
+											},
+											{
+												"concept": "17e716b7-f7d9-4187-bfab-0a709776fc29",
+												"label": "Emollient/Keratolytic"
+											}
+										],
+										"rendering": "multiCheckbox"
+									},
+									"type": "obs",
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(topMed) && topMed === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Please provide topical medication prescribed today."
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "topMed !=='a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								}
+							],
+							"id": "__4I8s7oMxE"
+						}
+					]
+				},
+				{
+					"label": "Systemic Medication",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Were systemic medication prescribed today?",
+							"id": "oralMed",
+							"required": "true",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "746e5244-aacf-488d-ace2-7da67537c092",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"type": "obsGroup",
+							"label": "Systemic medication:",
+							"questionOptions": {
+								"concept": "7f73bf2d-e7b2-4c68-bfab-70c25fe0cf91",
+								"rendering": "repeating"
+							},
+							"questions": [
+								{
+									"label": "If yes, select systemic medications prescribed today:",
+									"id": "oralMedCat",
+									"questionOptions": {
+										"concept": "a2e3ab86-f02f-4647-90c0-250e7fc915a4",
+										"answers": [
+											{
+												"concept": "a8971174-1350-11df-a1f1-0026b9348838",
+												"label": "Acyclovir"
+											},
+											{
+												"concept": "a898a8b8-1350-11df-a1f1-0026b9348838",
+												"label": "Albendazole"
+											},
+											{
+												"concept": "a893a098-1350-11df-a1f1-0026b9348838",
+												"label": "Amoxicillin"
+											},
+											{
+												"concept": "fe88a6fa-db8f-4bf7-b18c-1a36f60b3f75",
+												"label": "Azathioprine"
+											},
+											{
+												"concept": "a89715b6-1350-11df-a1f1-0026b9348838",
+												"label": "Cefuroxime"
+											},
+											{
+												"concept": "a897dafa-1350-11df-a1f1-0026b9348838",
+												"label": "Cetirizine"
+											},
+											{
+												"concept": "a8989102-1350-11df-a1f1-0026b9348838",
+												"label": "Chlorpheniramine"
+											},
+											{
+												"concept": "a890cea4-1350-11df-a1f1-0026b9348838",
+												"label": "Chloroquine"
+											},
+											{
+												"concept": "a8971836-1350-11df-a1f1-0026b9348838",
+												"label": "Ciprofloxacin"
+											},
+											{
+												"concept": "a89898a0-1350-11df-a1f1-0026b9348838",
+												"label": "Cloxacillin"
+											},
+											{
+												"concept": "d18cd4de-7ca8-4dff-b592-c4323f7ba634",
+												"label": "Colchicine"
+											},
+											{
+												"concept": "a890c9e0-1350-11df-a1f1-0026b9348838",
+												"label": "Dapsone"
+											},
+											{
+												"concept": "a890cc42-1350-11df-a1f1-0026b9348838",
+												"label": "Doxycycline"
+											},
+											{
+												"concept": "a893a78c-1350-11df-a1f1-0026b9348838",
+												"label": "Erythromycin"
+											},
+											{
+												"concept": "a8971e12-1350-11df-a1f1-0026b9348838",
+												"label": "Fluconazole"
+											},
+											{
+												"concept": "e9b252fd-7906-49b7-9d7d-b9a1a8ce518b",
+												"label": "Fexofenadine "
+											},
+											{
+												"concept": "a89535f2-1350-11df-a1f1-0026b9348838",
+												"label": "Flucloxacillin"
+											},
+											{
+												"concept": "a8a43e12-1350-11df-a1f1-0026b9348838",
+												"label": "Gabapentin"
+											},
+											{
+												"concept": "39f56b5f-c553-447f-997c-eca6b1cda769",
+												"label": "Griseofulvin"
+											},
+											{
+												"concept": "d0b62bdc-df1d-486e-a17c-b92b576a90d0",
+												"label": "Hydroxychloroquine"
+											},
+											{
+												"concept": "c95aee2d-24f6-43bf-ac5f-150e1b530797",
+												"label": "Isotretinoin"
+											},
+											{
+												"concept": "a898b650-1350-11df-a1f1-0026b9348838",
+												"label": "Loratidine"
+											},
+											{
+												"concept": "a8938504-1350-11df-a1f1-0026b9348838",
+												"label": "Mebendazole"
+											},
+											{
+												"concept": "3a4d0add-c1db-4318-92ea-a35f70107d5d",
+												"label": "Methotrexate"
+											},
+											{
+												"concept": "a8937f0a-1350-11df-a1f1-0026b9348838",
+												"label": "Metronidazole"
+											},
+											{
+												"concept": "2fae49f2-4666-4812-a565-3c8778e1253c",
+												"label": "Montelukast"
+											},
+											{
+												"concept": "a89560e0-1350-11df-a1f1-0026b9348838",
+												"label": "Prednisone"
+											},
+											{
+												"concept": "a898997c-1350-11df-a1f1-0026b9348838",
+												"label": "Ranitidine"
+											},
+											{
+												"concept": "a8a43a52-1350-11df-a1f1-0026b9348838",
+												"label": "Spironolactone"
+											},
+											{
+												"concept": "707602f2-dd34-4837-bb80-b82114ee7f92",
+												"label": "Terbinafine"
+											},
+											{
+												"concept": "a89541d2-1350-11df-a1f1-0026b9348838",
+												"label": "Multivitamin"
+											},
+											{
+												"concept": "a890c3aa-1350-11df-a1f1-0026b9348838",
+												"label": "Paracetamol"
+											},
+											{
+												"concept": "a8989030-1350-11df-a1f1-0026b9348838",
+												"label": "Ibuprofen"
+											},
+											{
+												"concept": "a8952a58-1350-11df-a1f1-0026b9348838",
+												"label": "Diclofenac"
+											},
+											{
+												"concept": "a5cb2f80-9a72-4ad5-9a05-8a7b2b5dc1fd",
+												"label": "Ivermectin"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										],
+										"rendering": "select"
+									},
+									"type": "obs",
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(oralMed) && oralMed === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Please provide systemic medication prescribed today."
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "oralMed !=='a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Other systemic medication:",
+									"id": "otherSystMed",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "!arrayContains (oralMedCat,'a8aaf3e2-1350-11df-a1f1-0026b9348838')"
+									}
+								},
+								{
+									"label": "Number of mg:",
+									"id": "noMg",
+									"questionOptions": {
+										"concept": "a8a063c8-1350-11df-a1f1-0026b9348838",
+										"rendering": "number",
+										"min": "0",
+										"max": "20000"
+									},
+									"type": "obs",
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(oralMed) && oralMed === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Please provide number of mg for the systemic medication prescribed today."
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "oralMed !=='a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Frequency:",
+									"id": "freq",
+									"questionOptions": {
+										"concept": "a8a06184-1350-11df-a1f1-0026b9348838",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "a8a05dc4-1350-11df-a1f1-0026b9348838",
+												"label": "Daily"
+											},
+											{
+												"concept": "a8a05aea-1350-11df-a1f1-0026b9348838",
+												"label": "Twice daily"
+											},
+											{
+												"concept": "a8a05b9e-1350-11df-a1f1-0026b9348838",
+												"label": "Three times daily"
+											},
+											{
+												"concept": "a8a05cfc-1350-11df-a1f1-0026b9348838",
+												"label": "Four times daily"
+											},
+											{
+												"concept": "264884fb-3353-49d9-8dfa-c03ed23d81fc",
+												"label": "Five times daily"
+											},
+											{
+												"concept": "a899d8d2-1350-11df-a1f1-0026b9348838",
+												"label": "Once weekly"
+											},
+											{
+												"concept": "6f4a4c5b-34d4-4577-b1f2-c0e5d5a61374",
+												"label": "Twice weekly"
+											},
+											{
+												"concept": "709ed4ad-d282-4c9d-936e-f14045e7d2b8",
+												"label": "Three times weekly"
+											},
+											{
+												"concept": "46c6b19b-5697-40c9-9e15-92c9e97668f2",
+												"label": "Four times weekly"
+											},
+											{
+												"concept": "f17377b6-3f56-44cc-8754-8b2b86529cd0",
+												"label": "Five times weekly"
+											},
+											{
+												"concept": "992fa969-c0a2-46c1-8ddc-da79f7f54448",
+												"label": "Once"
+											},
+											{
+												"concept": "5dcfe297-2ef7-4f1c-97e3-a519c18fcc84",
+												"label": "Once now, repeat in a week"
+											}
+										]
+									},
+									"type": "obs",
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(oralMed) && oralMed === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+											"message": "Please provide frequency for the systemic medication prescribed today."
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "oralMed !=='a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								}
+							],
+							"id": "__vqwqrJIHL"
+						}
+					]
+				},
+				{
+					"label": "Other Skin Treatment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "obsGroup",
+							"label": "Other Skin Directed Treatment",
+							"questionOptions": {
+								"rendering": "group",
+								"concept": "23082e54-0e93-43d9-97df-d1efc91c305b"
+							},
+							"questions": [
+								{
+									"label": "Other skin directed treatment:",
+									"id": "otherSkinTx",
+									"questionOptions": {
+										"concept": "4ade3e74-cc82-4266-90c4-ca139a4b338b",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "4cb7d45b-f9b5-4747-8f78-e4efe99a1141",
+												"label": "Phototherapy"
+											},
+											{
+												"concept": "7f2533d3-a1b3-427c-aca7-91a36e81026f",
+												"label": "Compression therapy"
+											},
+											{
+												"concept": "c5ba1860-3475-409a-80c1-973726f0ad65",
+												"label": "Wound care"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"type": "obs",
+									"validators": []
+								},
+								{
+									"label": "Other skin treatment, specify:",
+									"id": "otherSkinTxSpec",
+									"questionOptions": {
+										"concept": "4ade3e74-cc82-4266-90c4-ca139a4b338b",
+										"rendering": "text"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "otherSkinTx !== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+									}
+								}
+							],
+							"id": "__EL0DwuFoL"
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Next Appt",
+			"sections": [
+				{
+					"label": "Next Appointment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Return to clinic date:",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "a8a666ba-1350-11df-a1f1-0026b9348838",
+								"rendering": "date",
+								"weeksList": [
+									2,
+									4,
+									8,
+									12,
+									16
+								]
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Return to clinic date should be greater than the encounter date."
+								}
+							],
+							"id": "__v0IxIrHrD"
+						}
+					]
+				}
+			]
+		}
+	]
+}

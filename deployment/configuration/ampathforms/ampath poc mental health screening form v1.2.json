@@ -1,0 +1,1199 @@
+{
+	"name": "ampath_poc_mental_health_screening_form_v1.2",
+	"uuid": "xxxx",
+	"processor": "EncounterFormProcessor",
+	"referencedForms": [
+		{
+			"ref": {
+				"uuid": "1cecc407-35fa-49bd-b37e-7298310542c3",
+				"display": "Depression component"
+			},
+			"formName": "component_oncology-depression-v1.0",
+			"alias": "depression"
+		},
+		{
+			"ref": {
+				"uuid": "cd08637f-f245-4595-bb6a-96ba03a89f4c",
+				"display": "Depression"
+			},
+			"formName": "component_oncology-depression-v1.1",
+			"alias": "depression1"
+		}
+	],
+	"pages": [
+		{
+			"label": "Encounter Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit Date",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"label": "Marital status:",
+							"required": "true",
+							"id": "maritalStatus",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a899a9f2-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a899af10-1350-11df-a1f1-0026b9348838",
+										"label": "Cohabitating"
+									},
+									{
+										"concept": "a899ad58-1350-11df-a1f1-0026b9348838",
+										"label": "Divorced"
+									},
+									{
+										"concept": "a8aa76b0-1350-11df-a1f1-0026b9348838",
+										"label": "Married monogamous"
+									},
+									{
+										"concept": "a8b03712-1350-11df-a1f1-0026b9348838",
+										"label": "Married polygamous"
+									},
+									{
+										"concept": "a899aba0-1350-11df-a1f1-0026b9348838",
+										"label": "Separated"
+									},
+									{
+										"concept": "a899ac7c-1350-11df-a1f1-0026b9348838",
+										"label": "Single"
+									},
+									{
+										"concept": "a899ae34-1350-11df-a1f1-0026b9348838",
+										"label": "Widowed"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Client type:",
+							"required": "true",
+							"id": "clientType",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89eea66-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a8af61e8-1350-11df-a1f1-0026b9348838",
+										"label": "LTFU"
+									},
+									{
+										"concept": "72443cac-4822-4dce-8460-794af7af8167",
+										"label": "Active client"
+									},
+									{
+										"concept": "5c1e610c-36f4-456c-be9b-11c106591f7f",
+										"label": "New client"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"type": "obsGroup",
+							"label": "Reason for missed appointment",
+							"questionOptions": {
+								"concept": "a8afd4ca-1350-11df-a1f1-0026b9348838",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Reason for missed appointment:",
+									"id": "missApp",
+									"questionOptions": {
+										"rendering": "multiCheckbox",
+										"concept": "a89ef11e-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a89e2b30-1350-11df-a1f1-0026b9348838",
+												"label": "Lack of transport"
+											},
+											{
+												"concept": "a89e2a54-1350-11df-a1f1-0026b9348838",
+												"label": "Work related commitments"
+											},
+											{
+												"concept": "a89de152-1350-11df-a1f1-0026b9348838",
+												"label": "Travelled"
+											},
+											{
+												"concept": "a89ded8c-1350-11df-a1f1-0026b9348838",
+												"label": "Relocated"
+											},
+											{
+												"concept": "a89de2d8-1350-11df-a1f1-0026b9348838",
+												"label": "Been sick"
+											},
+											{
+												"concept": "a89e291e-1350-11df-a1f1-0026b9348838",
+												"label": "Had a sick relative"
+											},
+											{
+												"concept": "ec9227a3-d078-4ed0-bdc3-e8328a9e549e",
+												"label": "Marital problems"
+											},
+											{
+												"concept": "a89e3396-1350-11df-a1f1-0026b9348838",
+												"label": "Religious reasons (proclaimed healing)"
+											},
+											{
+												"concept": "a8a032fe-1350-11df-a1f1-0026b9348838",
+												"label": "Side effects"
+											},
+											{
+												"concept": "6daff4ce-bce7-41f5-9141-17e694155180",
+												"label": "Self disengaged"
+											},
+											{
+												"concept": "116977f1-aeaa-4a4e-91db-d63a1be9d3f5",
+												"label": "Refil drugs in another facility"
+											},
+											{
+												"concept": "a8b03bb8-1350-11df-a1f1-0026b9348838",
+												"label": "Lost a relative/funeral"
+											},
+											{
+												"concept": "a89ecaa4-1350-11df-a1f1-0026b9348838",
+												"label": "Stigma/disclosure issues"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other (specify)"
+											}
+										]
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "clientType !== 'a8af61e8-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Other, freetext:",
+									"id": "OtherText",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "!arrayContains(['a8aaf3e2-1350-11df-a1f1-0026b9348838'],missApp)"
+									}
+								}
+							],
+							"id": "missAppDetailed"
+						},
+						{
+							"type": "obs",
+							"label": "Date of missed appointment:",
+							"id": "date_missed_appointment",
+							"default": "",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "a89e3896-1350-11df-a1f1-0026b9348838"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Missed appointment date should be less than the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "clientType !== 'a8af61e8-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Mental Health Screening",
+			"sections": [
+				{
+					"label": "PHQ-9",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Over the last 2 weeks, how often have you had little interest or pleasure in doing things? (0=Not at all, 1=Several days, 2=More than half days, 3=Nearly everyday)",
+							"id": "pleasure",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "0975c82b-7905-446f-bd16-2f5e373543db",
+								"max": "3",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Over the last 2 weeks, how often have you felt down, depressed, or hopeless? (0=Not at all, 1=Several days, 2=More than half days, 3=Nearly everyday)",
+							"id": "depressed",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "fa7f8ebd-449d-4f09-a5ed-fd9c05302c67",
+								"max": "3",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "On a day that you had little interest, was it most of the day?",
+							"id": "dayInterest",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "0262e582-2150-4c36-834f-a7fd697a92db",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty (pleasure) || pleasure == 0"
+							}
+						},
+						{
+							"label": "On a day that you felt down, was it most of the day?",
+							"id": "dayFeeling",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "8e32d7cc-b2c4-43f3-9380-210464c276be",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty (depressed) || depressed == 0"
+							}
+						},
+						{
+							"label": "Trouble falling or staying asleep or sleeping too much: (0=Not at all, 1=Several days, 2=More than half days, 3=Nearly everyday)",
+							"id": "sleep",
+							"questionOptions": {
+								"concept": "dfc873d9-e7ad-4481-abce-c836fcb0a3d5",
+								"rendering": "number",
+								"max": "3",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": [
+								
+							],
+							"hide": {
+								"hideWhenExpression": "dayInterest !== 'a899b35c-1350-11df-a1f1-0026b9348838' && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838' "
+							}
+						},
+						{
+							"label": "Feeling tired or having little energy: (0=Not at all, 1=Several days, 2=More than half days, 3=Nearly everyday)",
+							"id": "tired",
+							"questionOptions": {
+								"concept": "99dbc9ed-82df-4a95-99ca-145e61ee15d6",
+								"rendering": "number",
+								"max": "3",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(dayInterest) && dayInterest === 'a899b35c-1350-11df-a1f1-0026b9348838') || (!isEmpty(dayFeeling) && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838')",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "dayInterest !== 'a899b35c-1350-11df-a1f1-0026b9348838' && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838' "
+							}
+						},
+						{
+							"label": "Poor appetite or overeating: (0=Not at all, 1=Several days, 2=More than half days, 3=Nearly everyday)",
+							"id": "appetite",
+							"questionOptions": {
+								"concept": "bc0bfec9-72b9-4cd1-85e5-289629443e09",
+								"rendering": "number",
+								"max": "3",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(dayInterest) && dayInterest === 'a899b35c-1350-11df-a1f1-0026b9348838') || (!isEmpty(dayFeeling) && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838')",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "dayInterest !== 'a899b35c-1350-11df-a1f1-0026b9348838' && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838' "
+							}
+						},
+						{
+							"label": "Feeling bad about yourself, or that you are a failure or that you have let yourself or your family down: (0=Not at all, 1=Several days, 2=More than half days, 3=Nearly everyday)",
+							"id": "failure",
+							"questionOptions": {
+								"concept": "1e8ab77f-8c42-4a79-98a2-77795bd08b96",
+								"rendering": "number",
+								"max": "3",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(dayInterest) && dayInterest === 'a899b35c-1350-11df-a1f1-0026b9348838') || (!isEmpty(dayFeeling) && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838')",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "dayInterest !== 'a899b35c-1350-11df-a1f1-0026b9348838' && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838' "
+							}
+						},
+						{
+							"label": "Trouble concentrating on things: (linked with patient's usual activities such as reading the newspapers or listening to a radio programme) (0=Not at all, 1=Several days, 2=More than half days, 3=Nearly everyday)",
+							"id": "concentrate",
+							"questionOptions": {
+								"concept": "c3b17b63-9f68-4265-8c5c-ac159360348b",
+								"rendering": "number",
+								"max": "3",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(dayInterest) && dayInterest === 'a899b35c-1350-11df-a1f1-0026b9348838') || (!isEmpty(dayFeeling) && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838')",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "dayInterest !== 'a899b35c-1350-11df-a1f1-0026b9348838' && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838' "
+							}
+						},
+						{
+							"label": "Moving or speaking so slowly that other people could have noticed. Or the opposite, being so fidgety or restless that you have been moving a lot more than usual: (0=Not at all, 1=Several days, 2=More than half days, 3=Nearly everyday)",
+							"id": "speak",
+							"questionOptions": {
+								"concept": "f3c67cdc-7a42-413b-8f52-dabba34d0bd9",
+								"rendering": "number",
+								"max": "3",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(dayInterest) && dayInterest === 'a899b35c-1350-11df-a1f1-0026b9348838') || (!isEmpty(dayFeeling) && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838')",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "dayInterest !== 'a899b35c-1350-11df-a1f1-0026b9348838' && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838' "
+							}
+						},
+						{
+							"label": "Thoughts that you would be better off dead or of hurting yourself in some ways: (0=Not at all, 1=Several days, 2=More than half days, 3=Nearly everyday)",
+							"id": "dead",
+							"questionOptions": {
+								"concept": "68c39c36-9956-49a6-bfbb-4e3cbef3c8ff",
+								"rendering": "number",
+								"max": "3",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(dayInterest) && dayInterest === 'a899b35c-1350-11df-a1f1-0026b9348838') || (!isEmpty(dayFeeling) && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838')",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "dayInterest !== 'a899b35c-1350-11df-a1f1-0026b9348838' && dayFeeling !== 'a899b35c-1350-11df-a1f1-0026b9348838' "
+							}
+						},
+						{
+							"label": "PHQ-9 total score",
+							"id": "phqscore",
+							"questionOptions": {
+								"concept": "00bde79f-a625-4d9f-96d4-908cbb693fe0",
+								"rendering": "number",
+								"max": "27",
+								"min": "0",
+								"calculate": {
+									"calculateExpression": "isNaN(parseInt(pleasure) + parseInt(depressed) + parseInt(tired)+ parseInt(sleep)+ parseInt(failure)+ parseInt(appetite)+ parseInt(concentrate)+ parseInt(speak)+ parseInt(dead)) ? undefined: (parseInt(pleasure) + parseInt(depressed) + parseInt(tired)+ parseInt(sleep)+ parseInt(failure)+ parseInt(appetite)+ parseInt(concentrate)+ parseInt(speak)+ parseInt(dead))"
+								}
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "PHQ-9 score rating",
+							"id": "scorePh",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "text",
+								"type": "control",
+								"validators": [],
+								"calculate": {
+									"calculateExpression": "parseInt(phqscore) >= 0 && parseInt(phqscore) <= 4 ? 'Depression unlikely' : parseInt(phqscore) >= 5 && parseInt(phqscore) <= 9 ? 'Mild depression': parseInt(phqscore) >= 10 && parseInt(phqscore) <= 14 ? 'Moderate depression': parseInt(phqscore) >= 15 && parseInt(phqscore) <= 19 ? 'Moderate severe depression' : parseInt(phqscore) >= 20 && parseInt(phqscore) <= 27 ? 'Severe depression' : 'Unknown'"
+								}
+							}
+						}
+					]
+				},
+				{
+					"label": "Anxiety  Assessment (Over the last 2 weeks, how often have you been bothered by any of the following problems?) GAD-7",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Feeling nervous, anxious or on the edge: (Not sure at all (0),Several days (1),Over half the days (2)Nearly every day (3)",
+							"id": "nervous",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "47f25591-56b4-4812-84e5-71a3f365072e",
+								"answers": []
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Not being able to stop or control worrying: (Not sure at all (0),Several days (1),Over half the days (2)Nearly every day (3)",
+							"id": "worrying",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "820471e1-d0ed-4869-a1b2-12013329924a",
+								"answers": []
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Worrying too much about different things: (Not sure at all (0),Several days (1),Over half the days (2)Nearly every day (3)",
+							"id": "differentthings",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "830a03bc-86c7-4682-a535-2260d8f5697c",
+								"answers": []
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(nervous) || !isEmpty(worrying))",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "nervous == 0 && worrying == 0 "
+							}
+						},
+						{
+							"label": "Trouble relaxing (Not sure at all (0),Several days (1),Over half the days (2)Nearly every day (3)",
+							"id": "troublerelaxing",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "0ffd6152-e55b-4f00-a1fc-a5f6a82a2375",
+								"answers": []
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(nervous) || !isEmpty(worrying))",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "nervous == 0 && worrying == 0 "
+							}
+						},
+						{
+							"label": "Being so restless that its hard to sit still (Not sure at all (0),Several days (1),Over half the days (2)Nearly every day (3)",
+							"id": "restless",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "d512c530-b32e-4ff3-873e-e2d89574182a",
+								"answers": []
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(nervous) || !isEmpty(worrying))",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "nervous == 0 && worrying == 0 "
+							}
+						},
+						{
+							"label": "Becoming easily annoyed or irritable (Not sure at all (0),Several days (1),Over half the days (2)Nearly every day (3)",
+							"id": "irritable",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "c0021922-d222-4ca3-95c4-5416573b7b7e",
+								"answers": []
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(nervous) || !isEmpty(worrying))",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "nervous == 0 && worrying == 0 "
+							}
+						},
+						{
+							"label": "Feeling afraid as if something awful might happen (Not sure at all (0),Several days (1),Over half the days (2)Nearly every day (3)",
+							"id": "afraid",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "9c02cbcf-11de-497f-ac27-ca37522d89b8",
+								"answers": []
+							},
+							"type": "obs",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (!isEmpty(nervous) || !isEmpty(worrying))",
+									"message": "Required!"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "nervous == 0 && worrying == 0 "
+							}
+						},
+						{
+							"label": "GAD total score",
+							"id": "score",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "cc82893a-d9df-4961-ba5b-5c715077953a",
+								"answers": [],
+								"max": "21",
+								"min": "0",
+								"calculate": {
+									"calculateExpression": "isNaN(parseInt(nervous) + parseInt(worrying) + parseInt(differentthings)+ parseInt(troublerelaxing)+ parseInt(restless)+ parseInt(irritable)+ parseInt(afraid)) ? undefined: (parseInt(nervous) + parseInt(worrying) + parseInt(differentthings)+ parseInt(troublerelaxing)+ parseInt(restless)+ parseInt(irritable)+ parseInt(afraid))"
+								}
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "GAD score rating",
+							"id": "scoreGad",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "text",
+								"type": "control",
+								"validators": [],
+								"calculate": {
+									"calculateExpression": "parseInt(score) >= 0 && parseInt(score) <= 4 ? 'Minimal anxiety' : parseInt(score) >= 5 && parseInt(score) <= 9 ? 'Mild anxiety': parseInt(score) >= 10 && parseInt(score) <= 14 ? 'Moderate anxiety': parseInt(score) >= 15 && parseInt(score) <= 21 ? 'Severe anxiety' : 'Unknown'"
+								}
+							}
+						},
+						{
+							"label": "If you checked off any problems, how difficult have these made it for you to do your work, take care of things at home, or get along with other people?",
+							"id": "difficulty",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89e5c40-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a89e5880-1350-11df-a1f1-0026b9348838",
+										"label": "Not difficult at all"
+									},
+									{
+										"concept": "a89e5934-1350-11df-a1f1-0026b9348838",
+										"label": "Somewhat difficult "
+									},
+									{
+										"concept": "a89e59f2-1350-11df-a1f1-0026b9348838",
+										"label": "Very difficult "
+									},
+									{
+										"concept": "a89e5b14-1350-11df-a1f1-0026b9348838",
+										"label": "Extremely difficult"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "Substance Abuse",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "How often do you have six or more drinks on one occasion or one day?",
+							"id": "moreDrinks",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8a77eba-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a899d120-1350-11df-a1f1-0026b9348838",
+										"label": "Never"
+									},
+									{
+										"concept": "a899d9ae-1350-11df-a1f1-0026b9348838",
+										"label": "Daily or almost daily"
+									},
+									{
+										"concept": "a899d8d2-1350-11df-a1f1-0026b9348838",
+										"label": "Weekly"
+									},
+									{
+										"concept": "a899d71a-1350-11df-a1f1-0026b9348838",
+										"label": "Less than monthly"
+									},
+									{
+										"concept": "a899d7f6-1350-11df-a1f1-0026b9348838",
+										"label": "Monthly"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Has a relative or friend, doctor or other health worker been concerned about your drinking or suggested you cut down?",
+							"id": "concerned",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "46491a1d-0537-47f9-aaee-4a4fdb555362",
+								"answers": [
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "63952b8b-32f0-4cb0-bbc8-a3a89d49fac0",
+										"label": "Yes, during the past year"
+									},
+									{
+										"concept": "cc9e3e26-bdad-4003-b963-b085da936693",
+										"label": "Yes but not in the past year"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(moreDrinks) || moreDrinks === 'a899d120-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Have you ever felt you should cut down on drinking?",
+							"id": "cutDown",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "8d5ca135-1b7f-4853-99b2-9146d00b2171",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Have people annoyed you by criticizing your drinking?",
+							"id": "annoyed",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "d31e5b9d-f0af-4e32-8df0-184c3ed3a1e4",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Have you ever felt bad or quilty about your drinking? ",
+							"id": "quilty",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "ecb178cf-bc45-418d-89d7-01bc066523fd",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Have you ever had a first thing in the morning to steady your nerves or get rid of a hangover(Eye-opener)?",
+							"id": "eyeOpener",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "9d30b60d-d3ec-4cad-956f-98f883e8508e",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Have you ever used other drugs of abuse e.g cannabis, Khat, injections?",
+							"id": "drugAbuse",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "2bb6fa33-c812-4d7a-95d6-e6bb874f2929",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "If yes, in the last one month have you used any of the substance you mentioned above?",
+							"id": "usedSubstance",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a731f8b2-5973-439c-9736-a16e7776d176",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "drugAbuse !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Have you ever had thoughts of ending your life?",
+							"id": "endingLife",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "48db001c-049a-496a-8580-46a4c8586357",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "In the last one month did you have thoughts of ending your life?",
+							"id": "ending",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "4d58728a-b77d-4139-b5aa-0f5183e0c4b7",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "If yes, do you currently have specific plans or specific methods on how you would do that e.g hanging, poisoning?",
+							"id": "plans",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "84c375d7-f5d9-4046-81a3-2fd041ffa23b",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "ending !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Mental Health Assessment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Have you ever experienced hearing voices others can not hear?",
+							"id": "hearVoices",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "3b943704-1448-417c-9490-6e761d6a453c",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Have you ever experienced seeing things others can not see?",
+							"id": "seeingThings",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a0c5a0b6-2036-46d7-9edb-c8a792311e45",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Have you ever experienced having beliefs that someone was out to harm you?",
+							"id": "havingBeliefs",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "af3dc7cd-f3d6-47f7-9a2a-a57e193d2e1a",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Have you ever been treated for mental illness?",
+							"id": "mentalIllness",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "aa4670f9-918d-466b-98f5-4dd267466eca",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "11fe7789-9dd6-44ab-903a-e6a9a99feaf8",
+										"label": "Not sure"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Assessment Notes",
+			"sections": [
+				{
+					"label": "Assessment Notes",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Please enter your assessment below:",
+							"type": "obs",
+							"id": "assNote",
+							"required": "false",
+							"default": "",
+							"questionOptions": {
+								"concept": "23f710cc-7f9c-4255-9b6b-c3e240215dba",
+								"rendering": "textarea",
+								"placeholder": "Indicate your assessment here",
+								"rows": 8
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Management Plan",
+			"sections": [
+				{
+					"label": "Mental Health Interventions And Referrals",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Interventions provided:",
+							"id": "mhIntervention",
+							"questionOptions": {
+								"rendering": "multiCheckbox",
+								"concept": "9dee6ba4-7d63-44b0-820f-3834486d56af",
+								"answers": [
+									{
+										"concept": "a89ec9e6-1350-11df-a1f1-0026b9348838",
+										"label": "Enhanced adherence counselling"
+									},
+									{
+										"concept": "94215ae3-7d96-4a46-90b2-b339ef7a182e",
+										"label": "Psychological counselling"
+									},
+									{
+										"concept": "a89e2df6-1350-11df-a1f1-0026b9348838",
+										"label": "Psychosocial support group"
+									},
+									{
+										"concept": "554f2668-f64e-4497-abff-af6079089a80",
+										"label": "Home visit"
+									},
+									{
+										"concept": "cb19cd3a-48c9-48c6-994b-4e99b3a56f41",
+										"label": "Negotiated TCAs"
+									},
+									{
+										"concept": "5c941db9-4a23-411d-8517-f60e8b7e459d",
+										"label": "Socioeconomic support"
+									},
+									{
+										"concept": "a89fbbd0-1350-11df-a1f1-0026b9348838",
+										"label": "Longer TCA's or MMD"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Others"
+									}
+								],
+								"calculate": {
+									"calculateExpression": "(alcohol === '' || tobacco === '' || cannabis === '' || miraa === '' || prescriptionPills === '' || coccaine === '' || inhalants === '' || hallucinogen === '') ? 'ea5d6f38-5081-4652-81c5-ae35f7ed8665': (alcohol === 'a899d120-1350-11df-a1f1-0026b9348838' && tobacco === 'a899d120-1350-11df-a1f1-0026b9348838' && cannabis === 'a899d120-1350-11df-a1f1-0026b9348838' && miraa === 'a899d120-1350-11df-a1f1-0026b9348838' && prescriptionPills === 'a899d120-1350-11df-a1f1-0026b9348838' && coccaine === 'a899d120-1350-11df-a1f1-0026b9348838' && inhalants === 'a899d120-1350-11df-a1f1-0026b9348838' && hallucinogen === 'a899d120-1350-11df-a1f1-0026b9348838') ? '':'94215ae3-7d96-4a46-90b2-b339ef7a182e'"
+								}
+							},
+							"type": "obs",
+							"validators": [],
+							"calculate": {
+								"calculateExpression": "(alcohol === 'a899d120-1350-11df-a1f1-0026b9348838' || tobacco === 'a899d120-1350-11df-a1f1-0026b9348838' || cannabis === 'a899d120-1350-11df-a1f1-0026b9348838' || miraa === 'a899d120-1350-11df-a1f1-0026b9348838' || prescriptionPills === 'a899d120-1350-11df-a1f1-0026b9348838' || coccaine === 'a899d120-1350-11df-a1f1-0026b9348838' || inhalants === 'a899d120-1350-11df-a1f1-0026b9348838' || hallucinogen === 'a899d120-1350-11df-a1f1-0026b9348838') ? 'ea5d6f38-5081-4652-81c5-ae35f7ed8665':'94215ae3-7d96-4a46-90b2-b339ef7a182e'"
+							}
+						},
+						{
+							"type": "obsGroup",
+							"label": "Referrals ordered detailed",
+							"id": "referralPlan",
+							"questionOptions": {
+								"concept": "a8a07c8c-1350-11df-a1f1-0026b9348838",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Referrals (check all that apply):",
+									"id": "careReferral",
+									"questionOptions": {
+										"concept": "a89c2344-1350-11df-a1f1-0026b9348838",
+										"rendering": "multiCheckbox",
+										"answers": [
+											{
+												"concept": "a899e0ac-1350-11df-a1f1-0026b9348838",
+												"label": "None"
+											},
+											{
+												"concept": "a8a8c96e-1350-11df-a1f1-0026b9348838",
+												"label": "Physician"
+											},
+											{
+												"concept": "a8a06f08-1350-11df-a1f1-0026b9348838",
+												"label": "Psychiatry services"
+											},
+											{
+												"concept": "aebb850d-9f1c-48a0-8827-6c105b980970",
+												"label": "Legal services"
+											},
+											{
+												"concept": "a8a8b190-1350-11df-a1f1-0026b9348838",
+												"label": "Social worker"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "concern !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Other referrals:",
+									"id": "otherCareref",
+									"type": "obs",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(careReferral)"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

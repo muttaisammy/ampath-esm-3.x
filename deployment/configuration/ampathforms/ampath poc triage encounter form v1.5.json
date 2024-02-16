@@ -1,0 +1,413 @@
+{
+	"name": "AMPATH POC Triage Encounter Form v1.5",
+	"uuid": "xxxx",
+	"processor": "EncounterFormProcessor",
+	"pages": [
+		{
+			"label": "Encounter Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Child details",
+			"sections": [
+				{
+					"label": "Child History",
+					"questions": [
+						{
+							"label": "If orphaned under age of 18 yrs?",
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('a89ad2d2-1350-11df-a1f1-0026b9348838')) ? undefined : HD.getObject('prevEnc').getValue('a89ad2d2-1350-11df-a1f1-0026b9348838')",
+							"questionOptions": {
+								"concept": "a89ad2d2-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								],
+								"rendering": "select"
+							},
+							"type": "obs",
+							"id": "orphan"
+						},
+						{
+							"label": "Completed school?",
+							"questionOptions": {
+								"concept": "a8aaf9dc-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								],
+								"rendering": "select"
+							},
+							"type": "obs",
+							"id": "completeSchool"
+						}
+					]
+				},
+				{
+					"label": "Relationship",
+					"questions": [
+						{
+							"label": "Siblings less than 18 months:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8a0bbde-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a89ad3a4-1350-11df-a1f1-0026b9348838",
+										"label": "N/A"
+									}
+								]
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && age <=14",
+									"message": "Patient selected is pediatric. Please provide relationship information."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "age>14"
+							},
+							"id": "siblings"
+						},
+						{
+							"label": "If yes for siblings < 18 months, are they registered in pediatric HIV clinic:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8a0bd00-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && age <=14",
+									"message": "Patient selected is pediatric. Please provide relationship information."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "age>14"
+							},
+							"id": "siblingHiv"
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Vitals",
+			"sections": [
+				{
+					"label": "Vital Signs",
+					"questions": [
+						{
+							"type": "obsGroup",
+							"label": "test group",
+							"questionOptions": {
+								"rendering": "group",
+								"concept": "a899e6d8-1350-11df-a1f1-0026b9348838"
+							},
+							"questions": [
+								{
+									"label": "BP:Systolic:",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "a8a65d5a-1350-11df-a1f1-0026b9348838",
+										"max": "250",
+										"min": "0"
+									},
+									"type": "obs",
+									"validators": [],
+									"id": "syst"
+								},
+								{
+									"label": "BP:Diastolic:",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "a8a65e36-1350-11df-a1f1-0026b9348838",
+										"max": "200",
+										"min": "0"
+									},
+									"type": "obs",
+									"validators": [],
+									"id": "diast"
+								},
+								{
+									"label": "Pulse(Rate/Min):",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "a8a65f12-1350-11df-a1f1-0026b9348838",
+										"max": "230",
+										"min": "0"
+									},
+									"type": "obs",
+									"validators": [],
+									"id": "pulse"
+								},
+								{
+									"label": "RR(Breath/Min):",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "a8a6f71a-1350-11df-a1f1-0026b9348838",
+										"max": "99",
+										"min": "0"
+									},
+									"type": "obs",
+									"validators": [],
+									"id": "resp"
+								},
+								{
+									"label": "Temp(C):",
+									"questionOptions": {
+										"rendering": "decimal",
+										"concept": "a8a65fee-1350-11df-a1f1-0026b9348838",
+										"max": "43.00",
+										"min": "25.00"
+									},
+									"type": "obs",
+									"validators": [
+										{
+											"type": "decimal",
+											"decimalPlace": 1
+										}
+									],
+									"id": "temp"
+								},
+								{
+									"label": "Weight(Kg):",
+									"id": "weight",
+									"questionOptions": {
+										"rendering": "decimal",
+										"concept": "a8a660ca-1350-11df-a1f1-0026b9348838",
+										"max": "250",
+										"min": "0"
+									},
+									"type": "obs",
+									"validators": [
+										{
+											"type": "decimal",
+											"decimalPlace": 1
+										}
+									]
+								},
+								{
+									"label": "Height(CM):",
+									"id": "height",
+									"historicalExpression": "(HD.getObject('prevEnc').getValue('a8a6619c-1350-11df-a1f1-0026b9348838'))",
+									"questionOptions": {
+										"rendering": "decimal",
+										"concept": "a8a6619c-1350-11df-a1f1-0026b9348838",
+										"max": "228.00",
+										"min": "10.00"
+									},
+									"type": "obs",
+									"validators": [
+										{
+											"type": "decimal",
+											"decimalPlace": 1
+										}
+									]
+								},
+								{
+									"label": "Weight for height Z-score:",
+									"id": "weightScore",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "5099d8a8-36c1-4574-a568-9bc49c15c08c",
+										"max": "4",
+										"min": "-4",
+										"calculate": {
+											"calculateExpression": "calcWeightForHeightZscore(weightForHeightRef,height,weight)"
+										}
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "age>5"
+									}
+								},
+								{
+									"label": " Height/length for age Z-score:",
+									"id": "heightLengthScore",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "507f48e7-26fc-490b-a521-35d7c5aa8e9f",
+										"max": "4",
+										"min": "-4",
+										"calculate": {
+											"calculateExpression": "calcHeightForAgeZscore(heightForAgeRef,height,weight)"
+										}
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "age>17"
+									}
+								},
+								{
+									"label": "Sp02:",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "a8a66354-1350-11df-a1f1-0026b9348838",
+										"max": "100",
+										"min": "0"
+									},
+									"type": "obs",
+									"validators": [],
+									"id": "saturation"
+								},
+								{
+									"label": "BMI:Kg/M2",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "a89c60c0-1350-11df-a1f1-0026b9348838",
+										"max": "100",
+										"min": "0",
+										"calculate": {
+											"calculateExpression": "calcBMI(height,weight)"
+										}
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "age<18"
+									},
+									"id": "bmi"
+								},
+								{
+									"label": "BMI for age Z-Score:",
+									"id": "bmiScore",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "9061e5d5-8478-4d16-be44-bfec05b6705a",
+										"max": "4",
+										"min": "-4",
+										"calculate": {
+											"calculateExpression": "!isEmpty(height) && !isEmpty(weight) ? calcBMIForAgeZscore(bmiForAgeRef,height,weight): ''"
+										}
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "age<=5 ||age >=17"
+									}
+								},
+								{
+									"label": "MUAC:MM",
+									"questionOptions": {
+										"rendering": "number",
+										"concept": "a89c6188-1350-11df-a1f1-0026b9348838",
+										"max": "450",
+										"min": "60"
+									},
+									"type": "obs",
+									"validators": [],
+									"id": "muac"
+								}
+							],
+							"id": "muac"
+						}
+					]
+				}
+			]
+		},
+		
+		{
+			"label": "Assessment",
+			"sections": [
+				{
+					"label": "Assessment Notes",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Please enter the assessment below:",
+							"type": "obs",
+							"id": "assNote",
+							"required": "false",
+							"default": "",
+							"questionOptions": {
+								"concept": "23f710cc-7f9c-4255-9b6b-c3e240215dba",
+								"rendering": "textarea",
+								"rows": 10
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
