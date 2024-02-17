@@ -1,0 +1,484 @@
+{
+	"name": "AMPATH POC PrEP Tracing Form v1.0",
+	"uuid": "xxxx",
+	"processor": "EncounterFormProcessor",
+	"pages": [
+		{
+			"label": "PrEP Follow Up",
+			"sections": [
+				{
+					"label": "PrEP Follow Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "encounterProvider",
+							"label": "Provider:",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"label": "Visit date:",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "obs",
+							"label": "Date of missed appointment:",
+							"id": "date_missed_appointment",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "a89e3896-1350-11df-a1f1-0026b9348838"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Missed appointment date should be less than the encounter date."
+								}
+							]
+						},
+						{
+							"type": "obsGroup",
+							"label": "Reason for follow up",
+							"questionOptions": {
+								"concept": "a8af629c-1350-11df-a1f1-0026b9348838",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Reason for follow up:",
+									"required": "true",
+									"id": "reasonFollowUp",
+									"questionOptions": {
+										"answers": [
+											{
+												"concept": "27ac429d-8a42-476e-b2f6-65bde0b8c935",
+												"label": "PrEP"
+											},
+											{
+												"concept": "a89e3bf2-1350-11df-a1f1-0026b9348838",
+												"label": "Defaulter"
+											},
+											{
+												"concept": "a89e36b6-1350-11df-a1f1-0026b9348838",
+												"label": "Clinical issues"
+											},
+											{
+												"concept": "a8af61e8-1350-11df-a1f1-0026b9348838",
+												"label": "Lost to follow up"
+											},
+											{
+												"concept": "a89a898a-1350-11df-a1f1-0026b9348838",
+												"label": "Research"
+											}
+										],
+										"concept": "a89e3788-1350-11df-a1f1-0026b9348838",
+										"rendering": "radio"
+									},
+									"type": "obs"
+								},
+								{
+									"label": "Indicate the category of clinical issue, freetext:",
+									"id": "cliniText",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "c15b700d-1e60-4d20-9db2-b6974b814718"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "reasonFollowUp !== 'a89e36b6-1350-11df-a1f1-0026b9348838'"
+									}
+								}
+							],
+							"id": "reasonFollowUpdet"
+						},
+						{
+							"label": "Type of follow up:",
+							"required": "true",
+							"id": "followUp",
+							"questionOptions": {
+								"answers": [
+									{
+										"concept": "a89de832-1350-11df-a1f1-0026b9348838",
+										"label": "Phone follow up"
+									},
+									{
+										"concept": "554f2668-f64e-4497-abff-af6079089a80",
+										"label": "Home visit"
+									}
+								],
+								"concept": "a89dea80-1350-11df-a1f1-0026b9348838",
+								"rendering": "radio"
+							},
+							"type": "obs"
+						}
+					]
+				},
+				{
+					"label": "Reason For Missed Visit",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Patient related issues:",
+							"id": "patientIssues",
+							"type": "obs",
+							"questionOptions": {
+								"answers": [
+									{
+										"concept": "a89e27f2-1350-11df-a1f1-0026b9348838",
+										"label": "Forgot appointment"
+									},
+									{
+										"concept": "c2569065-8b3a-41ed-8201-6dff19076236",
+										"label": "Self transferred"
+									},
+									{
+										"concept": "a89e2a54-1350-11df-a1f1-0026b9348838",
+										"label": "Work commitments"
+									},
+									{
+										"concept": "a8a08e7a-1350-11df-a1f1-0026b9348838",
+										"label": "School commitments"
+									},
+									{
+										"concept": "a89de2d8-1350-11df-a1f1-0026b9348838",
+										"label": "Too ill to come"
+									},
+									{
+										"concept": "a89ded8c-1350-11df-a1f1-0026b9348838",
+										"label": "Relocated"
+									},
+									{
+										"concept": "a89de152-1350-11df-a1f1-0026b9348838",
+										"label": "Travelled/Migrated"
+									},
+									{
+										"concept": "6daff4ce-bce7-41f5-9141-17e694155180",
+										"label": "Self disengaged"
+									},
+									{
+										"concept": "a89e2b30-1350-11df-a1f1-0026b9348838",
+										"label": "Lack fare"
+									},
+									{
+										"concept": "a89ecaa4-1350-11df-a1f1-0026b9348838",
+										"label": "Stigma/disclosure issues"
+									},
+									{
+										"concept": "a89ffa64-1350-11df-a1f1-0026b9348838",
+										"label": "Disability"
+									},
+									{
+										"concept": "28b3d2dc-32c9-4773-b588-4781b13885f5",
+										"label": "Has extra drugs"
+									},
+									{
+										"concept": "116977f1-aeaa-4a4e-91db-d63a1be9d3f5",
+										"label": "Got a refill in another facility"
+									},
+									{
+										"concept": "ec9227a3-d078-4ed0-bdc3-e8328a9e549e",
+										"label": "Family conflict/IPV"
+									},
+									{
+										"concept": "a89335d6-1350-11df-a1f1-0026b9348838",
+										"label": "Deceased"
+									},
+									{
+										"concept": "294bd3ef-b355-4758-a533-47d79a9eaa90",
+										"label": "Partner picked drugs for them"
+									},
+									{
+										"concept": "d9a3eac7-7f3f-4a00-b7ed-76400bae1cdb",
+										"label": "Low risk"
+									},
+									{
+										"concept": "099f050e-acc0-4cbd-8b74-4b56ca5c3926",
+										"label": "Did not take the medication from the start"
+									}
+								],
+								"rendering": "checkbox",
+								"concept": "bb4ddfad-1769-4f04-a5b1-b278670adf40"
+							},
+							"validators": []
+						},
+						{
+							"label": "Please specify attempt number since last missed appointment:",
+							"id": "attempt",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "a89de6ac-1350-11df-a1f1-0026b9348838",
+								"rendering": "number",
+								"max": "20",
+								"min": "0"
+							},
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "Final Outcome",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was the final outcome reached:",
+							"id": "finalOutcome",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "23bf65a6-4e8c-4d83-878d-19aec93efa2f",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Final outcome true status:",
+							"id": "finalOutcomeStatus",
+							"questionOptions": {
+								"concept": "59f21b48-ccf9-40b8-9fcb-92bdbf90a4dd",
+								"answers": [
+									{
+										"concept": "a89335d6-1350-11df-a1f1-0026b9348838",
+										"label": "Dead"
+									},
+									{
+										"concept": "116977f1-aeaa-4a4e-91db-d63a1be9d3f5",
+										"label": "Receiving PrEP refill from another facility"
+									},
+									{
+										"concept": "e609e8e7-12e0-45d0-a92b-ed044de21a3d",
+										"label": "Transferred"
+									},
+									{
+										"concept": "72443cac-4822-4dce-8460-794af7af8167",
+										"label": "Still in care at facility"
+									},
+									{
+										"concept": "a89e3bf2-1350-11df-a1f1-0026b9348838",
+										"label": "Defaulted"
+									},
+									{
+										"concept": "a89ec3f6-1350-11df-a1f1-0026b9348838",
+										"label": "Stopped treatment"
+									},
+									{
+										"concept": "294bd3ef-b355-4758-a533-47d79a9eaa90",
+										"label": "Partner picked drugs for me"
+									},
+									{
+										"concept": "a8af50f4-1350-11df-a1f1-0026b9348838",
+										"label": "Discontinued"
+									},
+									{
+										"concept": "a8af5018-1350-11df-a1f1-0026b9348838",
+										"label": "Continued"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								],
+								"rendering": "radio"
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "finalOutcome !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "PrEP status/plan:",
+							"id": "prepStatus",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "e5a6d2fe-4b71-41cd-835b-53190353efe7",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "a89b7908-1350-11df-a1f1-0026b9348838",
+										"label": "Continue"
+									},
+									{
+										"concept": "a8af50f4-1350-11df-a1f1-0026b9348838",
+										"label": "Discontinue"
+									},
+									{
+										"concept": "5520f234-258e-49f0-97ab-701b98fab608",
+										"label": "Transfer out"
+									}
+								]
+							}
+						},
+						{
+							"label": "If discontinued, reasons:",
+							"id": "discontinuedReasons",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "a89e3f94-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a89ace7c-1350-11df-a1f1-0026b9348838",
+										"label": "HIV test is positive"
+									},
+									{
+										"concept": "d9a3eac7-7f3f-4a00-b7ed-76400bae1cdb",
+										"label": "Low risk of HIV"
+									},
+									{
+										"concept": "a89eb8c0-1350-11df-a1f1-0026b9348838",
+										"label": "PrEP drugs side effects"
+									},
+									{
+										"concept": "a89ce50e-1350-11df-a1f1-0026b9348838",
+										"label": "Not adherent to PrEP"
+									},
+									{
+										"concept": "243dbae3-326e-4919-9b0d-22a1567e477f",
+										"label": "Viral suppression of HIV positive partner"
+									},
+									{
+										"concept": "0d57a3e4-5f9b-4a0f-9784-4970d7eeb57d",
+										"label": "Too many HIV tests"
+									},
+									{
+										"concept": "a8a08ff6-1350-11df-a1f1-0026b9348838",
+										"label": "Partner refusal"
+									},
+									{
+										"concept": "a54ea51a-08be-4d89-a7eb-d0b235764a1e",
+										"label": "Partner violence"
+									},
+									{
+										"concept": "a89e39f4-1350-11df-a1f1-0026b9348838",
+										"label": "Died"
+									},
+									{
+										"concept": "5520f234-258e-49f0-97ab-701b98fab608",
+										"label": "Transfer out"
+									},
+									{
+										"concept": "a89cefd6-1350-11df-a1f1-0026b9348838",
+										"label": "Missed drug pick up"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "any other reason"
+									}
+								],
+								"rendering": "checkbox"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && prepStatus === 'a8af50f4-1350-11df-a1f1-0026b9348838'",
+									"message": "Patient's PrEP status marked as discontinued, Please indicate reason for discontinuation."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "prepStatus !== 'a8af50f4-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Other reason to discontinue, specify:",
+							"type": "obs",
+							"id": "OtherDiscontReasonSpecify",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+								"answers": []
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(discontinuedReasons) || arrayContains(['a89cefd6-1350-11df-a1f1-0026b9348838','5520f234-258e-49f0-97ab-701b98fab608','a89e39f4-1350-11df-a1f1-0026b9348838','a54ea51a-08be-4d89-a7eb-d0b235764a1e','a54ea51a-08be-4d89-a7eb-d0b235764a1e','0d57a3e4-5f9b-4a0f-9784-4970d7eeb57d','243dbae3-326e-4919-9b0d-22a1567e477f','a89ce50e-1350-11df-a1f1-0026b9348838','a89eb8c0-1350-11df-a1f1-0026b9348838','d9a3eac7-7f3f-4a00-b7ed-76400bae1cdb','a89ace7c-1350-11df-a1f1-0026b9348838'],discontinuedReasons)"
+							}
+						},
+						{
+							"label": "Assessment notes:",
+							"type": "obs",
+							"required": "true",
+							"id": "assNote",
+							"questionOptions": {
+								"concept": "5e4dc798-2cce-4a1a-97e9-bcf22d64b07c",
+								"rendering": "textarea",
+								"rows": "5"
+							}
+						}
+					]
+				},
+				{
+					"label": "Next Promised Appointment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Promised to return clinic date:",
+							"type": "obs",
+							"id": "rtc",
+							"questionOptions": {
+								"concept": "a8a666ba-1350-11df-a1f1-0026b9348838",
+								"rendering": "date",
+								"weeksList": [
+									2,
+									4,
+									6,
+									8,
+									12,
+									16,
+									24,
+									36
+								]
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+									"message": "Return to clinic date should be greater than encounter date."
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

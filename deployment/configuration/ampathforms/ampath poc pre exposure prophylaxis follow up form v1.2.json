@@ -395,7 +395,7 @@
 							"id": "signsSTI"
 						},
 						{
-							"label": "Signs/sympotoms of acute HIV:",
+							"label": "Signs/symptoms of acute HIV:",
 							"type": "obs",
 							"questionOptions": {
 								"rendering": "select",
@@ -813,7 +813,10 @@
 								],
 								"rendering": "select"
 							},
-							"validators": []
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "sex !== 'F'"
+							}
 						},
 						{
 							"label": "LMP:",
@@ -883,7 +886,10 @@
 								"rendering": "select"
 							},
 							"type": "obs",
-							"validators": []
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "sex !== 'F'"
+							}
 						},
 						{
 							"label": "Family planning method:",
@@ -976,7 +982,10 @@
 								]
 							},
 							"id": "pregnancyOutcome",
-							"validators": []
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "sex !== 'F'"
+							}
 						},
 						{
 							"label": "Outcome date:",
@@ -1109,13 +1118,19 @@
 						{
 							"label": "GBV/IPV assessment notes:",
 							"type": "obs",
-							"required": "true",
 							"id": "gbvText",
 							"questionOptions": {
 								"concept": "5e4dc798-2cce-4a1a-97e9-bcf22d64b07c",
 								"rendering": "textarea",
 								"rows": 7
-							}
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && (physical === 'a899b35c-1350-11df-a1f1-0026b9348838' || emmotional === 'a899b35c-1350-11df-a1f1-0026b9348838' || sexual === 'a899b35c-1350-11df-a1f1-0026b9348838' || financial === 'a899b35c-1350-11df-a1f1-0026b9348838')",
+									"message": "Patient screened positive for GBV/IPV. Please provide notes."
+								}
+							]
 						}
 					]
 				}
@@ -1130,6 +1145,7 @@
 					"questions": [
 						{
 							"label": "Mark all that apply:",
+							"required": "true",
 							"id": "baselineAss",
 							"questionOptions": {
 								"rendering": "multiCheckbox",
@@ -1216,7 +1232,7 @@
 							"type": "obs",
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "isEmpty(baselineAss) || arrayContains(['f725d92e-575e-435e-ba8c-befe95fbd662', 'c245b312-3527-4bcb-84ec-5a04dc7c3563', 'a54ea51a-08be-4d89-a7eb-d0b235764a1e', '7ff5752c-4ccb-45bb-a001-c194316ba35b', 'a8934292-1350-11df-a1f1-0026b9348838', '492d008e-de2e-4efc-ace6-04bbd31bee05', '9506b97f-c8bc-48a8-a439-72bb65276785', 'c07a5032-a218-4ae8-bcb4-4788b753262e', 'a890d57a-1350-11df-a1f1-0026b9348838'],baselineAss)"
+								"hideWhenExpression": "isEmpty(baselineAss) || arrayContains(['f725d92e-575e-435e-ba8c-befe95fbd662', 'c245b312-3527-4bcb-84ec-5a04dc7c3563', 'a54ea51a-08be-4d89-a7eb-d0b235764a1e', '7ff5752c-4ccb-45bb-a001-c194316ba35b', 'a8934292-1350-11df-a1f1-0026b9348838', '492d008e-de2e-4efc-ace6-04bbd31bee05', '9506b97f-c8bc-48a8-a439-72bb65276785', 'c07a5032-a218-4ae8-bcb4-4788b753262e', 'a890d57a-1350-11df-a1f1-0026b9348838','20e383a3-7eee-4bc1-b6dc-d536676c4fae'],baselineAss)"
 							}
 						}
 					]
@@ -1344,6 +1360,10 @@
 							"validators": [],
 							"hide": {
 								"hideWhenExpression": "creatinineDone !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							},
+							"alert": {
+								"alertWhenExpression": "!isEmpty(myValue) && creatinineTest <50",
+								"message": "Creatinine is out of range, refer for assessment"
 							}
 						},
 						{
@@ -1385,6 +1405,7 @@
 			"sections": [
 				{
 					"label": "PrEP",
+					"isExpanded": "true",
 					"questions": [
 						{
 							"type": "obsGroup",
@@ -1575,6 +1596,29 @@
 							}
 						},
 						{
+							"label": "Is the client continuing with the initial regimen prescribed?",
+							"type": "obs",
+							"id": "initialRegPres",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "7b6a9ea0-0193-4036-a56b-63295241f086",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "prepStatus !== 'a89b7908-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
 							"label": "PrEP regimen plan:",
 							"id": "PrepDrugsPlan",
 							"type": "obs",
@@ -1598,7 +1642,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "isEmpty(prepPrescribed) || prepPrescribed === 'a899b42e-1350-11df-a1f1-0026b9348838'"
+								"hideWhenExpression": "prepPrescribed !== 'a899b35c-1350-11df-a1f1-0026b9348838' && initialRegPres !== 'a899b42e-1350-11df-a1f1-0026b9348838'"
 							}
 						},
 						{
@@ -1613,7 +1657,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "isEmpty(prepPrescribed) || prepPrescribed === 'a899b42e-1350-11df-a1f1-0026b9348838'"
+								"hideWhenExpression": "prepPrescribed !== 'a899b35c-1350-11df-a1f1-0026b9348838' && initialRegPres !== 'a899b42e-1350-11df-a1f1-0026b9348838'"
 							}
 						},
 						{
@@ -1625,19 +1669,15 @@
 								"answers": [
 									{
 										"concept": "a89ace7c-1350-11df-a1f1-0026b9348838",
-										"label": "HIV test positive"
+										"label": "HIV test is positive"
 									},
 									{
 										"concept": "d9a3eac7-7f3f-4a00-b7ed-76400bae1cdb",
 										"label": "Low risk of HIV"
 									},
 									{
-										"concept": "a8a058ce-1350-11df-a1f1-0026b9348838",
-										"label": "Renal dysfunction"
-									},
-									{
-										"concept": "5be50fc2-9e50-4d64-8a0c-f08ed7a34bb9",
-										"label": "Client request"
+										"concept": "a89eb8c0-1350-11df-a1f1-0026b9348838",
+										"label": "PrEP drugs side effects"
 									},
 									{
 										"concept": "a89ce50e-1350-11df-a1f1-0026b9348838",
@@ -1652,13 +1692,39 @@
 										"label": "Too many HIV tests"
 									},
 									{
+										"concept": "a8a08ff6-1350-11df-a1f1-0026b9348838",
+										"label": "Partner refusal"
+									},
+									{
+										"concept": "a54ea51a-08be-4d89-a7eb-d0b235764a1e",
+										"label": "Partner violence"
+									},
+									{
+										"concept": "a89e39f4-1350-11df-a1f1-0026b9348838",
+										"label": "Died"
+									},
+									{
+										"concept": "5520f234-258e-49f0-97ab-701b98fab608",
+										"label": "Transfer out"
+									},
+									{
+										"concept": "a89cefd6-1350-11df-a1f1-0026b9348838",
+										"label": "Missed drug pick up"
+									},
+									{
 										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
-										"label": "Other"
+										"label": "any other reason"
 									}
 								],
 								"rendering": "multiCheckbox"
 							},
-							"validators": [],
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && prepStatus === 'a8af50f4-1350-11df-a1f1-0026b9348838'",
+									"message": "Patient's PrEP status marked as discontinued, Please indicate reason for discontinuation."
+								}
+							],
 							"hide": {
 								"hideWhenExpression": "prepStatus !== 'a8af50f4-1350-11df-a1f1-0026b9348838'"
 							}
@@ -1673,7 +1739,7 @@
 								"answers": []
 							},
 							"hide": {
-								"hideWhenExpression": "discontinuedReasons !== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+								"hideWhenExpression": "isEmpty(discontinuedReasons) || arrayContains(['a89cefd6-1350-11df-a1f1-0026b9348838','5520f234-258e-49f0-97ab-701b98fab608','a89e39f4-1350-11df-a1f1-0026b9348838','a54ea51a-08be-4d89-a7eb-d0b235764a1e','a54ea51a-08be-4d89-a7eb-d0b235764a1e','0d57a3e4-5f9b-4a0f-9784-4970d7eeb57d','243dbae3-326e-4919-9b0d-22a1567e477f','a89ce50e-1350-11df-a1f1-0026b9348838','a89eb8c0-1350-11df-a1f1-0026b9348838','d9a3eac7-7f3f-4a00-b7ed-76400bae1cdb','a89ace7c-1350-11df-a1f1-0026b9348838'],discontinuedReasons)"
 							}
 						}
 					]
@@ -1681,39 +1747,7 @@
 			]
 		},
 		{
-			"label": "Family Planning Plan",
-			"sections": [
-				{
-					"label": "Family Planning Plan",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "Dispense condom today?",
-							"id": "condomDispensed",
-							"required": "true",
-							"questionOptions": {
-								"concept": "a8b034d8-1350-11df-a1f1-0026b9348838",
-								"answers": [
-									{
-										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
-										"label": "Yes"
-									},
-									{
-										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
-										"label": "No"
-									}
-								],
-								"rendering": "select"
-							},
-							"type": "obs",
-							"validators": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"label": "GBV Services",
+			"label": "GBV Services And Referrals",
 			"sections": [
 				{
 					"label": "GBV Services",
@@ -1758,14 +1792,9 @@
 							"id": "gbvServices"
 						}
 					]
-				}
-			]
-		},
-		{
-			"label": "Assessment",
-			"sections": [
+				},
 				{
-					"label": "Referrals/Diagnosis",
+					"label": "Referrals",
 					"questions": [
 						{
 							"type": "obsGroup",
@@ -1781,14 +1810,6 @@
 									"questionOptions": {
 										"concept": "a89c2344-1350-11df-a1f1-0026b9348838",
 										"answers": [
-											{
-												"concept": "a899e0ac-1350-11df-a1f1-0026b9348838",
-												"label": "None"
-											},
-											{
-												"concept": "a8a8b26c-1350-11df-a1f1-0026b9348838",
-												"label": "TB/DOT program"
-											},
 											{
 												"concept": "355b199f-c9c7-4e91-831f-2be17d2c67bd",
 												"label": "Legal counsel"
@@ -1832,10 +1853,10 @@
 									"hide": {
 										"hideWhenExpression": "patientReferrals!== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
 									},
-									"id": "__wooqDqMuD"
+									"id": "referOther"
 								}
 							],
-							"id": "__Mt05EztFr"
+							"id": "referDetailed"
 						}
 					]
 				},
@@ -1875,11 +1896,13 @@
 								"concept": "a8a666ba-1350-11df-a1f1-0026b9348838",
 								"rendering": "date",
 								"weeksList": [
-									2,
-									4,
-									8,
-									12,
-									16
+									15,
+									30,
+									45,
+									60,
+									90,
+									120,
+									180
 								]
 							},
 							"validators": [
@@ -1896,7 +1919,7 @@
 							"hide": {
 								"hideWhenExpression": "prepStatus === 'a8af50f4-1350-11df-a1f1-0026b9348838'"
 							},
-							"id": "__G1FHHItr5"
+							"id": "tca"
 						}
 					]
 				}
