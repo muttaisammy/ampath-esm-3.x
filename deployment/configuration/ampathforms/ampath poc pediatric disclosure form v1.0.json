@@ -1,0 +1,658 @@
+{
+    "name": "ampath poc pediatric disclosure form v1.0",
+    "processor": "EncounterFormProcessor",
+    "uuid": "xxxx",
+    "referencedForms": [],
+    "pages": [
+        {
+            "label": "Disclosure Form",
+            "sections": [
+                {
+                    "label": "Encounter Details",
+                    "isExpanded": "true",
+                    "questions": [
+                        {
+                            "type": "encounterProvider",
+                            "label": "Provider",
+                            "id": "provider",
+                            "required": "true",
+                            "default": "",
+                            "questionOptions": {
+                                "rendering": "ui-select-extended"
+                            }
+                        },
+                        {
+                            "label": "Visit date",
+                            "type": "encounterDatetime",
+                            "required": "true",
+                            "default": "",
+                            "id": "encDate",
+                            "questionOptions": {
+                                "rendering": "date"
+                            },
+                            "validators": [
+                                {
+                                    "type": "date"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "encounterLocation",
+                            "label": "Facility name (site/satellite clinic required):",
+                            "id": "location",
+                            "required": "true",
+                            "questionOptions": {
+                                "rendering": "ui-select-extended"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label": "Eligibility",
+                    "isExpanded": "true",
+                    "questions": [
+                        {
+                            "label": "Child has met the age criteria (between 6 and 10 years):",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('5776b755-c70d-46d4-ab64-7e39f99ba0c5')) ? undefined : HD.getObject('prevEnc').getValue('5776b755-c70d-46d4-ab64-7e39f99ba0c5')",
+                            "id": "ageCrit",
+                            "questionOptions": {
+                                "concept": "5776b755-c70d-46d4-ab64-7e39f99ba0c5",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Child and caregiver knowledgeable on the benefits of disclosure:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('a0aecb37-b5c7-4990-a52d-e3cbe0d9375f')) ? undefined : HD.getObject('prevEnc').getValue('a0aecb37-b5c7-4990-a52d-e3cbe0d9375f')",
+                            "id": "discBenefits",
+                            "questionOptions": {
+                                "concept": "a0aecb37-b5c7-4990-a52d-e3cbe0d9375f",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Caregiver willing to disclose to the child:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('7c50b7d9-7062-49c9-9634-f8a51145abb8')) ? undefined : HD.getObject('prevEnc').getValue('7c50b7d9-7062-49c9-9634-f8a51145abb8')",
+                            "id": "disclWilling",
+                            "questionOptions": {
+                                "concept": "7c50b7d9-7062-49c9-9634-f8a51145abb8",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label":"Child And Caregiver Readiness",
+                    "isExpanded":"true",
+                    "questions":[
+                        {
+                            "label": "Child or caregiver free from severe physical illness, trauma, psychological illness or psychiatric illness?",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('f7dfdac3-65ee-487a-98f3-9f62693272a9')) ? undefined : HD.getObject('prevEnc').getValue('f7dfdac3-65ee-487a-98f3-9f62693272a9')",
+                            "id": "illness",
+                            "questionOptions": {
+                                "concept": "f7dfdac3-65ee-487a-98f3-9f62693272a9",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Child have consistent family, peer support or social support:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('a89fd3cc-1350-11df-a1f1-0026b9348838')) ? undefined : HD.getObject('prevEnc').getValue('a89fd3cc-1350-11df-a1f1-0026b9348838')",
+                            "id": "consSupport",
+                            "questionOptions": {
+                                "concept": "a89fd3cc-1350-11df-a1f1-0026b9348838",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Child demonstrates interest in the environment and playing activities:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('1ab756be-1c3f-40ac-9e5c-0514397d2022')) ? undefined : HD.getObject('prevEnc').getValue('1ab756be-1c3f-40ac-9e5c-0514397d2022')",
+                            "id": "demoInterest",
+                            "questionOptions": {
+                                "concept": "1ab756be-1c3f-40ac-9e5c-0514397d2022",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed what the child already knows about the medicines and illness and addressed needs and concerns:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('4c9137be-44f8-40f2-a7f5-ec25b58970e4')) ? undefined : HD.getObject('prevEnc').getValue('4c9137be-44f8-40f2-a7f5-ec25b58970e4')",
+                            "id": "addNeed",
+                            "questionOptions": {
+                                "concept": "4c9137be-44f8-40f2-a7f5-ec25b58970e4",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed functional school engagement by the child (consistent attendance, interacts well with the school community, able to freely discuss school activities:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('dafcf20b-32a2-4d15-a8ad-080356d57f39')) ? undefined : HD.getObject('prevEnc').getValue('dafcf20b-32a2-4d15-a8ad-080356d57f39')",
+                            "id": "schEnga",
+                            "questionOptions": {
+                                "concept": "dafcf20b-32a2-4d15-a8ad-080356d57f39",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed caregiver readiness for disclosure to the child:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('3f9bce98-37bf-40ce-b00c-b6be6706665f')) ? undefined : HD.getObject('prevEnc').getValue('3f9bce98-37bf-40ce-b00c-b6be6706665f')",
+                            "id": "readiness",
+                            "questionOptions": {
+                                "concept": "3f9bce98-37bf-40ce-b00c-b6be6706665f",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed what the caregiver has communicated to the child:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('291713cb-d834-4be3-ae95-73e1f91858b9')) ? undefined : HD.getObject('prevEnc').getValue('291713cb-d834-4be3-ae95-73e1f91858b9')",
+                            "id": "communicate",
+                            "questionOptions": {
+                                "concept": "291713cb-d834-4be3-ae95-73e1f91858b9",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Discussed management of confidentiality of information regarding one’s health with the child and caregiver:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('efb95713-3043-4ea6-806e-4abbfe95fc94')) ? undefined : HD.getObject('prevEnc').getValue('efb95713-3043-4ea6-806e-4abbfe95fc94')",
+                            "id": "confiManage",
+                            "questionOptions": {
+                                "concept": "efb95713-3043-4ea6-806e-4abbfe95fc94",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label":"Disclosure Process",
+                    "isExpanded":"true",
+                    "questions":[
+                        {
+                            "label": "Reassured the caregiver and the child:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('c7d1c50c-4eee-439b-b803-afaf7dc5f7d2')) ? undefined : HD.getObject('prevEnc').getValue('c7d1c50c-4eee-439b-b803-afaf7dc5f7d2')",
+                            "id": "assure",
+                            "questionOptions": {
+                                "concept": "c7d1c50c-4eee-439b-b803-afaf7dc5f7d2",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed child and caregiver comfort:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('16fbf8a2-19f8-4b97-8410-9794213b4e74')) ? undefined : HD.getObject('prevEnc').getValue('16fbf8a2-19f8-4b97-8410-9794213b4e74')",
+                            "id": "comfort",
+                            "questionOptions": {
+                                "concept": "16fbf8a2-19f8-4b97-8410-9794213b4e74",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed safety (environment and timing):",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('9d4ef07d-2872-4898-b38e-37a6f89158dd')) ? undefined : HD.getObject('prevEnc').getValue('9d4ef07d-2872-4898-b38e-37a6f89158dd')",
+                            "id": "assSafety",
+                            "questionOptions": {
+                                "concept": "9d4ef07d-2872-4898-b38e-37a6f89158dd",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed the depth of  child’s knowledge:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('efbee4fa-1dac-40c2-808e-75ab41960f85')) ? undefined : HD.getObject('prevEnc').getValue('efbee4fa-1dac-40c2-808e-75ab41960f85')",
+                            "id": "knowDepth",
+                            "questionOptions": {
+                                "concept": "efbee4fa-1dac-40c2-808e-75ab41960f85",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Supported caregiver to disclose using the simplest language the child can understand:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('8515a42d-fc12-4df6-a467-ed53fb14dc5c')) ? undefined : HD.getObject('prevEnc').getValue('8515a42d-fc12-4df6-a467-ed53fb14dc5c')",
+                            "id": "simpleLanguage",
+                            "questionOptions": {
+                                "concept": "8515a42d-fc12-4df6-a467-ed53fb14dc5c",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Observed the immediate reactions of both the child and caregivers and addressed concerns or negative reactions:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('f6e36917-14cf-494d-84e4-a937c808aed3')) ? undefined : HD.getObject('prevEnc').getValue('f6e36917-14cf-494d-84e4-a937c808aed3')",
+                            "id": "reactions",
+                            "questionOptions": {
+                                "concept": "f6e36917-14cf-494d-84e4-a937c808aed3",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Invited questions from the child:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('704408e1-302b-455c-812e-2f85eff69fd5')) ? undefined : HD.getObject('prevEnc').getValue('704408e1-302b-455c-812e-2f85eff69fd5')",
+                            "id": "childQuestion",
+                            "questionOptions": {
+                                "concept": "704408e1-302b-455c-812e-2f85eff69fd5",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Revisited/reviewed the benefits of disclosure with the child and caregiver:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('ecb065ba-d0b7-4850-b35e-33a95daea397')) ? undefined : HD.getObject('prevEnc').getValue('ecb065ba-d0b7-4850-b35e-33a95daea397')",
+                            "id": "disclosureBenefits",
+                            "questionOptions": {
+                                "concept": "ecb065ba-d0b7-4850-b35e-33a95daea397",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Explained care options available to the child and caregiver:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('313962e0-882a-4c70-bb5c-f285946b9f13')) ? undefined : HD.getObject('prevEnc').getValue('313962e0-882a-4c70-bb5c-f285946b9f13')",
+                            "id": "options",
+                            "questionOptions": {
+                                "concept": "313962e0-882a-4c70-bb5c-f285946b9f13",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Concluded the session with reassurance to both child and caregiver? Reiterating importance of confidentiality of information of one’s health with the child and the caregiver:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('f557554d-cab3-4e9d-8c83-d59761e8d6da')) ? undefined : HD.getObject('prevEnc').getValue('f557554d-cab3-4e9d-8c83-d59761e8d6da')",
+                            "id": "options",
+                            "questionOptions": {
+                                "concept": "f557554d-cab3-4e9d-8c83-d59761e8d6da",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "label":"Post Disclosure Assessment",
+                    "isExpanded":"true",
+                    "questions":[
+                        {
+                            "label": "Assessed functional school engagement:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('6b8c899c-52d2-4d2e-b51c-72f890160522')) ? undefined : HD.getObject('prevEnc').getValue('6b8c899c-52d2-4d2e-b51c-72f890160522')",
+                            "id": "schoolEnga",
+                            "questionOptions": {
+                                "concept": "6b8c899c-52d2-4d2e-b51c-72f890160522",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed family, social  and  peer relationship and support after disclosure:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('6167250e-a81d-4195-96ea-4d17c3738a3f')) ? undefined : HD.getObject('prevEnc').getValue('6167250e-a81d-4195-96ea-4d17c3738a3f')",
+                            "id": "peerRela",
+                            "questionOptions": {
+                                "concept": "6167250e-a81d-4195-96ea-4d17c3738a3f",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed the child’s interest and engagement in children’s activities like playing:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('20bad00a-6431-43e5-bd7f-f86f339ea439')) ? undefined : HD.getObject('prevEnc').getValue('20bad00a-6431-43e5-bd7f-f86f339ea439')",
+                            "id": "actInterest",
+                            "questionOptions": {
+                                "concept": "20bad00a-6431-43e5-bd7f-f86f339ea439",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Allowed questions from the child and assessed self-perception and outlook:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('0d992c57-f7f1-4d72-b14e-fca9cd4d9179')) ? undefined : HD.getObject('prevEnc').getValue('0d992c57-f7f1-4d72-b14e-fca9cd4d9179')",
+                            "id": "allowQuestions",
+                            "questionOptions": {
+                                "concept": "0d992c57-f7f1-4d72-b14e-fca9cd4d9179",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+
+                        {
+                            "label": "Addressed negative body or self-image issues:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('cd45347d-eaf2-4b57-af8e-8ce1c466e987')) ? undefined : HD.getObject('prevEnc').getValue('cd45347d-eaf2-4b57-af8e-8ce1c466e987')",
+                            "id": "addressImage",
+                            "questionOptions": {
+                                "concept": "cd45347d-eaf2-4b57-af8e-8ce1c466e987",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Assessed the child for moodiness and negative behaviors:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('aab7ed0b-dfcd-49d0-8e34-84fac75032f2')) ? undefined : HD.getObject('prevEnc').getValue('aab7ed0b-dfcd-49d0-8e34-84fac75032f2')",
+                            "id": "addressMood",
+                            "questionOptions": {
+                                "concept": "aab7ed0b-dfcd-49d0-8e34-84fac75032f2",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Referred appropriately  for psychiatric and other complications developed post disclosure if indicated:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('5a96fc07-cf1b-4704-8174-23380b104b0e')) ? undefined : HD.getObject('prevEnc').getValue('5a96fc07-cf1b-4704-8174-23380b104b0e')",
+                            "id": "complcDev",
+                            "questionOptions": {
+                                "concept": "5a96fc07-cf1b-4704-8174-23380b104b0e",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Given age appropriate adherence information:",
+                            "type": "obs",
+                            "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('1b8e5564-d594-4956-8ffb-e5122163ffdf')) ? undefined : HD.getObject('prevEnc').getValue('1b8e5564-d594-4956-8ffb-e5122163ffdf')",
+                            "id": "adhereInfo",
+                            "questionOptions": {
+                                "concept": "1b8e5564-d594-4956-8ffb-e5122163ffdf",
+                                "rendering": "select",
+                                "answers": [
+                                    {
+                                        "concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+                                        "label": "No"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

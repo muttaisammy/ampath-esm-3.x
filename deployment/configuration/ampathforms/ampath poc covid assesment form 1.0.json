@@ -1,0 +1,884 @@
+{
+	"name": "ampath_poc_covid-19_assessment_form_v1.0",
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"referencedForms": [],
+	"pages": [
+		{
+			"label": "Covid Assessment",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "encounterProvider",
+							"label": "Provider:",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"label": "Visit date:",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				},
+				{
+					"label": "Patient Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Registered with NHIF:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "59ce0113-7d64-408f-a62e-fea7f88691ae",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"id": "registerNhif"
+						},
+						{
+							"label": "If yes, NHIF number:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "73afb9b4-8b70-4d34-a60b-5c63e1f889c5"
+							},
+							"id": "nhifNumber",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "registerNhif!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If yes, is NHIF currently active:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "548e6743-67c0-4a6b-bb07-b5f799f63bc1",
+								"answers": [
+									{
+										"concept": "b058a9ad-a0e4-4b37-9214-75b8aed1eaa4",
+										"label": "Yes"
+									},
+									{
+										"concept": "dd373348-1a7f-4625-9e69-9904fa1cc9c7",
+										"label": "No"
+									}
+								]
+							},
+							"id": "nhifActive",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "registerNhif!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "NHIF text confirmation:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "f998b2df-3f38-487e-8753-504228e20096",
+								"answers": [
+									{
+										"concept": "b058a9ad-a0e4-4b37-9214-75b8aed1eaa4",
+										"label": "Active"
+									},
+									{
+										"concept": "dd373348-1a7f-4625-9e69-9904fa1cc9c7",
+										"label": "Inactive"
+									}
+								]
+							},
+							"id": "nhifConfirm",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "nhifActive!== 'b058a9ad-a0e4-4b37-9214-75b8aed1eaa4'"
+							}
+						},
+						{
+							"label": "Fees owned:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "1962b35f-cb04-4e24-bcde-be91bd5d5930"
+							},
+							"id": "feesOwned",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "registerNhif!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Do you have a personal mobile number that is registered:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "2f2513de-8a29-4420-8a06-feb30356bf13",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "phoneRegistered"
+						},
+						{
+							"label": "If yes, indicate the number:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "ebfe2dae-e10e-4506-9745-fcb75bfbbe52"
+							},
+							"id": "phoneNumber",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(myValue).length > 10",
+									"message": "Phone number digits should not be more than 10"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "phoneRegistered!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Does your mobile number have an MPESA account registered to it:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "09aa68d3-c646-42db-a140-70b8d05b0d75",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "mpesaRegistered",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "phoneRegistered!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Can you currently receive money through MPESA at this number:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "87e28e36-9082-4746-922c-493fdf72d90d",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "mpesaNumber"
+						},
+						{
+							"type": "obsGroup",
+							"label": "Marital status, detailed",
+							"questionOptions": {
+								"concept": "5f3bace2-24d0-4975-af44-9b8e26a9802c",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Marital status:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a899a9f2-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"label": "Married (one spouse)",
+												"concept": "a8aa76b0-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Married (multiple spouses)",
+												"concept": "a8b03712-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Living with partner",
+												"concept": "a899af10-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Single",
+												"concept": "a899ac7c-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Separated",
+												"concept": "a899aba0-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Divorced",
+												"concept": "a899ad58-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Widowed",
+												"concept": "a899ae34-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "Other",
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838"
+											}
+										]
+									},
+									"id": "maritalStatus"
+								},
+								{
+									"label": "Other specify:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838"
+									},
+									"id": "otherMarital",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "maritalStatus!== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Household Information",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "What is your household size (total):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "0d22fc85-280e-4727-92f4-4a93efe36f80",
+								"max": "50",
+								"min": "0"
+							},
+							"id": "householdSize"
+						},
+						{
+							"label": "Number of dependents below 18:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "864ca510-9166-4621-9374-78f0ae53f637"
+							},
+							"id": "dependents18"
+						},
+						{
+							"label": "Number of adults:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "d5cf0438-ae1a-4e33-aefc-18edc3ad0327"
+							},
+							"id": "adult"
+						},
+						{
+							"label": "What was your major source of livelihood before the outbreak of covid 19:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "d3aad49e-57b7-4196-8390-e47b09373c9f",
+								"answers": [
+									{
+										"label": "Wages/casual labor",
+										"concept": "a8a09b90-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Personal business",
+										"concept": "a8e1712c-cfb1-47ae-8cfe-cc16aedb1d95"
+									},
+									{
+										"label": "Salaried",
+										"concept": "6011496b-26ed-4ffe-8ae3-717c17d195eb"
+									},
+									{
+										"label": "Farming ",
+										"concept": "20a1760e-a758-4a8a-b454-e751c1e45201"
+									},
+									{
+										"label": "Pension",
+										"concept": "3c0f78be-b66d-45a9-8889-117603b0ce5a"
+									},
+									{
+										"label": "Dependent on relatives/well wishers",
+										"concept": "e22f7f51-42cd-4314-bbec-4afb831893c6"
+									},
+									{
+										"label": "Others",
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "livelihood"
+						},
+						{
+							"label": "How has covid 19 pandemic affected you:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "37317b06-b6a9-4556-ab51-92a5cdc11b6d",
+								"answers": [
+									{
+										"label": "Lost job",
+										"concept": "1ec52fc2-baac-4c85-a0ed-cf613c21ce44"
+									},
+									{
+										"label": "Closed business",
+										"concept": "b715e49e-218c-4310-bc04-d62d64463d97"
+									},
+									{
+										"label": "Unable to pay rent",
+										"concept": "771620b7-8f1f-44ac-ab77-d0291aae61d3"
+									},
+									{
+										"label": "Missed clinic follow up",
+										"concept": "a525fddc-4751-4805-84df-6d82c8735a48"
+									},
+									{
+										"label": "Missed medication",
+										"concept": "64433aeb-81fb-43a5-be42-3efce1692063"
+									},
+									{
+										"label": "Missed food",
+										"concept": "efcda05b-fe75-40a4-81d6-c392331b7985"
+									},
+									{
+										"label": "Restricted movement",
+										"concept": "638670c7-ef9a-4476-92ae-ce26318fa806"
+									},
+									{
+										"label": "Increased cost of transport",
+										"concept": "a89e2b30-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No effect",
+										"concept": "a899e0ac-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "covidEffect"
+						},
+						{
+							"label": "How are you currently providing essential basic needs to your family:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "22d3e07e-2f7e-4754-bf2e-64a93f8de9c3",
+								"answers": [
+									{
+										"label": "Support from family/friends/well wishers",
+										"concept": "e22f7f51-42cd-4314-bbec-4afb831893c6"
+									},
+									{
+										"label": "Support from government ",
+										"concept": "9bd2afc6-af50-4105-be89-9de01a50675f"
+									},
+									{
+										"label": "Support from charitable organizations/church",
+										"concept": "842846c9-1cdf-447c-be32-0feb5dc69356"
+									},
+									{
+										"label": "Personal income from work /savings",
+										"concept": "6011496b-26ed-4ffe-8ae3-717c17d195eb"
+									},
+									{
+										"label": "Food from personal farm/animals",
+										"concept": "20a1760e-a758-4a8a-b454-e751c1e45201"
+									},
+									{
+										"label": "None",
+										"concept": "a899e0ac-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "basicNeeds"
+						}
+					]
+				},
+				{
+					"label": "Poverty Probability Index (PPE)",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "What is the highest education level that you or your spouse or head of household reached?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89e48ae-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"label": "None",
+										"concept": "a899e0ac-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Pre primary",
+										"concept": "a2caaf9c-2224-42a4-80b1-1482bc159680"
+									},
+									{
+										"label": "Primary",
+										"concept": "a8afe910-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Secondary or post primary, vocational",
+										"concept": "a8afe9d8-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "College level or higher",
+										"concept": "a8afea96-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Other",
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "educationHead"
+						},
+						{
+							"label": "What is the highest education level that any member of the household reached?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "38bad151-f8db-4c43-83b6-f293de7be70d",
+								"answers": [
+									{
+										"label": "None",
+										"concept": "a899e0ac-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Pre primary",
+										"concept": "a2caaf9c-2224-42a4-80b1-1482bc159680"
+									},
+									{
+										"label": "Primary",
+										"concept": "a8afe910-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Secondary or post primary, vocational",
+										"concept": "a8afe9d8-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "College level or higher",
+										"concept": "a8afea96-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Other",
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "educationMember"
+						},
+						{
+							"label": "Over the past 7 days did the household either purchase, consume or acquire any bread?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "bedc203d-6080-4406-80c1-602dc3075477",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "bread"
+						},
+						{
+							"label": "Over the past 7 days did the household either purchase, consume or acquire any meat or fish?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "b1924b07-6636-4f7f-a9f7-6c298291f8f4",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "meat"
+						},
+						{
+							"label": "Over the past 7 days did the household either purchase, consume or acquire any ripe bananas?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "5ae53714-ee3c-4791-a783-60a5c5aa98a9",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "bananas"
+						},
+						{
+							"label": "Does your household own any towels?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "70aec8d1-0454-4f9a-81ab-f9500677a7f2",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "towel"
+						},
+						{
+							"label": "Does your household own any thermos flask?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "d60a3e1f-e570-44f6-90ce-ce0e265ad369",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "thermos"
+						},
+						{
+							"label": "What is the predominant wall  material of the main dwelling unit?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "1d992a3c-4e00-4400-ab88-7072e4a67c71",
+								"answers": [
+									{
+										"label": "Finished walls (cement/stones/wood planks)",
+										"concept": "fb9dc86b-1a34-4290-888d-e5e1008330d6"
+									},
+									{
+										"label": "Uncovered wall (plywood/cardboard/iron sheets)",
+										"concept": "c857e161-8331-40ae-becc-12b090de7261"
+									},
+									{
+										"label": "Natural walls (cane/palm/trunks, grass/reeds, or mud/cow dung), no walls , bamboo with mud, stone with mud, or other",
+										"concept": "31eb20e4-6c98-438e-b248-1ba3ce682e2b"
+									}
+								]
+							},
+							"id": "wallMaterial"
+						},
+						{
+							"label": "What is the predominant floor material of the main dwelling unit?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "608dfa16-5fbd-467f-9f63-562e4c1807e0",
+								"answers": [
+									{
+										"label": "Natural floor (earth/sand or dung) or palm/bamboo dwelling unit",
+										"concept": "31eb20e4-6c98-438e-b248-1ba3ce682e2b"
+									},
+									{
+										"label": "Other (including wood planks/shingles, parquest or polished wood, vinyl or asphalt strips, ceraic tiles, cement)",
+										"concept": "8ba5a5b7-891c-4955-bb0e-28683e1eae60"
+									}
+								]
+							},
+							"id": "floor"
+						},
+						{
+							"label": "Additional notes from provider on social assessment and patient needs:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "5e4dc798-2cce-4a1a-97e9-bcf22d64b07c"
+							},
+							"id": "socialNotes"
+						},
+						{
+							"label": "Overall patient vulnerability:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "771c58dc-9645-45de-b87c-601294a6321b",
+								"answers": [
+									{
+										"label": "High",
+										"concept": "4480348c-4ee9-4878-b6bb-987f42151af6"
+									},
+									{
+										"label": "Moderate",
+										"concept": "a89efdee-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Low",
+										"concept": "af3afb20-ab67-45e7-ad5e-74d6daa06e84"
+									}
+								]
+							},
+							"id": "vulnerability"
+						}
+					]
+				},
+				{
+					"label": "Cash Disbursement",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Patient selected to receive cash support:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "66623183-231d-4143-897a-e7d361535e1a",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "receiveCash"
+						},
+						{
+							"label": "Cash sent direct via MPESA:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "c3c42819-0107-47e5-bc81-019741f9291a",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "viaMpesa",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "receiveCash!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If yes, MPESA confirmation number:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "f10bac6e-51c2-460a-bee7-cd83f2884987"
+							},
+							"id": "mpesaConfirm",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "viaMpesa!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Amount sent (Ksh.):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "a8a19220-1350-11df-a1f1-0026b9348838"
+							},
+							"id": "amount",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "viaMpesa!== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If no, date cash was distributed in clinic:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "45cf75c5-6ece-4882-b24a-acc2c2bc6b5d"
+							},
+							"id": "castDist",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Date should be less than encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "viaMpesa!== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Cash amount(Ksh):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "d777a4eb-c24c-4bef-951c-575657b18f29"
+							},
+							"id": "cashAmount",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "viaMpesa!== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Given by:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "99c5b64c-d6b5-4df6-b7fc-fc58fa19bcfb"
+							},
+							"id": "givenBy",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "viaMpesa!== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Follow up (Call to patient one month after cash transfer given)",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "obsGroup",
+							"label": "Cash support, detailed",
+							"questionOptions": {
+								"concept": "414656bb-d818-4df4-8ed9-d6f1d0b2c967",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "How did you use the cash support provided by AMPATH:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "6f1f89c9-4802-4f65-959f-8e331cc99cfe",
+										"answers": [
+											{
+												"label": "To purchase food",
+												"concept": "e0271c03-13ba-4f7c-ab7e-a147144295fd"
+											},
+											{
+												"label": "To pay rent ",
+												"concept": "13c7dc82-d455-45d3-aedd-782477e0d85e"
+											},
+											{
+												"label": "For transportation",
+												"concept": "a8b02c9a-1350-11df-a1f1-0026b9348838"
+											},
+											{
+												"label": "To purchase medications",
+												"concept": "0a7338a4-d459-45aa-857b-a09635db25af"
+											},
+											{
+												"label": "To pay for medical investigations or healthcare other than medications",
+												"concept": "24f4fb10-53d5-468e-9a5b-763375da7a3d"
+											},
+											{
+												"label": "To pay school fees",
+												"concept": "bd2a8f69-2968-44d6-85aa-56a89372782b"
+											},
+											{
+												"label": "Other (free text)",
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838"
+											}
+										]
+									},
+									"id": "cashUse"
+								},
+								{
+									"label": "Other specify:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838"
+									},
+									"id": "othersupport",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "cashUse!== 'a8aaf3e2-1350-11df-a1f1-0026b9348838'"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

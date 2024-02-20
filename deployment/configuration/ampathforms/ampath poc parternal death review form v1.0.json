@@ -1,0 +1,1908 @@
+{
+	"name": "AMPATH POC Paternal Death Review Form v1.0",
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"referencedForms": [],
+	"pages": [
+		{
+			"label": "Encounter Details:",
+			"sections": [
+				{
+					"label": "Encounter Details:",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Encounter Date:",
+							"required": "true",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate"
+						},
+						{
+							"label": "Encounter Provider:",
+							"required": "true",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider"
+						},
+						{
+							"label": "Encounter Location:",
+							"required": "true",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLoc"
+						},
+						{
+							"label": "Date of notification:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "bb85532e-8f7e-476f-81d7-5580e0385852"
+							},
+							"id": "notificationDate",
+							"validators": [
+
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day') ",
+									"message": "Date should not be greater than the encounter date."
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Locality where death occured",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "County:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "9d20dbba-4947-412d-8b62-2bff766132d7",
+								"answers": [
+									{
+										"concept": "4532910a-b76b-4846-b905-006aee061bfb",
+										"label": "Uasin Gishu"
+									},
+									{
+										"concept": "27fb861a-8e25-4de9-bd49-48dc762d6cbf",
+										"label": "Trans Nzoia"
+									},
+									{
+										"concept": "160ced0e-3173-46c7-9300-515adeeaa77e",
+										"label": "Elgeyo Marakwet"
+									},
+									{
+										"concept": "a325268f-33f5-4a60-946d-ff4b69494b3f",
+										"label": "West Pokot"
+									},
+									{
+										"concept": "7d7a869c-979b-4105-983c-e6f610f4dc1e",
+										"label": "Bungoma"
+									},
+									{
+										"concept": "efde545c-aa53-49f7-9304-b7337e1b5c64",
+										"label": "Busia"
+									}
+								]
+							},
+							"id": "county",
+							"validators": []
+						},
+						{
+							"label": "Sub county:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "68844b19-5f8f-4a41-9796-64a5da4d6c00"
+							},
+							"id": "subCounty",
+							"validators": []
+						},
+						{
+							"label": "Place of death :",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8afd100-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a8afd042-1350-11df-a1f1-0026b9348838",
+										"label": "Facility"
+									},
+									{
+										"concept": "3d6d1ee8-ea5a-4b36-9a24-b05122a0e0c6",
+										"label": "Died before arrival to the facility "
+									}
+								]
+							},
+							"id": "deathLoc",
+							"validators": []
+						},
+						{
+							"label": "FacilitylLevel of care:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "6335d36f-0d9e-4936-a3ce-7181af1bcc50",
+								"answers": [
+									{
+										"concept": "f3537f40-193c-4091-b969-88597588b909",
+										"label": "2"
+									},
+									{
+										"concept": "a89c25d8-1350-11df-a1f1-0026b9348838",
+										"label": "3"
+									},
+									{
+										"concept": "35d25c3e-27e6-4fb2-b70d-fb9c69ce7cea",
+										"label": "4"
+									},
+									{
+										"concept": "8e458679-0337-4aa7-ad89-93f4506e7c4c",
+										"label": "5"
+									},
+									{
+										"concept": "0243bc07-5727-4ce3-b8fa-a1aaddf3f284",
+										"label": "6"
+									}
+								]
+							},
+							"id": "levelCare",
+							"validators": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Mother And Baby Details",
+			"sections": [
+				{
+					"label": "Details Of Deceased Baby",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date and time of death:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "a89df3d6-1350-11df-a1f1-0026b9348838"
+							},
+							"id": "deathDate",
+							"validators": [{
+								"type": "js_expression",
+								"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day') ",
+								"message": "Date should not be greater than the encounter date."
+							}]
+						},
+						{
+							"label": "Gestation at birth in weeks:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "0670d3d9-950c-4836-b147-0dc8e6b013aa"
+							},
+							"id": "gestationBirth",
+							"validators": []
+						},
+						{
+							"label": "Age(In days) at time of death:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "4020dc0f-8fb9-44d8-ac72-241d0c60a566"
+							},
+							"id": "ageDeath",
+							"validators": []
+						},
+						{
+							"label": "Birth weight (In grams):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "750f15ba-a202-4d7e-8da7-917bc4e24fce"
+							},
+							"id": "birthWeight",
+							"validators": []
+						},
+						{
+							"label": "Sex of baby:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8affd38-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a8affaea-1350-11df-a1f1-0026b9348838",
+										"label": "Male"
+									},
+									{
+										"concept": "a8affc16-1350-11df-a1f1-0026b9348838",
+										"label": "Female"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"id": "babySex",
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "Mother Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Mother's age (in years):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "a898d478-1350-11df-a1f1-0026b9348838"
+							},
+							"id": "motherAge",
+							"validators": []
+						},
+						{
+							"label": "Mother's outcome:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "47032e8f-6e2f-41d8-8afc-01cb87a9342a",
+								"answers": [
+									{
+										"concept": "5d38b72e-eee9-43ef-8256-483f8c5df4a6",
+										"label": "Alive"
+									},
+									{
+										"concept": "a89335d6-1350-11df-a1f1-0026b9348838",
+										"label": "Dead"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Not known"
+									}
+								]
+							},
+							"id": "motherOutcome",
+							"validators": []
+						},
+						{
+							"label": "Parity term:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "7a24a298-ba16-478a-a389-f1faf792e4fc"
+							},
+							"id": "parityTerm",
+							"validators": []
+						},
+						{
+							"label": "Parity abortion:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "cedb167d-34a4-4027-8a5c-b7fa9fe4190e"
+							},
+							"id": "parityAbortion",
+							"validators": []
+						},
+						{
+							"label": "Gravida:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "a8aaf59a-1350-11df-a1f1-0026b9348838",
+								"calculate": {
+									"calculateExpression": "(+parityTerm + +parityAbortion)+1"
+								}
+							},
+							"id": "gravida",
+							"validators": []
+						},
+						{
+							"label": "Weeks at delivery:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "a89c293e-1350-11df-a1f1-0026b9348838"
+							},
+							"id": "deliveryWeeks",
+							"validators": []
+						},
+						{
+							"label": "Days since delivery/Abortion :",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "1893ec38-1414-47c5-835e-4997069579c7"
+							},
+							"id": "deliveryDays",
+							"validators": []
+						},
+						{
+							"label": "Type of pregnancy:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "0c664d47-7797-4a0d-a3f9-6a1931019009",
+								"answers": [
+									{
+										"concept": "cb07a7b3-1808-4086-b7d7-d80734181c32",
+										"label": "Singleton"
+									},
+									{
+										"concept": "ce9595cc-8b1a-480b-8ffd-a885e41317e6",
+										"label": "Multiple"
+									}
+								]
+							},
+							"id": "pregType",
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "ANC Care",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Did she recieve antenatal care?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8a18140-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"id": "ancCare",
+							"validators": []
+						},
+						{
+							"label": "If yes, How many visits:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "02faca9b-50be-4f5e-b363-171a2d561abb"
+							},
+							"id": "ancVisits",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "ancCare !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Malaria prophylaxis (In malaria endemic areas):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8a49146-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a8a48fc0-1350-11df-a1f1-0026b9348838",
+										"label": "IPT 1"
+									},
+									{
+										"concept": "a8a49088-1350-11df-a1f1-0026b9348838",
+										"label": "IPT 2"
+									},
+									{
+										"concept": "4b02517b-9395-4bf8-b15a-639fa755fd9f",
+										"label": "IPT 3"
+									},
+									{
+										"concept": "adcb572a-b706-4f6b-807a-e7b891d4fbbb",
+										"label": "IPT 4"
+									},
+									{
+										"concept": "86af4eaf-97b3-421d-9806-430aaacb25a2",
+										"label": "IPT 5"
+									},
+									{
+										"concept": "0fd68439-b537-4a0c-9277-bce4f028c3ad",
+										"label": "IPT 6"
+									},
+									{
+										"concept": "108ed4f5-138f-4eaf-b2a1-7e23ab5f687c",
+										"label": "IPT 7"
+									}
+								]
+							},
+							"id": "malariaProph",
+							"validators": []
+						},
+						{
+							"label": "Was LLITN Issued:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8a4515e-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"id": "llitn",
+							"validators": []
+						},
+						{
+							"label": "Tetanus Toxoid:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "04d03815-2e4b-4e09-b409-acfb75b05716",
+								"answers": [
+									{
+										"concept": "31a579e7-daf6-4105-90b8-37bb070f918e",
+										"label": "TT1"
+									},
+									{
+										"concept": "889c02ed-f732-47ff-b211-2a4b10cb540b",
+										"label": "TT2"
+									},
+									{
+										"concept": "3c731705-e440-4042-8916-cca3e631bbe0",
+										"label": "TT3"
+									},
+									{
+										"concept": "a82b4877-cd15-40ba-af20-f93b5e3387ab",
+										"label": "TT4"
+									},
+									{
+										"concept": "26ed82f2-2cec-4b46-9042-c8fec354847f",
+										"label": "TT5"
+									}
+								]
+							},
+							"id": "tetanus",
+							"validators": []
+						},
+						{
+							"label": "Was IFAS given during pregnancy:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "94319ec4-33df-4d24-9d6b-58df4a50a9ea",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"id": "ifas",
+							"validators": []
+						},
+						{
+							"label": "Was blood pressure assesed and documented during ANC?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a6d4cd96-63e3-4e34-a779-71af05d764a0",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "ancBp",
+							"validators": []
+						},
+						{
+							"label": "If yes, results:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "1c7cf9dd-887a-4fe7-af37-7bdbab5814dc",
+								"answers": [
+									{
+										"concept": "a899e7b4-1350-11df-a1f1-0026b9348838",
+										"label": "Normal"
+									},
+									{
+										"concept": "a899e890-1350-11df-a1f1-0026b9348838",
+										"label": "Abnormal"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "bpResults",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "ancBp !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If abnormal, interventions:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "4edf346f-f661-4ac9-8465-9d7ad557db63",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "bpInterventions",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "bpResults !== 'a899e890-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Was HB level assesed and documented during ANC?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "385752df-4c69-4e81-a5b0-92b9cab59911",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "ancHb",
+							"validators": []
+						},
+						{
+							"label": "If yes, results:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "add01fa4-5810-4778-ba9d-8f1c527adf83",
+								"answers": [
+									{
+										"concept": "a899e7b4-1350-11df-a1f1-0026b9348838",
+										"label": "Normal"
+									},
+									{
+										"concept": "a899e890-1350-11df-a1f1-0026b9348838",
+										"label": "Abnormal"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "hbResults",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "ancHb !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If abnormal, interventions:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "21922cf5-7283-4cbf-96e8-c0f9274bf474",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "hbInterventions",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "hbResults !== 'a899e890-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Was urinalysis assesed and documented during ANC?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "7e760f32-6bee-4a61-a233-e813911f62e4",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "ancUrinalysis",
+							"validators": []
+						},
+						{
+							"label": "If yes, results:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "f893d15e-2f3c-4f1d-bdbc-fb08ab50537f",
+								"answers": [
+									{
+										"concept": "a899e7b4-1350-11df-a1f1-0026b9348838",
+										"label": "Normal"
+									},
+									{
+										"concept": "a899e890-1350-11df-a1f1-0026b9348838",
+										"label": "Abnormal"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "urinalysisResults",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "ancUrinalysis !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If abnormal, interventions:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "797ae867-dc98-422d-a07c-d705dcc9c8d2",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "urinalysisInterventions",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "urinalysisResults !== 'a899e890-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Was blood grouping assesed and documented during ANC?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "7eb68ee9-b7c4-4dcc-906e-954f4e44bb88",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "ancBloodgroup",
+							"validators": []
+						},
+						{
+							"label": "If yes, results:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8945754-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a896e8c0-1350-11df-a1f1-0026b9348838",
+										"label": "A positive"
+									},
+									{
+										"concept": "a896ea6e-1350-11df-a1f1-0026b9348838",
+										"label": "A negative"
+									},
+									{
+										"concept": "a896ec1c-1350-11df-a1f1-0026b9348838",
+										"label": "B positive"
+									},
+									{
+										"concept": "a896edca-1350-11df-a1f1-0026b9348838",
+										"label": "B negative"
+									},
+									{
+										"concept": "a896f04a-1350-11df-a1f1-0026b9348838",
+										"label": "O positive"
+									},
+									{
+										"concept": "a896f1f8-1350-11df-a1f1-0026b9348838",
+										"label": "O negative"
+									}
+								]
+							},
+							"id": "bloodgroupResults",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "ancBloodgroup !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If abnormal, interventions:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "10862670-0928-4b8f-a517-be38bd8ba646",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "bloodgroupInterventions",
+							"validators": []
+						},
+						{
+							"label": "Was HIV testing assesed and documented during ANC?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "71bb9660-cb25-48d0-ab90-2dc39df8e9ab",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "ancHiv",
+							"validators": []
+						},
+						{
+							"label": "If yes, results:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89c7042-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a896f3a6-1350-11df-a1f1-0026b9348838",
+										"label": "Positive"
+									},
+									{
+										"concept": "a896d2cc-1350-11df-a1f1-0026b9348838",
+										"label": "Negative"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "hivResults",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "ancHiv !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If negative, interventions:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "ef6773ce-5699-4a94-8295-000a4b1f3467",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "hivInterventions",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "hivResults !== 'a896d2cc-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Was Syphillis testing assesed and documented during ANC?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "fa2fd2b8-eeec-4951-88c5-609e556c1e5e",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "ancSyphilis",
+							"validators": []
+						},
+						{
+							"label": "If yes, results:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8945678-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a896f3a6-1350-11df-a1f1-0026b9348838",
+										"label": "Positive"
+									},
+									{
+										"concept": "a896d2cc-1350-11df-a1f1-0026b9348838",
+										"label": "Negative"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "syphilisResults",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "ancSyphilis !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If abnormal, interventions:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "f555d446-93e1-49ef-ba85-05962ee5ef48",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "syphilisInterventions",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "syphilisResults !== 'a896d2cc-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"type": "obsGroup",
+							"label": "Maternal/Obstetric conditions during pregnancy, labor and delivery",
+							"questionOptions": {
+								"concept": "4e01e748-f280-4e75-ba41-dfe7d4a71159",
+								"rendering": "repeating"
+							},
+							"questions": [
+								{
+									"label": "Maternal/Obstetric conditions during pregnancy, labor and delivery:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "a8b00562-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a8937762-1350-11df-a1f1-0026b9348838",
+												"label": "Antepartum Haemorrhage"
+											},
+											{
+												"concept": "a8b02222-1350-11df-a1f1-0026b9348838",
+												"label": "Pre Labour rupture of membranes"
+											},
+											{
+												"concept": "71ca892f-2a00-4b98-8726-9f4da3a35133",
+												"label": "Multiple pregnancy"
+											},
+											{
+												"concept": "a877c7f6-1350-11df-a1f1-0026b9348838",
+												"label": "Anaemia"
+											},
+											{
+												"concept": "ab427eb7-af74-44bc-b358-0fc783abc711",
+												"label": "History of trauma"
+											},
+											{
+												"concept": "a890a0e6-1350-11df-a1f1-0026b9348838",
+												"label": "Hypertensive disease"
+											},
+											{
+												"concept": "a890a71c-1350-11df-a1f1-0026b9348838",
+												"label": "UTI in pregnancy"
+											},
+											{
+												"concept": "a893436e-1350-11df-a1f1-0026b9348838",
+												"label": "Diabetes"
+											},
+											{
+												"concept": "e8074110-b989-45e3-b89c-d6092d1a2fd7",
+												"label": "Preterm delivery"
+											},
+											{
+												"concept": "5be59809-b0ba-409d-a16d-a5db73ad62cf",
+												"label": "Post term delivery"
+											},
+											{
+												"concept": "a4663a9c-6cf0-460c-80b6-bd48088c6302",
+												"label": "Prolonged /Obstructed labour"
+											},
+											{
+												"concept": "555934d4-b3d2-4b73-b545-8f60b24eb2f9",
+												"label": "Chorioamnionitis"
+											},
+											{
+												"concept": "a890e4b6-1350-11df-a1f1-0026b9348838",
+												"label": "Malaria"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Others"
+											}
+										]
+									},
+									"id": "obstetric",
+									"validators": []
+								},
+								{
+									"label": "If  present, Intervention:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "26ffef87-72ba-45f4-bdcf-77f2d82b18c5",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											},
+											{
+												"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+												"label": "Don't know"
+											}
+										]
+									},
+									"id": "interPresent",
+									"validators": []
+								}
+							],
+							"id": "ObstetricDet"
+						}
+					]
+				},
+				{
+					"label": "Labor And Delivery",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Place of delivery:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8a492d6-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a89df17e-1350-11df-a1f1-0026b9348838",
+										"label": "Home"
+									},
+									{
+										"concept": "a8b02ed4-1350-11df-a1f1-0026b9348838",
+										"label": "TBA"
+									},
+									{
+										"concept": "744b2cb1-0849-486c-a9cb-1ebe4b03c4bf",
+										"label": "Health facility"
+									}
+								]
+							},
+							"id": "laborPlace",
+							"validators": []
+						},
+						{
+							"label": "If health facility:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "6335d36f-0d9e-4936-a3ce-7181af1bcc50",
+								"answers": [
+									{
+										"concept": "f3537f40-193c-4091-b969-88597588b909",
+										"label": "Level 2"
+									},
+									{
+										"concept": "a89c25d8-1350-11df-a1f1-0026b9348838",
+										"label": "Level 3"
+									},
+									{
+										"concept": "35d25c3e-27e6-4fb2-b70d-fb9c69ce7cea",
+										"label": "Level 4"
+									},
+									{
+										"concept": "8e458679-0337-4aa7-ad89-93f4506e7c4c",
+										"label": "Level 5"
+									},
+									{
+										"concept": "0243bc07-5727-4ce3-b8fa-a1aaddf3f284",
+										"label": "Level 6"
+									}
+								]
+							},
+							"id": "healthFacility",
+							"validators": []
+						},
+							
+						{
+							"label": "Mode of delivery:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8aafab8-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a89acf58-1350-11df-a1f1-0026b9348838",
+										"label": "SVD"
+									},
+									{
+										"concept": "a8a351aa-1350-11df-a1f1-0026b9348838",
+										"label": "Assisted vaginal delivery(e.g vacuum etraction/forceps)"
+									},
+									{
+										"concept": "a89ad034-1350-11df-a1f1-0026b9348838",
+										"label": "Caesarian section "
+									},
+									{
+										"concept": "a89ad11a-1350-11df-a1f1-0026b9348838",
+										"label": "Breech vaginal delivery "
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Others (e.g destructive, specify)"
+									}
+								]
+							},
+							"id": "deliveryMode",
+							"validators": []
+						},
+						{
+							"label": "Was a partograph used?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "958a5799-cc32-45a1-b311-ab9a27dd68ea",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"id": "patograph",
+							"validators": []
+						},
+						{
+							"label": "If partograph used, was it correctly used?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "434673c3-83f5-46c7-be3c-dcf63493978b",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Don't know"
+									}
+								]
+							},
+							"id": "patographCorrect",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "patograph !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Baby outcome:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8aff7e8-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a89ffcb2-1350-11df-a1f1-0026b9348838",
+										"label": "Alive"
+									},
+									{
+										"concept": "dcfda2f8-d466-43d7-bcdf-a37f19ef6436",
+										"label": "Fresh still birth"
+									},
+									{
+										"concept": "1d5986e2-f858-4f0f-9887-2b19c5a76d32",
+										"label": "Macerated still birth"
+									}
+								]
+							},
+							"id": "babyOutcome",
+							"validators": []
+						},
+						{
+							"label": "If alive, APGAR score at 1 min:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "4b98ce38-77d9-488b-8b59-251811e244a4"
+							},
+							"id": "apgar1min",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "babyOutcome !== 'a89ffcb2-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If alive, APGAR score at 5 mins:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "a752b53e-bb83-4c76-9237-d2d85919101c"
+							},
+							"id": "apgar5min",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "babyOutcome !== 'a89ffcb2-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "If alive, APGAR score at 10 mins:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "3349c58b-8938-4162-ae6c-e64b67f392c4"
+							},
+							"id": "apgar10min",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "babyOutcome !== 'a89ffcb2-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Indications for assisted vaginal delivery/CS:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "2c618c0e-7691-4e9c-b42d-2051f131ad83",
+								"answers": [
+									{
+										"concept": "a4663a9c-6cf0-460c-80b6-bd48088c6302",
+										"label": "Prolonged labor/obstructed labor/big baby"
+									},
+									{
+										"concept": "8f2ee386-36bd-472f-a870-9f86ef698b2b",
+										"label": "Delayed second stage"
+									},
+									{
+										"concept": "2f274ed3-6aef-4e61-a1a0-4f067634a45a",
+										"label": "Poor maternal effort "
+									},
+									{
+										"concept": "957a20ac-991f-4216-971e-dc57ff1904f6",
+										"label": "Fetal distress"
+									},
+									{
+										"concept": "a8937762-1350-11df-a1f1-0026b9348838",
+										"label": "Antepartum haemorrhage"
+									},
+									{
+										"concept": "a8986880-1350-11df-a1f1-0026b9348838",
+										"label": "Hypertensive disease"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"id": "vagDelivery",
+							"validators": []
+						},
+						{
+							"label": "Duration of time from decision to do CS/AVD to actually performing it:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "9c77927a-08b2-4640-857f-e07ebde0bea7",
+								"answers": [
+									{
+										"concept": "a899a5a6-1350-11df-a1f1-0026b9348838",
+										"label": "Less than 30 minutes"
+									},
+									{
+										"concept": "7232eec2-97fd-48e5-b9ff-5266cf0db43d",
+										"label": "30 minutes"
+									},
+									{
+										"concept": "cfb6080e-76fb-4e86-b121-568de144f0b7",
+										"label": "Greater than one hour"
+									}
+								]
+							},
+							"id": "decision",
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "Resuscitation of the Baby",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Resuscitation:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "0dea6e5e-7f7b-4805-afd6-f33f78186e9c",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Don't know"
+									}
+								]
+							},
+							"id": "resuscitation",
+							"validators": []
+						},
+						{
+							"label": "If yes, what was done:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "48aa330d-8e7b-4022-ab60-bd55e18ea277",
+								"answers": [
+									{
+										"concept": "3d2ef6df-662b-4f2d-8cd9-6f44caafc0c3",
+										"label": "Stimulation"
+									},
+									{
+										"concept": "a039a951-3b3e-457d-ba95-1c5c7a5129a8",
+										"label": "Bag and mask"
+									},
+									{
+										"concept": "a3db7d5b-f945-46af-a0c6-69bf2d076743",
+										"label": "Suction"
+									},
+									{
+										"concept": "09bca4f0-5106-4134-a157-c4a02ff567cf",
+										"label": "CPR"
+									},
+									{
+										"concept": "5fd6a143-9a00-4200-a40c-eaafa4555cf3",
+										"label": "Oxygen given"
+									},
+									{
+										"concept": "db4a2478-1a3b-4c46-9769-a500c64ae5ba",
+										"label": "Medication "
+									},
+									{
+										"concept": "bfeb8a63-3bea-4b44-9a28-c40434a41d70",
+										"label": "CPAP"
+									},
+									{
+										"concept": "4da4ac1a-a86a-47f0-b65d-38bb85b2cc43",
+										"label": "Endotracheal and positive pressure ventilation"
+									}
+								]
+							},
+							"id": "neonatalIntervention",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "resuscitation !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Resuscitation done by:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8b03050-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "8104e32e-cec8-4372-b972-cc1504378d4f",
+										"label": "Peditrician"
+									},
+									{
+										"concept": "e5d0a5a5-392b-4522-a811-ffb6fa3aba54",
+										"label": "Medical officer"
+									},
+									{
+										"concept": "f1f0e74d-a289-47ae-8d0c-714cf04b48a5",
+										"label": "Medical officer intern"
+									},
+									{
+										"concept": "bc640b5f-43a7-4a9d-afac-1a5cdfd5ba45",
+										"label": "Clinical officer"
+									},
+									{
+										"concept": "a8b02f92-1350-11df-a1f1-0026b9348838",
+										"label": "Nurse/midwife"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"id": "resuscitationDone",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "resuscitation !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Cause Of Death",
+			"sections": [
+				{
+					"label": "Cause Of Death",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Period of death:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "6b2dbca1-a138-40dd-bcad-339424093d32",
+								"answers": [
+									{
+										"concept": "a89ad638-1350-11df-a1f1-0026b9348838",
+										"label": "Anterpartum"
+									},
+									{
+										"concept": "a89ad714-1350-11df-a1f1-0026b9348838",
+										"label": "Intrapartum"
+									},
+									{
+										"concept": "6cb87d80-595f-48ca-826b-e7f17c5e68a9",
+										"label": "Neonatal"
+									},
+									{
+										"concept": "a899b50a-1350-11df-a1f1-0026b9348838",
+										"label": "Unknown"
+									}
+								]
+							},
+							"id": "deathPeriod",
+							"validators": []
+						},
+						{
+							"label": "Perinatal cause of death:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89df750-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "a8a8ecd2-1350-11df-a1f1-0026b9348838",
+										"label": "Congenital malformations"
+									},
+									{
+										"concept": "d90bc188-27db-49d7-b09b-8282f0b18d5e",
+										"label": "Birth Trauma "
+									},
+									{
+										"concept": "a9706990-ebd8-4365-b297-d13043b0ec8a",
+										"label": "Birth Asphyxia "
+									},
+									{
+										"concept": "a8a49830-1350-11df-a1f1-0026b9348838",
+										"label": "Infection "
+									},
+									{
+										"concept": "86d3c6c2-5470-45c5-8424-b3f41079df59",
+										"label": "Meconium Aspiration "
+									},
+									{
+										"concept": "826fb894-9702-4f78-bbfa-d9a541354323",
+										"label": "Low birth weight "
+									},
+									{
+										"concept": "e8074110-b989-45e3-b89c-d6092d1a2fd7",
+										"label": "Prematurity "
+									},
+									{
+										"concept": "5be59809-b0ba-409d-a16d-a5db73ad62cf",
+										"label": "Postmaturity "
+									},
+									{
+										"concept": "a8933270-1350-11df-a1f1-0026b9348838",
+										"label": "Convulsion and disorders of celebral status "
+									},
+									{
+										"concept": "386e82a9-8b47-4afc-8f4d-fedfb8315e1d",
+										"label": "Respiratory and cardivascular disorders "
+									},
+									{
+										"concept": "0b324813-b789-49af-80b8-307341cb7cac",
+										"label": "unknown cause"
+									}
+								]
+							},
+							"id": "perinatalCauseDeath",
+							"validators": []
+						},
+						{
+							"type": "obsGroup",
+							"label": "Underlying maternal condition",
+							"questionOptions": {
+								"concept": "a8afff90-1350-11df-a1f1-0026b9348838",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Underlying maternal condition:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "ef2d7b84-5c2a-4380-a2fd-cabac6cfb14d",
+										"answers": [
+											{
+												"concept": "d04f50ce-d1f8-4ae8-b8e8-17a1f6eb82d0",
+												"label": "Complications of placenta,cord and membranes"
+											},
+											{
+												"concept": "58dfa2a2-5302-405f-9abe-90b0c564970d",
+												"label": "Maternal complications of pregnancy"
+											},
+											{
+												"concept": "71c4a177-ee57-4cee-b2dc-57edf2269119",
+												"label": "Other complications of labour and delivery"
+											},
+											{
+												"concept": "25421914-c2a9-49f0-ae04-05bf46abc395",
+												"label": "Maternal medical and surgical conditions"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Others conditions"
+											},
+											{
+												"concept": "No maternal condition identified",
+												"label": "9a296a0e-dc7c-412b-8ca6-85bb481320d9"
+											}
+										]
+									},
+									"id": "maternalCondition",
+									"validators": []
+								},
+								{
+									"label": "If yes, specify :",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838"
+									},
+									"id": "matConditionSpecify",
+									"validators": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Death Delay Factors",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Delays: Personnal/ family (1st delay):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "631d25a0-5b97-4fdd-b714-89b777d8165e",
+								"answers": [
+									{
+										"concept": "4fff1469-4161-4f50-9357-ed65f11e881e",
+										"label": "Failure to recognise danger signs"
+									},
+									{
+										"concept": "84ff12bd-41b6-4ed0-9f82-6f421983f713",
+										"label": "Ignorance of the available services"
+									},
+									{
+										"concept": "a8b0281c-1350-11df-a1f1-0026b9348838",
+										"label": "Cultural/ religious reasons/ objections"
+									},
+									{
+										"concept": "b66ce58c-0832-4d53-b3be-7ff5f4cc75fd",
+										"label": "Poverty"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"id": "firstDelay",
+							"validators": []
+						},
+						{
+							"label": "Access to skilled attendance (2nd delay):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "8fcc3e7a-0d36-4968-967e-225d037a0302",
+								"answers": [
+									{
+										"concept": "a89ec1b2-1350-11df-a1f1-0026b9348838",
+										"label": "Lack of transport from home to health care facility"
+									},
+									{
+										"concept": "a8b02c9a-1350-11df-a1f1-0026b9348838",
+										"label": "Lack of transport between health care facilities"
+									},
+									
+									{
+										"concept": "2a4245cd-6ddd-4966-8b00-9da969601a4d",
+										"label": "Lack of communication"
+									},
+									{
+										"concept": "a89de526-1350-11df-a1f1-0026b9348838",
+										"label": "Long distance"
+									},
+									{
+										"concept": "a89ef826-1350-11df-a1f1-0026b9348838",
+										"label": "Poor roads"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"id": "secondDelay",
+							"validators": []
+						},
+						{
+							"label": "Quality of care (3rd delay):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "f0203896-8aa9-47fe-af3c-6106fd92b7d3",
+								"answers": [
+									{
+										"concept": "2c3fd5c1-0453-4e93-bc0d-5936783df6c6",
+										"label": "Staff shortage"
+									},
+									{
+										"concept": "a8b0f008-1350-11df-a1f1-0026b9348838",
+										"label": "Poor attidude/low morale"
+									},
+									
+									{
+										"concept": "1b66b4e6-edb4-4b1f-a512-ed8a704640ce",
+										"label": "Next level cadre not consulted"
+									},
+									{
+										"concept": "3fa838f2-5467-4949-bc26-97da4685eed7",
+										"label": "Next level cadre not available "
+									},
+									{
+										"concept": "65d64e07-bf96-4247-ac55-51fc7b14cc0f",
+										"label": "Poor interpersonal relationship"
+									},
+									{
+										"concept": "2a4245cd-6ddd-4966-8b00-9da969601a4d",
+										"label": "Language barrier"
+									},
+									{
+										"concept": "fde66e41-e831-4c2f-8571-96067695f2f6",
+										"label": "Misdiagnosis/mismanagement"
+									},
+									
+									{
+										"concept": "84ff12bd-41b6-4ed0-9f82-6f421983f713",
+										"label": "Inadequate knowledge/ skills"
+									},
+									{
+										"concept": "c19ca9e3-55a1-4c5e-a836-8cc88b9a08ca",
+										"label": "Lack of blood /blood products for transfusion"
+									},
+									{
+										"concept": "c0c9eab3-46f6-453c-b29d-dc1c242317c5",
+										"label": "Lack of emergency/essential drugs (e.g antibiotics, oxytocics, anticonvulsants)"
+									},
+									{
+										"concept": "219b585f-1248-431a-bbb6-72363f8e2e71",
+										"label": "Lack of theatre supplies/ facilities"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"id": "thirdDelay",
+							"validators": []
+						},
+						{
+							"label": "Was the death avoidable at the community?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "46aeea5b-5bfb-4b0a-be71-d94c2bf5ad84",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+									
+								]
+							},
+							"id": "deathCommunity",
+							"validators": []
+						},
+						{
+							"label": "Was the death avoidable at the referring facility?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "eac34b5f-1716-4326-9f51-3ee409b26939",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+									
+								]
+							},
+							"id": "deathFacility",
+							"validators": []
+						}
+						
+					]
+				}
+				
+			]
+		},
+		{
+			"label": "Action Points",
+			"sections": [
+				{
+					"label": "Action Points By Facility",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Immediate action points:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "187c59eb-6ca1-47f7-8d10-a8881166e16f"
+							},
+							"id": "immediate",
+							"validators": []
+						},
+						{
+							"label": "Intermediate action points:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "6b4d7c66-2443-4f14-b430-d33bb981e871"
+							},
+							"id": "intermediate",
+							"validators": []
+						},
+						{
+							"label": "Long term action points:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "36e306d1-5ec1-4189-9c37-45ee94628174"
+							},
+							"id": "longterm ",
+							"validators": []
+						}
+					]
+				},
+				{
+					"label": "Completed By",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Name:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "29f94c52-6159-4e26-805c-beb915c9fa21"
+							},
+							"id": "nameCompleted",
+							"validators": []
+						},
+						{
+							"label": "Designation:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "14d088b0-1107-4bff-92de-770d99434c3f",
+								"answers": [
+									{
+										"concept": "a8b02f92-1350-11df-a1f1-0026b9348838",
+										"label": "Nurse"
+									},
+									{
+										"concept": "bc640b5f-43a7-4a9d-afac-1a5cdfd5ba45",
+										"label": "Clinical officer"
+									},
+									{
+										"concept": "a8a00b4e-1350-11df-a1f1-0026b9348838",
+										"label": "Community health worker"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							},
+							"id": "designation",
+							"validators": []
+						},
+						{
+							"label": "Date:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "bb85532e-8f7e-476f-81d7-5580e0385852"
+							},
+							"id": "DateDone",
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') ",
+									"message": "Date should be greater than the encounter date."
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

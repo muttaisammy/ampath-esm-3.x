@@ -1,0 +1,276 @@
+{
+	"name": "AMPATH POC PrEP Monthly Refill Form v1.0",
+	"pages": [
+		{
+			"label": "Monthly Refill Form",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				},
+				{
+					"label": "Behaviour Risk Assessment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Mark all that apply:",
+							"id": "baselineAss",
+							"questionOptions": {
+								"rendering": "multiCheckbox",
+								"concept": "4069aec8-c591-4fc9-8a16-29b90f3f9046",
+								"answers": [
+									{
+										"label": "Sex partner(s) is HIV positive",
+										"concept": "a8aaa054-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Sex partner(s) at high risk for HIV and HIV status is unknown",
+										"concept": "f725d92e-575e-435e-ba8c-befe95fbd662"
+									},
+									{
+										"label": "Has sex with more than 1 partner",
+										"concept": "c245b312-3527-4bcb-84ec-5a04dc7c3563"
+									},
+									{
+										"label": "Ongoing intimate partner violence",
+										"concept": "a54ea51a-08be-4d89-a7eb-d0b235764a1e"
+									},
+									{
+										"label": "Ongoing gender based violence",
+										"concept": "20e383a3-7eee-4bc1-b6dc-d536676c4fae"
+									},
+									{
+										"label": "Transactional sex",
+										"concept": "7ff5752c-4ccb-45bb-a001-c194316ba35b"
+									},
+									{
+										"label": "Recent STI",
+										"concept": "a8934292-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Recurrent use of post-exposure prophylaxis",
+										"concept": "492d008e-de2e-4efc-ace6-04bbd31bee05"
+									},
+									{
+										"label": "Recurrent sex under influence of alcohol/recreational drugs",
+										"concept": "9506b97f-c8bc-48a8-a439-72bb65276785"
+									},
+									{
+										"label": "Inconsistent/no condom use",
+										"concept": "c07a5032-a218-4ae8-bcb4-4788b753262e"
+									},
+									{
+										"label": "IDU with shared needles/syringes",
+										"concept": "a890d57a-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "If partner is HIV positive and:",
+							"id": "partnersBehaviour",
+							"questionOptions": {
+								"rendering": "multiCheckbox",
+								"concept": "80791f77-60b4-4991-830a-fc3ac063b701",
+								"answers": [
+									{
+										"label": "Not on ART",
+										"concept": "a89ee46c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "On ART less than 6 months",
+										"concept": "aaeb465a-32a4-405f-9454-2ad9004c099f"
+									},
+									{
+										"label": "Suspected poor adherence to ART",
+										"concept": "a89ce50e-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Detectable HIV viral load",
+										"concept": "8c0d56b4-9136-413f-b547-f1ec367ee23e"
+									},
+									{
+										"label": "Couple is trying to conceive",
+										"concept": "2e78504f-1946-479b-8cd1-d9ded0a68bd5"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(baselineAss) || arrayContains(['f725d92e-575e-435e-ba8c-befe95fbd662','20e383a3-7eee-4bc1-b6dc-d536676c4fae', 'c245b312-3527-4bcb-84ec-5a04dc7c3563', 'a54ea51a-08be-4d89-a7eb-d0b235764a1e', '7ff5752c-4ccb-45bb-a001-c194316ba35b', 'a8934292-1350-11df-a1f1-0026b9348838', '492d008e-de2e-4efc-ace6-04bbd31bee05', '9506b97f-c8bc-48a8-a439-72bb65276785', 'c07a5032-a218-4ae8-bcb4-4788b753262e', 'a890d57a-1350-11df-a1f1-0026b9348838'],baselineAss)"
+							}
+						}
+					]
+				},
+				{
+					"label": "Adherence and Plan",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Adherence counseling done?",
+							"id": "prepAdherenceCounsel",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a181ff5e-6707-46a3-8872-579524f92380",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							}
+						},
+						{
+							"label": "Continue regimen",
+							"type": "obs",
+							"id": "initialRegPres",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "7b6a9ea0-0193-4036-a56b-63295241f086",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "prepStatus !== 'a89b7908-1350-11df-a1f1-0026b9348838'"
+							}
+						},
+						{
+							"label": "Discontinue regimen",
+							"type": "obs",
+							"id": "discontinueRegimen",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "356f1d0f-9c44-490d-adba-b2f2f4125e3e",
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "prepStatus !== 'a89b7908-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Assessment Notes",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Please enter the assessment below:",
+							"type": "obs",
+							"required": "true",
+							"id": "assNote",
+							"default": "",
+							"questionOptions": {
+								"concept": "23f710cc-7f9c-4255-9b6b-c3e240215dba",
+								"rendering": "textarea",
+								"rows": 18
+							}
+						}
+					]
+				},
+				{
+					"label": "Next Appointment Date",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Return to clinic date:",
+							"type": "obs",
+							"required": "true",
+							"questionOptions": {
+								"concept": "a8a666ba-1350-11df-a1f1-0026b9348838",
+								"rendering": "date",
+								"weeksList": [
+									2,
+									4,
+									8,
+									12,
+									16
+								]
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Return to clinic date should be greater than the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "prepStatus === 'a8af50f4-1350-11df-a1f1-0026b9348838'"
+							},
+							"id": "tca"
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"referencedForms": []
+}

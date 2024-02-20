@@ -1,0 +1,354 @@
+{
+	"name": "AMPATH POC Mobility Screening Form v1.0",
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"pages": [
+		{
+			"label": "Mobility Screening Form",
+			"sections": [
+				{
+					"label": "Mobility Screening Form",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"label": "Country of residence:",
+							"type": "obs",
+							"id": "country",
+							"questionOptions": {
+								"concept": "3166a8ec-4976-479b-a882-f89f60cf8fd9",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "fba1dcb9-3033-4503-b37e-0727661711ba",
+										"label": "Kenya"
+									},
+									{
+										"concept": "543c8bc2-f411-4ef4-bd94-2c25a1927bc0",
+										"label": "Uganda"
+									}
+								]
+							}
+						},
+						{
+							"label": "Type of visit:",
+							"type": "obs",
+							"id": "visitType",
+							"required": "true",
+							"questionOptions": {
+								"concept": "a89ff9a6-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "ab202fa8-ad2b-487d-83f8-991f8fa109a1",
+										"label": "New"
+									},
+									{
+										"concept": "244b67bf-da2d-4009-9bc9-91a52a92defe",
+										"label": "Revisit"
+									}
+								]
+							}
+						},
+						{
+							"label": "Nationality:",
+							"type": "obs",
+							"id": "nationality",
+							"questionOptions": {
+								"concept": "eeaea1a6-d5f8-4881-b088-cdd71bbe49b0",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "5458962a-e93e-4c93-b452-06b33a6e3a5f",
+										"label": "Kenyan"
+									},
+									{
+										"concept": "f019da20-d1ca-48f7-8813-a3e16b410fe2",
+										"label": "Ugandan"
+									},
+									{
+										"concept": "8b1f5872-72d6-40af-a99a-c8b38920b98d",
+										"label": "Tanzanian"
+									},
+									{
+										"concept": "731208c9-7d96-43a4-9246-47630fb54a7b",
+										"label": "Rwandese"
+									},
+									{
+										"concept": "03489b54-458d-46ed-b8b9-af05c0bfe249",
+										"label": "South Sudanese"
+									},
+									{
+										"concept": "2bc2941b-d51a-4351-8395-302bd75293e1",
+										"label": "Burundian"
+									}
+								]
+							}
+						},
+						{
+							"label": "Marital status:",
+							"type": "obs",
+							"id": "matStatus",
+							"questionOptions": {
+								"concept": "a899a9f2-1350-11df-a1f1-0026b9348838",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a8aa76b0-1350-11df-a1f1-0026b9348838",
+										"label": "Married"
+									},
+									{
+										"concept": "a899ae34-1350-11df-a1f1-0026b9348838",
+										"label": "Widowed"
+									},
+									{
+										"concept": "a899aba0-1350-11df-a1f1-0026b9348838",
+										"label": "Separated"
+									},
+									{
+										"concept": "a899ad58-1350-11df-a1f1-0026b9348838",
+										"label": "Divorced"
+									},
+									{
+										"concept": "a899ac7c-1350-11df-a1f1-0026b9348838",
+										"label": "Single"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							}
+						},
+						{
+							"label": "Target population:",
+							"type": "obs",
+							"id": "targetPop",
+							"questionOptions": {
+								"concept": "fc0185d3-6072-45d3-8454-bd8c0b9c9565",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "8e31a288-1a91-438b-8c88-768a61ba29ab",
+										"label": "Female sex worker"
+									},
+									{
+										"concept": "5ebb18d6-8fab-43bc-898f-6428dcc24c1e",
+										"label": "Truckers"
+									},
+									{
+										"concept": "e8cf2d5a-1a9e-4bb2-a2cc-ea30191dcc3a",
+										"label": "Clearing and forwading agent"
+									},
+									{
+										"concept": "0ac89086-4751-4db8-96c5-cd62152d66ad",
+										"label": "Fisher folk"
+									},
+									{
+										"concept": "0bd518b7-bfb7-4d80-85e9-7a7636369037",
+										"label": "MSM"
+									},
+									{
+										"concept": "dc57a074-a2f2-4901-9438-c54453fcd1ff",
+										"label": "Vulnerable women and girls"
+									},
+									{
+										"concept": "a890d57a-1350-11df-a1f1-0026b9348838",
+										"label": "PWID"
+									},
+									{
+										"concept": "9e4d6436-4040-46a3-a0ae-6dbc0acfe593",
+										"label": "PLHIV"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							}
+						},
+						{
+							"label": "Have you travelled to another country in the last 3 months?",
+							"type": "obs",
+							"id": "travel3Months",
+							"questionOptions": {
+								"concept": "dc64cb19-493a-4d57-9685-9c03cd241f8f",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Have you travelled to another country in the last 6 months?",
+							"type": "obs",
+							"id": "travel6Months",
+							"questionOptions": {
+								"concept": "206db386-3027-49bb-aa7f-fccf3141bde4",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Have you travelled to another country in the last 12 months?",
+							"type": "obs",
+							"id": "travel12Months",
+							"questionOptions": {
+								"concept": "f08e7ba4-c0fa-420c-b1c4-6975b133e434",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "How long (in days) did you stay last time you travelled to another country?",
+							"type": "obs",
+							"id": "stayDuration",
+							"questionOptions": {
+								"concept": "16483976-3619-4cdf-b7b8-0a4ed3492e85",
+								"rendering": "number",
+								"max": "365",
+								"min": "0"
+							}
+						},
+						{
+							"label": "How frequently do you travel to another country:",
+							"type": "obs",
+							"id": "travelFrequency",
+							"questionOptions": {
+								"concept": "ceb1a9ff-77a3-4449-91b2-46c93fd55cc4",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "a899d9ae-1350-11df-a1f1-0026b9348838",
+										"label": "Daily"
+									},
+									{
+										"concept": "a899d8d2-1350-11df-a1f1-0026b9348838",
+										"label": "Once a week"
+									},
+									{
+										"concept": "a899d7f6-1350-11df-a1f1-0026b9348838",
+										"label": "Once a month"
+									},
+									{
+										"concept": "2db4fcf9-0c43-466c-8cbe-36094a7e105e",
+										"label": "Once in 3 months"
+									},
+									{
+										"concept": "a899d120-1350-11df-a1f1-0026b9348838",
+										"label": "Never"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							}
+						},
+						{
+							"label": "Service:",
+							"type": "obs",
+							"id": "service",
+							"questionOptions": {
+								"concept": "45389fad-ecb2-4346-aaad-053215081f5e",
+								"rendering": "multiCheckbox",
+								"answers": [
+									{
+										"concept": "b412ae76-4ab4-4d00-800e-bd8d167769e1",
+										"label": "HIV"
+									},
+									{
+										"concept": "6b15e4fa-6897-4d69-adcf-5908abade719",
+										"label": "TB"
+									},
+									{
+										"concept": "a8a8aefc-1350-11df-a1f1-0026b9348838",
+										"label": "FP/RH"
+									},
+									{
+										"concept": "a8a17d80-1350-11df-a1f1-0026b9348838",
+										"label": "MNCH/ANC"
+									},
+									{
+										"concept": "cf19a3ea-33ec-41a3-8151-bdbc66c3d80b",
+										"label": "GBV"
+									},
+									{
+										"concept": "a8a09a0a-1350-11df-a1f1-0026b9348838",
+										"label": "STI"
+									},
+									{
+										"concept": "12550258-d797-43d9-a282-e35908c33fe4",
+										"label": "ART"
+									},
+									{
+										"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+										"label": "Other"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

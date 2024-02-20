@@ -1,0 +1,84 @@
+{
+	"name": "AMPATH POC OVC Non Enrollement Encounter Form v1.0",
+	"uuid": "xxxx",
+	"processor": "EncounterFormProcessor",
+	"pages": [
+		{
+			"label": "Encounter Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"label": "Reason for not enrolling to OVC:",
+							"type": "obs",
+							"id": "enrollOvc",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "06bbb2b0-e2a8-42bc-978f-5dc1eb16ebc1",
+								"answers": [
+									{
+										"label": "Declined",
+										"concept": "a89d25fa-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "Out of catchment",
+										"concept": "83df5f26-f97a-4cda-9c05-d0bdc6e4ebee"
+									}
+								]
+							}
+						},
+						{
+							"label": "If declined, state reason:",
+							"id": "reasonDecline",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "33d36d0a-4d1b-404c-8f09-e891af4dadbe"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "enrollOvc !== 'a89d25fa-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

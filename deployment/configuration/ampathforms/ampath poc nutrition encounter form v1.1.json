@@ -1,0 +1,680 @@
+{
+	"name": "AMPATH POC Nutrition Encounter Form v1.1",
+	"version": "1.1",
+	"encounterType": "uuid",
+	"processor": "EncounterFormProcessor",
+	"form": "uuid",
+	"pages": [
+		{
+			"label": "Encounter Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date:",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider:",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				},
+				{
+					"label": "Nutrition Assessment,Diagnosis and Intervention",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Weight (Kg):",
+							"id": "weight",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "a8a660ca-1350-11df-a1f1-0026b9348838",
+								"max": "150",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Height or Length (CM):",
+							"id": "height",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "a8a6619c-1350-11df-a1f1-0026b9348838",
+								"max": "350",
+								"min": "0"
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": " Weight for height Z-score:",
+							"id": "WeightheightScore",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "5099d8a8-36c1-4574-a568-9bc49c15c08c",
+								"max": "4",
+								"min": "-4",
+								"calculate": {
+									"calculateExpression": "calcWeightForHeightZscore(weightForHeightRef,height,weight)"
+								}
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age>5"
+							}
+						},
+						{
+							"label": "Weight for height Z score diagnosis:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "9cf8b8c5-a9fb-4662-9585-97dfbfd9d245",
+								"calculate": {
+									"calculateExpression": " weight && height && parseInt(WeightheightScore) >=0 && parseInt(WeightheightScore) <= 4? 'a899e7b4-1350-11df-a1f1-0026b9348838' :weight && height && parseInt(WeightheightScore) === -1 ? '492da2d3-5137-4261-ba07-f961e8c27efb' :weight && height && parseInt(WeightheightScore) === -2 ? 'f0dd06d5-6174-447f-9a9c-f8635b4a6a6d' :weight && height && parseInt(WeightheightScore) === -3 || parseInt(WeightheightScore) === -4 ? '0306539c-f24f-49f5-b059-b646adbec47c' :''"
+								},
+								"answers": [
+									{
+										"concept": "a899e7b4-1350-11df-a1f1-0026b9348838",
+										"label": "Normal"
+									},
+									{
+										"concept": "492da2d3-5137-4261-ba07-f961e8c27efb",
+										"label": "Mild acute malnutrition"
+									},
+									{
+										"concept": "f0dd06d5-6174-447f-9a9c-f8635b4a6a6d",
+										"label": "Moderate acute malnutrition"
+									},
+									{
+										"concept": "0306539c-f24f-49f5-b059-b646adbec47c",
+										"label": "Severe acute malnutrition"
+									}
+								]
+							},
+							"id": "weightHeightDiagnosis",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age>5 || isEmpty(WeightheightScore)"
+							}
+						},
+						{
+							"label": "SAM classification:",
+							"id": "samClassification",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "3a6d13ec-0765-4de3-a538-2ffad63ab082",
+								"answers": [
+									{
+										"concept": "77943986-8d86-4dc9-96c6-dda6cdf89c3d",
+										"label": "Marasmus"
+									},
+									{
+										"concept": "50c8c4d1-72c9-431b-8d61-de5624bf3dd2",
+										"label": "Kwashiorkor"
+									},
+									{
+										"concept": "40818e0f-cc8a-41c7-a375-c7e580beb1c4",
+										"label": "Marasmus Kwashiorkor"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age>5 || isEmpty(WeightheightScore)"
+							}
+						},
+						{
+							"label": "BMI for Age Z-Score:",
+							"id": "bmiScore",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "9061e5d5-8478-4d16-be44-bfec05b6705a",
+								"max": "4",
+								"min": "-4",
+								"calculate": {
+									"calculateExpression": "calcBMIForAgeZscore(bmiForAgeRef,height,weight)"
+								}
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age<=5 ||age >=17"
+							}
+						},
+						{
+							"label": "BMI for age Z score diagnosis:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "837eb9e6-28cd-486c-bb9a-d040d0878b84",
+								"calculate": {
+									"calculateExpression": " weight && height && parseInt(bmiScore) >=0 && parseInt(bmiScore) <= 4? 'a899e7b4-1350-11df-a1f1-0026b9348838' :weight && height && parseInt(bmiScore) === -1 ? 'a89efccc-1350-11df-a1f1-0026b9348838' :weight && height && parseInt(bmiScore) === -2 ? 'a89efdee-1350-11df-a1f1-0026b9348838' : weight && height && (parseInt(bmiScore) === -3 || parseInt(bmiScore) === -4)? 'a89eff1a-1350-11df-a1f1-0026b9348838' :''"
+								},
+								"answers": [
+									{
+										"concept": "a899e7b4-1350-11df-a1f1-0026b9348838",
+										"label": "Normal"
+									},
+									{
+										"concept": "a89efccc-1350-11df-a1f1-0026b9348838",
+										"label": "Mild acute malnutrition"
+									},
+									{
+										"concept": "a89efdee-1350-11df-a1f1-0026b9348838",
+										"label": "Moderate acute malnutrition"
+									},
+									{
+										"concept": "a89eff1a-1350-11df-a1f1-0026b9348838",
+										"label": "Severe acute malnutrition"
+									}
+								]
+							},
+							"id": "bmiZScoreDiagnosis",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age<=5 ||age >=17 || isEmpty(bmiScore)"
+							}
+						},
+						{
+							"label": " Height/length for age Z-score:",
+							"id": "heightLengthScore",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "507f48e7-26fc-490b-a521-35d7c5aa8e9f",
+								"max": "4",
+								"min": "-4",
+								"calculate": {
+									"calculateExpression": "calcHeightForAgeZscore(heightForAgeRef,height,weight)"
+								}
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age >17"
+							}
+						},
+						{
+							"label": "Height/Length for age Z score diagnosis:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "21c0a36a-0841-4268-a79b-140b85c6ff53",
+								"calculate": {
+									"calculateExpression": " weight && height && parseInt(heightLengthScore) >= 0 ? 'a899e7b4-1350-11df-a1f1-0026b9348838' :weight && height && parseInt(heightLengthScore) === -1 ? '2fc2c915-9d20-4753-b226-730a8a0ffdb2' :weight && height && parseInt(heightLengthScore) === -2 ? 'f8b800a7-1888-4159-80b1-6c45c223a3d2' : weight && height && (parseInt(heightLengthScore) === -3 || parseInt(heightLengthScore) === -4)? '46255b12-efe6-458a-b178-0af440fec2e1' :''"
+								},
+								"answers": [
+									{
+										"concept": "a899e7b4-1350-11df-a1f1-0026b9348838",
+										"label": "Normal"
+									},
+									{
+										"concept": "2fc2c915-9d20-4753-b226-730a8a0ffdb2",
+										"label": "Mild stunting"
+									},
+									{
+										"concept": "f8b800a7-1888-4159-80b1-6c45c223a3d2",
+										"label": "Moderate stunting"
+									},
+									{
+										"concept": "46255b12-efe6-458a-b178-0af440fec2e1",
+										"label": "Severe stunting"
+									}
+								]
+							},
+							"id": "HeightLengthDiagnosis",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age >17 || isEmpty(heightLengthScore)"
+							}
+						},
+						{
+							"label": "MUAC:MM",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "a89c6188-1350-11df-a1f1-0026b9348838",
+								"max": "450",
+								"min": "60"
+							},
+							"validators": [],
+							"id": "__0pz0p75FC"
+						},
+						{
+							"label": "MUAC diagnosis:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "7b66e58e-762e-49b4-8bf5-fd362d2ec244",
+								"answers": [
+									{
+										"concept": "33fca6b5-4ade-483b-b91d-c0018bf893fc",
+										"label": "Normal"
+									},
+									{
+										"concept": "44e4fca8-9314-42df-970f-601f878398a8",
+										"label": "Moderate acute malnutrition"
+									},
+									{
+										"concept": "887adc2f-7e80-46e7-acb6-3b41a6066801",
+										"label": "Severe acute malnutrition"
+									}
+								]
+							},
+							"id": "muacDiagnosis",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(__0pz0p75FC)"
+							}
+						},
+						{
+							"label": "BMI:Kg/M2",
+							"id": "bmi",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "a89c60c0-1350-11df-a1f1-0026b9348838",
+								"max": "100",
+								"min": "0",
+								"calculate": {
+									"calculateExpression": "calcBMI(height,weight)"
+								}
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age<18"
+							}
+						},
+						{
+							"label": "BMI for age (+18) categorization:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "ac5f7974-3a71-4867-af59-0c30d68ce9d8",
+								"answers": [
+									{
+										"concept": "a899e7b4-1350-11df-a1f1-0026b9348838",
+										"label": "Normal"
+									},
+									{
+										"concept": "492da2d3-5137-4261-ba07-f961e8c27efb",
+										"label": "Mild acute malnutrition"
+									},
+									{
+										"concept": "f0dd06d5-6174-447f-9a9c-f8635b4a6a6d",
+										"label": "Moderate acute malnutrition"
+									},
+									{
+										"concept": "0306539c-f24f-49f5-b059-b646adbec47c",
+										"label": "Severe acute malnutrition"
+									},
+									{
+										"concept": "1505faef-c8aa-422c-b356-da065b88ec9c",
+										"label": "Overweight"
+									},
+									{
+										"concept": "2a60e784-1314-4454-91ba-7ea4cc2c3b15",
+										"label": "Obesity"
+									}
+								]
+							},
+							"id": "bmiCategorization",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age<18 || isEmpty(bmi)"
+							}
+						},
+						{
+							"label": "Waist circumference for cardiovascular risk factors:",
+							"id": "riskFactors",
+							"questionOptions": {
+								"concept": "80f3d898-e9ac-4ecb-b0f0-dcf268972e07",
+								"answers": [
+									{
+										"concept": "b7f65105-0621-4329-94db-d9e552cd6dd0",
+										"label": "Male >102cm -high risk"
+									},
+									{
+										"concept": "5e2cf8f3-796f-4bae-9017-92d6b6c91384",
+										"label": "Female >88cm -high risk"
+									},
+									{
+										"concept": "2653b383-7587-493c-8dd5-df1bc49757b7",
+										"label": "Male <102cm -low risk"
+									},
+									{
+										"concept": "f2eaaa11-ff2a-4b10-af1b-73bf80e606dc",
+										"label": "Female <88cm -low risk"
+									}
+								],
+								"rendering": "select"
+							},
+							"type": "obs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "age<18"
+							}
+						},
+						{
+							"label": "Nutritional education and counselling done?",
+							"questionOptions": {
+								"concept": "42c0032e-e404-4e64-9564-06cc1473d5d0",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								],
+								"rendering": "select"
+							},
+							"type": "obs",
+							"validators": [],
+							"id": "__ysLMJxvKv"
+						},
+						{
+							"label": "Nutritional supplement:",
+							"id": "nutSupp",
+							"questionOptions": {
+								"concept": "21085975-627e-4bfc-b180-972d54a27c5f",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								],
+								"rendering": "select"
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Supplemental foods",
+							"type": "obsGroup",
+							"questionOptions": {
+								"rendering": "group",
+								"concept": "8e9fc16a-552c-41fe-aee9-b6a799b827fc"
+							},
+							"id": "supf",
+							"questions": [
+								{
+									"label": "Supplemental foods:",
+									"id": "suppFoods",
+									"questionOptions": {
+										"concept": "47c21d71-1ba8-4d50-8898-fc31c4b162a4",
+										"answers": [
+											{
+												"concept": "297391f9-a070-4268-9379-a4ca2f8c1721",
+												"label": "RUTF"
+											},
+											{
+												"concept": "092412d7-15f7-4f0a-b52f-e16e391f8ba2",
+												"label": "Fortified blended flours"
+											},
+											{
+												"concept": "062c84df-f131-40f7-87da-0e8f8fcc7900",
+												"label": "Multiple micronutrients"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										],
+										"rendering": "multiCheckbox"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "nutSupp !=='a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Other (specify):",
+									"id": "otherSpec",
+									"type": "obs",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(suppFoods) || !arrayContains(suppFoods, 'a8aaf3e2-1350-11df-a1f1-0026b9348838')"
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Metabolic/Co-existing Disorders",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "obsGroup",
+							"label": "Risk factors, detailed",
+							"questionOptions": {
+								"concept": "b8862f94-8ca9-4435-8438-52792ffaaa5f",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Metabolic disorders:",
+									"id": "metabolicDisorders",
+									"questionOptions": {
+										"concept": "2572925d-520c-4480-81dd-f268e8e94284",
+										"rendering": "multiCheckbox",
+										"answers": [
+											{
+												"concept": "4b42e125-bfe0-45d2-9175-bf1c7b3e11b7",
+												"label": "Dislipidemia"
+											},
+											{
+												"concept": "a89cee50-1350-11df-a1f1-0026b9348838",
+												"label": "Lypodistrophy"
+											},
+											{
+												"concept": "a893436e-1350-11df-a1f1-0026b9348838",
+												"label": "Diabetes mellitus"
+											},
+											{
+												"concept": "a8986880-1350-11df-a1f1-0026b9348838",
+												"label": "Hypertension"
+											},
+											{
+												"concept": "a890dec6-1350-11df-a1f1-0026b9348838",
+												"label": "Arthritis"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									},
+									"type": "obs",
+									"validators": []
+								},
+								{
+									"type": "obs",
+									"label": "Other (specify)",
+									"id": "otherMetabolics",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(metabolicDisorders) || !arrayContains(metabolicDisorders, 'a8aaf3e2-1350-11df-a1f1-0026b9348838')"
+									}
+								}
+							],
+							"id": "__wtzzFI0zn"
+						},
+						{
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "e6aafb67-3e12-439a-9132-c62569e76ab0",
+								"rendering": "repeating"
+							},
+							"label": "Co-existing conditions",
+							"questions": [
+								{
+									"label": "Co-existing conditions",
+									"id": "probAdded",
+									"questionOptions": {
+										"concept": "a8ae835e-1350-11df-a1f1-0026b9348838",
+										"rendering": "problem"
+									},
+									"type": "obs",
+									"validators": []
+								}
+							],
+							"id": "__o3EGtDLF7"
+						}
+					]
+				},
+				{
+					"label": "Plan",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "obsGroup",
+							"label": "Referrals, detailed",
+							"questionOptions": {
+								"concept": "a8a07c8c-1350-11df-a1f1-0026b9348838",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": " Referrals ordered:",
+									"id": "refOrder",
+									"type": "obs",
+									"questionOptions": {
+										"concept": "a89c2344-1350-11df-a1f1-0026b9348838",
+										"rendering": "multiCheckbox",
+										"answers": [
+											{
+												"concept": "a89d1c68-1350-11df-a1f1-0026b9348838",
+												"label": "Clinician"
+											},
+											{
+												"concept": "a8a8b352-1350-11df-a1f1-0026b9348838",
+												"label": "Adherence counseling"
+											},
+											{
+												"concept": "a89e2df6-1350-11df-a1f1-0026b9348838",
+												"label": "Psychosocial support"
+											},
+											{
+												"concept": "355b199f-c9c7-4e91-831f-2be17d2c67bd",
+												"label": "Legal support"
+											},
+											{
+												"concept": "a8a8aefc-1350-11df-a1f1-0026b9348838",
+												"label": "Family planning"
+											},
+											{
+												"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										]
+									}
+								},
+								{
+									"type": "obs",
+									"label": "Other (specify)",
+									"id": "otherRefs",
+									"questionOptions": {
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+										"rendering": "text"
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(refOrder) ||!arrayContains(refOrder, 'a8aaf3e2-1350-11df-a1f1-0026b9348838')"
+									}
+								}
+							],
+							"id": "__vzMrLHvyz"
+						},
+						{
+							"label": " Notes:",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "5e4dc798-2cce-4a1a-97e9-bcf22d64b07c",
+								"rendering": "textarea",
+								"rows": 15
+							},
+							"id": "__GKHMuFzLD"
+						},
+						{
+							"label": "Return to clinic date:",
+							"type": "obs",
+							"required": "true",
+							"questionOptions": {
+								"concept": "a8a666ba-1350-11df-a1f1-0026b9348838",
+								"rendering": "date",
+								"weeksList": [
+									2,
+									4,
+									6,
+									8,
+									12,
+									16
+								]
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Return to clinic date should be greater than the encounter date."
+								}
+							],
+							"id": "__JIxuqnHws"
+						}
+					]
+				}
+			]
+		}
+	]
+}

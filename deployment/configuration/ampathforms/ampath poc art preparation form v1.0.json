@@ -1,0 +1,714 @@
+{
+	"name": "AMPATH POC ART Preparation Form v1.0",
+	"pages": [
+		{
+			"label": "ART Preparation:",
+			"sections": [
+				{
+					"label": "Encounter Details:",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended",
+								"concept": ""
+							},
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider"
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended",
+								"concept": ""
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Psychosocial/Knowledge Criteria(applies to patients and caregivers)",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Understands the nature of HIV infection and benefits of ART:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "ba076236-5614-4b40-bb9f-cac7a35c8ec1",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "1729"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "artBenefits"
+						},
+						{
+							"label": "Has screened negative for alcohol or other drug use disorder, or is stable on treatment:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "1f30ffe6-6c19-477d-a3e6-8cb8ccabaad6",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "160246"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "negAlcohol"
+						},
+						{
+							"label": "Has screened negative for depression or other psychiatric illness, or is stable on treatment:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8a35e34-1350-11df-a1f1-0026b9348838",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "159891"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "negDepression"
+						},
+						{
+							"label": "Is willing to disclose/has disclosed HIV status, ideally to a family member or close friend:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a899a4d4-1350-11df-a1f1-0026b9348838",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "1048"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "willingDisclose"
+						},
+						{
+							"label": "Has received demonstration of how to take/administer ART and other prescribed medication?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "496127ae-5972-43be-8dcc-000b0a5b795b",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "artAdminDemo"
+						},
+						{
+							"label": "Has received information on predictable side effects of ART and understands what steps to take in case of these side effects:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89eb8c0-1350-11df-a1f1-0026b9348838",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "121764"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "predictableEffects"
+						},
+						{
+							"label": "For patients dependent on a caregiver: caregiver is committed to long-term support of the patient, daily administration of ART, and meets the criteria above:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8aaf158-1350-11df-a1f1-0026b9348838",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "5619"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "dependantCaregiver"
+						},
+						{
+							"label": "Other likely barriers to adherence have been identified and there is a plan in place to address them (e.g. frequent travel for work, plan to deal with unexpected travel, distance from clinic, etc):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a8b03a28-1350-11df-a1f1-0026b9348838",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "5619"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "6294"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "159766"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "addressBarriers"
+						},
+						{
+							"label": "Patient/caregiver has provided accurate locator information and contact details?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "618046be-a5e9-4bfe-aaad-59a1e257510f",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "163089"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "accurateLocator"
+						},
+						{
+							"label": "Patient/caregiver feels ready to start ART today?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "cbeef921-a95a-440e-97d4-f62104b91f5e",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "162695"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "caregiverReady"
+						}
+					]
+				},
+				{
+					"label": "Support Systems Criteria (applies to patients and caregivers):",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Has identified convenient time/s of day for taking ART, and/or associated dose/s with daily event/s:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89ae254-1350-11df-a1f1-0026b9348838",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "1192"
+									},
+									{
+										"type": "local",
+										"value": "1192"
+									}
+								],
+								"answers": [
+									{
+										"label": "Yes",
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838"
+									},
+									{
+										"label": "No",
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838"
+									}
+								]
+							},
+							"id": "convienientTime"
+						},
+						{
+							"label": "Treatment supporter has been identified and engaged in HIV education, or will attend next counselling session?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "45993b53-f20f-4666-bd71-39fb3d41b4d6",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "164886"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "hivEducation"
+						},
+						{
+							"label": "Is aware of support group meeting time/s:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "ed1e7a5d-a9f4-4adf-a033-4e895409fafe",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "163766"
+									},
+									{
+										"type": "local",
+										"value": "10087"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "supportGroup"
+						},
+						{
+							"label": " If facility has SMS reminder system: Has enrolled into SMS reminder system?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "6e033a66-0c01-4884-962a-2385b714ca5e",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "163164"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "smsReminder"
+						},
+						{
+							"label": "Other support systems are in place or planned (e.g. setting phone alarm, pill box)?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "2dc89a3e-3ff9-45d3-a6dd-51fdd69f502a",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "164360"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "settingsupportSystem"
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"referencedForms": []
+}

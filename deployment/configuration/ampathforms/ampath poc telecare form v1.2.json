@@ -1,0 +1,1174 @@
+{
+	"name": "ampath_poc_telecare_form_v1.2",
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"referencedForms": [],
+	"pages": [
+		{
+			"label": "Encounter Details:",
+			"sections": [
+				{
+					"label": "Encounter Details:",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Encounter Date:",
+							"required": "true",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate"
+						},
+						{
+							"label": "Encounter Provider:",
+							"required": "true",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider"
+						},
+						{
+							"label": "Encounter Location:",
+							"required": "true",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLoc"
+						},
+						{
+							"label": "Does patient consent to be called by phone for purpose of care?:",
+							"type": "obs",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "9d9ccb6b-73ae-48dd-83f9-12c782ce6685",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "1710"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "patientConsent",
+							"hide": {
+								"hideWhenExpression": "hasCallConsent === true"
+							}
+						},
+						{
+							"label": "Consent comments:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "textarea",
+								"rows": "18",
+								"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+								"conceptMappings": [
+									{
+										"type": "local",
+										"value": "1915"
+									},
+									{
+										"type": "MCL/CIEL",
+										"value": "160632"
+									}
+								]
+							},
+							"id": "conComments",
+							"hide": {
+								"hideWhenExpression": "hasCallConsent === true"
+							}
+						},
+						{
+							"label": "Who was contacted:",
+							"type": "obs",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "38794cd0-2514-454b-9b7e-8c43eb0909c3",
+								"answers": [
+									{
+										"concept": "a89ebec4-1350-11df-a1f1-0026b9348838",
+										"label": "Parent"
+									},
+									{
+										"concept": "a8a089fc-1350-11df-a1f1-0026b9348838",
+										"label": "Client (self)"
+									},
+									{
+										"concept": "a89cd280-1350-11df-a1f1-0026b9348838",
+										"label": "Caregiver"
+									}
+								]
+							},
+							"id": "phoneContact",
+							"validators": []
+						},
+						{
+							"label": "Is the client staying with them now?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "005487f6-a8c8-4c67-80fc-cf69f49a1f6b",
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes"
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No"
+									}
+								]
+							},
+							"id": "homeStay",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "phoneContact === 'a8a089fc-1350-11df-a1f1-0026b9348838'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Current Patient Location:",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Which country is the patient located:",
+							"type": "obs",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "c95f4285-5707-49aa-85a3-3887c2424b43",
+								"answers": [
+									{
+										"concept": "fba1dcb9-3033-4503-b37e-0727661711ba",
+										"label": "Kenya"
+									},
+									{
+										"concept": "543c8bc2-f411-4ef4-bd94-2c25a1927bc0",
+										"label": "Uganda"
+									},
+									{
+										"concept": "32476a73-a789-4c52-ba1d-e4df4dd6d877",
+										"label": "Tanzania"
+									},
+									{
+										"concept": "cdf42685-8d0e-4dd0-916e-d1425f999a60",
+										"label": "Ethiopia"
+									},
+									{
+										"concept": "53455ab4-15f1-4afb-88c5-c9ddcdbd4e4a",
+										"label": "Rwanda"
+									},
+									{
+										"concept": "038a7e18-f331-4ad6-a5b9-eb4806f4c627",
+										"label": "Burundi"
+									},
+									{
+										"concept": "4f697de6-38e6-4507-b4c5-d54356104b80",
+										"label": "Somalia"
+									},
+									{
+										"concept": "67097ee2-7447-46d9-826f-aaa3cecd640b",
+										"label": "South Sudan"
+									}
+								],
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "165657"
+									},
+									{
+										"type": "local",
+										"value": "11125"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent))"
+							},
+							"id": "locCountry"
+						},
+						{
+							"id": "locCounty",
+							"label": "County:",
+							"type": "obs",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "9d20dbba-4947-412d-8b62-2bff766132d7",
+								"answers": [
+									{
+										"concept": "4532910a-b76b-4846-b905-006aee061bfb",
+										"label": "Uasin Gishu"
+									},
+									{
+										"concept": "1a81fd05-535e-4d5d-991f-5e07082608f6",
+										"label": "Mombasa"
+									},
+									{
+										"concept": "92a21d56-ff39-4e50-bee8-1af924ad8749",
+										"label": "Nairobi"
+									},
+									{
+										"concept": "e2dedf8a-e013-4d5e-8596-484f137a218b",
+										"label": "Nakuru"
+									},
+									{
+										"concept": "6c917467-102b-4268-bbc2-0cfabf6521a8",
+										"label": "Kiambu"
+									},
+									{
+										"concept": "257ac0ea-85c6-4d05-9bce-be66f3ca0054",
+										"label": "Kericho"
+									},
+									{
+										"concept": "251a1427-c85c-484b-a7a3-985f0cb9a92a",
+										"label": "Bomet"
+									},
+									{
+										"concept": "fc38093d-13e0-4d7e-8f5a-18619116c4d9",
+										"label": "Nandi"
+									},
+									{
+										"concept": "27fb861a-8e25-4de9-bd49-48dc762d6cbf",
+										"label": "Trans Nzoia"
+									},
+									{
+										"concept": "ce57b52d-1971-430f-94d9-d11049d9ae0e",
+										"label": "Turkana"
+									},
+									{
+										"concept": "160ced0e-3173-46c7-9300-515adeeaa77e",
+										"label": "Elgeyo Marakwet"
+									},
+									{
+										"concept": "a325268f-33f5-4a60-946d-ff4b69494b3f",
+										"label": "West Pokot"
+									},
+									{
+										"concept": "e08d10b5-456b-4421-aa79-e2dd1017a6da",
+										"label": "Baringo"
+									},
+									{
+										"concept": "4148b3f8-3d84-4d97-ba0d-0187beff4ee0",
+										"label": "Mandera"
+									},
+									{
+										"concept": "d2b7ade5-840b-449a-881c-be9b7e57bd1a",
+										"label": "Kilifi"
+									},
+									{
+										"concept": "df012ba9-edcb-454b-95f5-5688bb85f9c0",
+										"label": "Kwale"
+									},
+									{
+										"concept": "b3cd7e4e-0bd2-4818-87d4-8768ba88e706",
+										"label": "Kisumu"
+									},
+									{
+										"concept": "e6de2549-a86a-44da-be39-1a05f923e233",
+										"label": "Siaya"
+									},
+									{
+										"concept": "4ae1f7ef-ee83-41cd-a8ea-458d6e913924",
+										"label": "Kakamega"
+									},
+									{
+										"concept": "2343557c-1626-4a13-80dd-0fa88d996d1e",
+										"label": "Vihiga"
+									},
+									{
+										"concept": "7d7a869c-979b-4105-983c-e6f610f4dc1e",
+										"label": "Bungoma"
+									},
+									{
+										"concept": "f6b97374-62be-44f3-b266-89a65c827faa",
+										"label": "Tana River"
+									},
+									{
+										"concept": "96b1c753-09ba-4a67-b8e1-385aeb4a941d",
+										"label": "Lamu"
+									},
+									{
+										"concept": "697daf21-c0d9-4627-b906-809abb96a0ed",
+										"label": "Taita Taveta"
+									},
+									{
+										"concept": "46cb59df-c4d7-49c9-99a6-8f8ee1ddc526",
+										"label": "Garissa"
+									},
+									{
+										"concept": "cf42b004-8fc4-48e6-967f-e2a0e41f662c",
+										"label": "Wajir"
+									},
+									{
+										"concept": "d2cc5bcd-820f-4498-9603-b8e737a3b678",
+										"label": "Marsabit"
+									},
+									{
+										"concept": "30d075b7-d340-4f4a-96d7-30bc8fa10164",
+										"label": "Isiolo"
+									},
+									{
+										"concept": "6f13a0a0-72a7-429d-be15-b71c4337dabd",
+										"label": "Meru"
+									},
+									{
+										"concept": "f8449efd-252a-4b61-a2e9-7542d9d26580",
+										"label": "Tharaka Nithi"
+									},
+									{
+										"concept": "e62faad3-b2c3-4e2d-a734-8859ced7f823",
+										"label": "Embu"
+									},
+									{
+										"concept": "ee9fdd32-fa61-4045-a5d3-fbd83c289492",
+										"label": "Kitui"
+									},
+									{
+										"concept": "ad60697d-cfd9-4eb6-9870-84faaa126653",
+										"label": "Machakos"
+									},
+									{
+										"concept": "9eefb3e9-e6e2-4560-9c23-cd27a7034b7d",
+										"label": "Makueni"
+									},
+									{
+										"concept": "8234dc27-5fb0-4ee5-9e58-844b1d5f122e",
+										"label": "Nyandarua"
+									},
+									{
+										"concept": "fa289671-03c9-4852-b0e5-39f63c53fec0",
+										"label": "Nyeri"
+									},
+									{
+										"concept": "24f18c6b-d2bf-47c3-8d8d-d7624680563a",
+										"label": "Kirinyaga"
+									},
+									{
+										"concept": "61a7e6bd-65e9-471d-a81f-e0d2d8641af0",
+										"label": "Murang'a"
+									},
+									{
+										"concept": "6ed55aee-e0e9-4657-98ff-b1fe723b1222",
+										"label": "Samburu"
+									},
+									{
+										"concept": "5d36a389-eb05-4e07-a41d-b6060c990c30",
+										"label": "Laikipia"
+									},
+									{
+										"concept": "2da03c3b-86ff-4ed6-8c82-48f9a95380c0",
+										"label": "Narok"
+									},
+									{
+										"concept": "9bb448c7-a32f-4489-8a9d-a279045581bd",
+										"label": "Kajiado"
+									},
+									{
+										"concept": "efde545c-aa53-49f7-9304-b7337e1b5c64",
+										"label": "Busia"
+									},
+									{
+										"concept": "0c37d31b-6c59-4073-a24e-853594dba6d9",
+										"label": "Homa Bay"
+									},
+									{
+										"concept": "b529c900-9e3e-446e-9fb8-4983b48eb56c",
+										"label": "Migori"
+									},
+									{
+										"concept": "d47d156a-7e4d-42fc-9c66-c7a153125c5f",
+										"label": "Kisii"
+									},
+									{
+										"concept": "05b89a50-29e4-465c-8f76-33f050a100e0",
+										"label": "Nyamira"
+									}
+								],
+								"conceptMappings": [
+									{
+										"type": "local",
+										"value": "11145"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "locCountry !== 'fba1dcb9-3033-4503-b37e-0727661711ba'"
+							}
+						},
+						{
+							"label": "Estate/Village",
+							"id": "estateVillage",
+							"type": "obs",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "5dff52c6-a14a-4893-967f-42c400b98989"
+							},
+							"conceptMappings": [
+								{
+									"type": "local",
+									"value": "11137"
+								},
+								{
+									"type": "MCL/CIEL",
+									"value": "1354"
+								}
+							],
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "locCountry !== 'fba1dcb9-3033-4503-b37e-0727661711ba'"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Patient History",
+			"sections": [
+				{
+					"label": "Medication History",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "obsGroup",
+							"label": "Reason for calling patient:",
+							"questionOptions": {
+								"concept": "1dbee549-6283-48a8-b40e-d7d11b6b62d5",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Reason for calling patient:",
+									"id": "callReason",
+									"questionOptions": {
+										"concept": "42f9692c-a3f0-497b-8584-1ee0a3110b46",
+										"answers": [
+											{
+												"concept": "a898fe80-1350-11df-a1f1-0026b9348838",
+												"label": "PCR"
+											},
+											{
+												"concept": "a8b0f7c4-1350-11df-a1f1-0026b9348838",
+												"label": "Antibody test"
+											},
+											{
+												"concept": "a8982474-1350-11df-a1f1-0026b9348838",
+												"label": "VL"
+											},
+											{
+												"concept": "57677735-4310-4841-8902-dae4bac24d20",
+												"label": "ERT/DST"
+											},
+											{
+												"concept": "a9431295-9862-405b-b694-534f093ca0ad",
+												"label": "EAC/MDT"
+											},
+											{
+												"concept": "751eafe1-6aee-493a-b254-203903127120",
+												"label": "APNS"
+											},
+											{
+												"concept": "75149ac3-2804-4e84-8220-0861523bbea1",
+												"label": "PREP For partner"
+											},
+											{
+												"concept": "a89accc4-1350-11df-a1f1-0026b9348838",
+												"label": "Disclosure counseling"
+											},
+											{
+												"concept": "d1eb251b-3c97-4406-b292-2c6e7a7ff968",
+												"label": "Peer counseling (phone/facility)"
+											},
+											{
+												"concept": "a8a8aefc-1350-11df-a1f1-0026b9348838",
+												"label": "Family planning"
+											},
+											{
+												"concept": "a89fbedc-1350-11df-a1f1-0026b9348838",
+												"label": "Prevention of mother-to-child transmission of HIV(pMTCT)"
+											},
+											{
+												"concept": "12550258-d797-43d9-a282-e35908c33fe4",
+												"label": "Drug refill(prescription)"
+											},
+											{
+												"concept": "9e5ddce7-ba78-47ef-a72f-007f5aa819b2",
+												"label": "Consultants review including mental health, dermatology,etc"
+											},
+											{
+												"concept": "a89d1c68-1350-11df-a1f1-0026b9348838",
+												"label": "Clinician review/clinic visit"
+											},
+											{
+												"concept": "29a9df4d-808f-4ba0-8b1e-ea05c918f14b",
+												"label": "Multi Month Dispensing(MMD)"
+											},
+											{
+												"concept": "d1c4a2c9-6326-41ab-baae-8239ec697620",
+												"label": "Project beyond"
+											}
+										],
+										"rendering": "select"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent))"
+									}
+								},
+								{
+									"type": "obsGroup",
+									"label": "Chronic illness, detailed",
+									"questionOptions": {
+										"concept": "ebf02efb-b28c-49e8-9caf-65e96dbfa0a9",
+										"rendering": "group"
+									},
+									"questions": [
+										{
+											"id": "onChronicMed",
+											"required": "true",
+											"label": "Are you on medication for any other chronic illness?",
+											"historicalExpression": "HD.getObject('prevEnc').getValue('ebf02efb-b28c-49e8-9caf-65e96dbfa0a9.204bbb03-adec-43ec-a9ff-67767c73f947')",
+											"questionOptions": {
+												"concept": "204bbb03-adec-43ec-a9ff-67767c73f947",
+												"answers": [
+													{
+														"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+														"label": "Yes"
+													},
+													{
+														"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+														"label": "No"
+													}
+												],
+												"rendering": "select"
+											},
+											"type": "obs",
+											"validators": [],
+											"hide": {
+												"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent))"
+											}
+										},
+										{
+											"label": "Chronic illness",
+											"id": "chronicIllness",
+											"historicalExpression": "HD.getObject('prevEnc').getValue('ebf02efb-b28c-49e8-9caf-65e96dbfa0a9.0ac4af8a-1b8e-4404-b445-c0471d6f7576')",
+											"questionOptions": {
+												"concept": "0ac4af8a-1b8e-4404-b445-c0471d6f7576",
+												"rendering": "multiCheckbox",
+												"answers": [
+													{
+														"concept": "a893436e-1350-11df-a1f1-0026b9348838",
+														"label": "Diabetes"
+													},
+													{
+														"concept": "a8986880-1350-11df-a1f1-0026b9348838",
+														"label": "HTN"
+													},
+													{
+														"concept": "291e1dc4-203a-4a09-aa0c-2d0a1962a719",
+														"label": "Mental health"
+													},
+													{
+														"concept": "acdceb9b-4b84-4e9c-bba4-eaf486b3b4b5",
+														"label": "Cancer"
+													},
+													{
+														"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+														"label": "other"
+													}
+												]
+											},
+											"type": "obs",
+											"validators": [],
+											"hide": {
+												"hideWhenExpression": "onChronicMed !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+											}
+										},
+										{
+											"type": "obs",
+											"label": "Chronic Illness: Other (specify)",
+											"questionInfo": "",
+											"id": "otherChronicIllness",
+											"questionOptions": {
+												"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+												"rendering": "text"
+											},
+											"validators": [],
+											"hide": {
+												"hideWhenExpression": "!arrayContains(chronicIllness,['a8aaf3e2-1350-11df-a1f1-0026b9348838'])"
+											}
+										}
+									],
+									"id": "__towzspFKE"
+								},
+								{
+									"type": "obsGroup",
+									"label": "Problem taking medication detailed:",
+									"questionInfo": "",
+									"questionOptions": {
+										"concept": "b43653a1-bd68-4d94-88ee-2c6d1f05c85e",
+										"rendering": "group"
+									},
+									"questions": [
+										{
+											"label": "Do you have a problem taking any of your medication?",
+											"id": "problemMedicating",
+											"questionOptions": {
+												"concept": "79fbb3de-98aa-462e-bb5a-8d530dad4410",
+												"rendering": "select",
+												"answers": [
+													{
+														"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+														"label": "Yes"
+													},
+													{
+														"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+														"label": "No"
+													}
+												]
+											},
+											"type": "obs",
+											"validators": [],
+											"hide": {
+												"hideWhenExpression": "(onArt === 'a899b42e-1350-11df-a1f1-0026b9348838' && onTbProphylaxis === 'a899b42e-1350-11df-a1f1-0026b9348838' && onTbTreatment === 'a899b42e-1350-11df-a1f1-0026b9348838' && onChronicMed === 'a899b42e-1350-11df-a1f1-0026b9348838' ) || ( isEmpty(onArt) && isEmpty(onTbProphylaxis) && isEmpty(onTbTreatment) && isEmpty(onChronicMed)) || ( onArt === 'a899b42e-1350-11df-a1f1-0026b9348838' && isEmpty(onTbProphylaxis) && isEmpty(onTbTreatment) && isEmpty(onChronicMed)) || (onArt === 'a899b42e-1350-11df-a1f1-0026b9348838' && onTbProphylaxis === 'a899b42e-1350-11df-a1f1-0026b9348838' && isEmpty(onTbTreatment) && isEmpty(onChronicMed)) || (isEmpty(onArt) && onTbProphylaxis === 'a899b42e-1350-11df-a1f1-0026b9348838' && isEmpty(onTbTreatment) && isEmpty(onChronicMed)) || (isEmpty(onArt) && isEmpty(onTbProphylaxis) && onTbTreatment === 'a899b42e-1350-11df-a1f1-0026b9348838' && isEmpty(onChronicMed))"
+											}
+										},
+										{
+											"label": "What are the problems in taking medication?",
+											"id": "medicationProblems",
+											"questionOptions": {
+												"concept": "a89ebbc2-1350-11df-a1f1-0026b9348838",
+												"rendering": "multiCheckbox",
+												"answers": [
+													{
+														"concept": "a89eba46-1350-11df-a1f1-0026b9348838",
+														"label": "Stigma"
+													},
+													{
+														"concept": "ecafa614-49c5-4eba-84c7-b85b0d9e2c46",
+														"label": "Pill Burden"
+													},
+													{
+														"concept": "a89eb8c0-1350-11df-a1f1-0026b9348838",
+														"label": "Side effects"
+													},
+													{
+														"concept": "a89eacc2-1350-11df-a1f1-0026b9348838",
+														"label": "Forgot to take medication"
+													},
+													{
+														"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+														"label": "Other"
+													}
+												]
+											},
+											"type": "obs",
+											"validators": [],
+											"hide": {
+												"hideWhenExpression": "problemMedicating !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+											}
+										},
+										{
+											"label": "Problem taking medication: Other (specify):",
+											"questionInfo": "",
+											"questionOptions": {
+												"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+												"rendering": "text"
+											},
+											"type": "obs",
+											"id": "otherProblemTakingMedication",
+											"validators": [],
+											"hide": {
+												"hideWhenExpression": "!arrayContains(medicationProblems,['a8aaf3e2-1350-11df-a1f1-0026b9348838'])"
+											}
+										}
+									],
+									"id": "__9CEqoEGoH"
+								}
+							],
+							"id": "__xwooqz8sr"
+						},
+						{
+							"label": "Reproductive and Breastfeeding History",
+							"isExpanded": "true",
+							"questions": [
+								{
+									"label": "Is the patient pregnant?",
+									"id": "pregnant",
+									"required": "true",
+									"questionOptions": {
+										"concept": "6b4f1d00-0a27-41dd-a299-fb7dc730819c",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										]
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent)) || sex == 'M' || (sex == 'F'  && age < 10)"
+									}
+								},
+								{
+									"label": "Is the patient on family planning?:",
+									"questionInfo": "",
+									"required": "true",
+									"id": "onFamilyPlanning",
+									"questionOptions": {
+										"concept": "774961c6-232f-4332-8a9f-f5c55ebe86d0",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										],
+										"rendering": "select"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "pregnant !== 'a899b42e-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"type": "obsGroup",
+									"label": "Family planning, detailed",
+									"questionOptions": {
+										"concept": "767e8060-5272-4927-ab78-97534a4499ef",
+										"rendering": "group"
+									},
+									"questions": [
+										{
+											"label": "Family planning method:",
+											"questionInfo": "",
+											"required": "true",
+											"id": "fpMethod",
+											"questionOptions": {
+												"concept": "a894b1cc-1350-11df-a1f1-0026b9348838",
+												"answers": [
+													{
+														"concept": "a893516a-1350-11df-a1f1-0026b9348838",
+														"label": "Condoms"
+													},
+													{
+														"concept": "a123d949-31f3-4abf-98e3-8504e17ebc00",
+														"label": "3-year implant"
+													},
+													{
+														"concept": "feb48308-a56f-4754-8e8f-8c1698e570cb",
+														"label": "5-year implant"
+													},
+													{
+														"concept": "eaa5796d-0b1c-478b-8c9d-d23cf4c3bddc",
+														"label": "Vasectomy"
+													},
+													{
+														"concept": "a8a71330-1350-11df-a1f1-0026b9348838",
+														"label": "Injectables (Depo)"
+													},
+													{
+														"concept": "a8a71650-1350-11df-a1f1-0026b9348838",
+														"label": "IUD"
+													},
+													{
+														"concept": "4a740e33-fee5-4a2b-b679-1904722e3d9e",
+														"label": "Lactation method"
+													},
+													{
+														"concept": "a897dbd6-1350-11df-a1f1-0026b9348838",
+														"label": "OCP"
+													},
+													{
+														"concept": "a8a714c0-1350-11df-a1f1-0026b9348838",
+														"label": "Rhythm method"
+													},
+													{
+														"concept": "a8a713f8-1350-11df-a1f1-0026b9348838",
+														"label": "Bilateral tubal ligation"
+													},
+													{
+														"concept": "a8aaf3e2-1350-11df-a1f1-0026b9348838",
+														"label": "Other"
+													}
+												],
+												"rendering": "multiCheckbox"
+											},
+											"type": "obs",
+											"validators": [
+												{
+													"type": "js_expression",
+													"failsWhenExpression": "isEmpty(myValue) && onFamilyPlanning === 'a899b35c-1350-11df-a1f1-0026b9348838'",
+													"message": "Patient on family planning. Please provide a method."
+												}
+											],
+											"hide": {
+												"hideWhenExpression": "onFamilyPlanning !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+											}
+										},
+										{
+											"type": "obs",
+											"label": "Family planning: Other (specify)",
+											"questionInfo": "",
+											"id": "otherfp",
+											"questionOptions": {
+												"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+												"rendering": "text"
+											},
+											"validators": [],
+											"hide": {
+												"hideWhenExpression": "isEmpty(fpMethod) || !arrayContains(fpMethod, 'a8aaf3e2-1350-11df-a1f1-0026b9348838')"
+											}
+										}
+									],
+									"id": "__EH2roJLsL"
+								},
+								{
+									"label": "Have they started ANC visit?",
+									"id": "startedAnc",
+									"required": "true",
+									"questionOptions": {
+										"concept": "a8a18140-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										],
+										"rendering": "select"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "pregnant !== 'a899b35c-1350-11df-a1f1-0026b9348838'"
+									}
+								},
+								{
+									"label": "Is the patient breastfeeding?",
+									"id": "motherBreastFeeding",
+									"required": "true",
+									"questionOptions": {
+										"concept": "a8a18208-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										],
+										"rendering": "select"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent)) || sex === 'M' || (sex === 'F'  && age < 10)"
+									}
+								}
+							]
+						},
+						{
+							"label": "Child Breastfeeding History",
+							"isExpanded": "true",
+							"questions": [
+								{
+									"label": "Child breastfeeding?",
+									"id": "childBreastFeeding",
+									"required": "true",
+									"questionOptions": {
+										"concept": "a8aafc70-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+												"label": "Yes"
+											},
+											{
+												"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+												"label": "No"
+											}
+										],
+										"rendering": "select"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent)) || age > 3"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Complaints",
+			"sections": [
+				{
+					"label": "Complaints:",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "What complaints do you have today? ",
+							"type": "obsGroup",
+							"questionOptions": {
+								"rendering": "group",
+								"concept": "9014962e-3efe-46b0-a393-c8c8bddadaa7"
+							},
+							"id": "ComplainToday",
+							"questions": [
+								{
+									"label": "Please tick current complaints:",
+									"questionOptions": {
+										"concept": "a8a6ddb6-1350-11df-a1f1-0026b9348838",
+										"answers": [
+											{
+												"concept": "a8ad270c-1350-11df-a1f1-0026b9348838",
+												"label": "Diarrhea"
+											},
+											{
+												"concept": "a8a0c1b0-1350-11df-a1f1-0026b9348838",
+												"label": "Sore throat"
+											},
+											{
+												"concept": "a8a0bf58-1350-11df-a1f1-0026b9348838",
+												"label": "Abdominal pain"
+											},
+											{
+												"concept": "a8a0c084-1350-11df-a1f1-0026b9348838",
+												"label": "Difficulty in breathing"
+											},
+											{
+												"concept": "a8ad1190-1350-11df-a1f1-0026b9348838",
+												"label": "Cough"
+											},
+											{
+												"concept": "245edfef-d05b-48c1-9a72-e4de5d586a33",
+												"label": "Mouth sores"
+											},
+											{
+												"concept": "a8a0c408-1350-11df-a1f1-0026b9348838",
+												"label": "Hotness of the body"
+											},
+											{
+												"concept": "a892e4b4-1350-11df-a1f1-0026b9348838",
+												"label": "Chest pain"
+											},
+											{
+												"concept": "a8a0c2dc-1350-11df-a1f1-0026b9348838",
+												"label": "Skin rash"
+											},
+											{
+												"concept": "24a2b364-aaf7-4c2d-9ecf-edf65f21c107",
+												"label": "Palpitations"
+											},
+											{
+												"concept": "a8966d1e-1350-11df-a1f1-0026b9348838",
+												"label": "Headache"
+											},
+											{
+												"concept": "a8ad4714-1350-11df-a1f1-0026b9348838",
+												"label": "Dysuria"
+											},
+											{
+												"concept": "068615a4-7fd2-40ea-b928-240cdec097ed",
+												"label": "Polyuria"
+											},
+											{
+												"concept": "a8983cc0-1350-11df-a1f1-0026b9348838",
+												"label": "Dysphagia"
+											},
+											{
+												"concept": "a8ad3576-1350-11df-a1f1-0026b9348838",
+												"label": "Swelling"
+											},
+											{
+												"concept": "a8ad5330-1350-11df-a1f1-0026b9348838",
+												"label": "Muscle pains"
+											},
+											{
+												"concept": "a89d0d90-1350-11df-a1f1-0026b9348838",
+												"label": "Numbness"
+											},
+											{
+												"concept": "a8ad2478-1350-11df-a1f1-0026b9348838",
+												"label": "Vomiting"
+											},
+											{
+												"concept": "a8a0c534-1350-11df-a1f1-0026b9348838",
+												"label": "Ear discharge"
+											},
+											{
+												"concept": "a8a0c656-1350-11df-a1f1-0026b9348838",
+												"label": "Swelling"
+											},
+											{
+												"concept": "a89d109c-1350-11df-a1f1-0026b9348838",
+												"label": "Pregnant"
+											},
+											{
+												"concept": "a8a0c9da-1350-11df-a1f1-0026b9348838",
+												"label": "Other"
+											}
+										],
+										"rendering": "multiCheckbox"
+									},
+									"type": "obs",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent))"
+									},
+									"id": "__xqv6xwJ5s"
+								},
+								{
+									"label": "Free text complaint:",
+									"id": "freeText",
+									"questionOptions": {
+										"rendering": "textarea",
+										"rows": "18",
+										"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838"
+									},
+									"type": "obs",
+									"hide": {
+										"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent))"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Plan",
+			"sections": [
+				{
+					"label": "Referrals",
+					"isExpanded": "true",
+					"questions": []
+				},
+				{
+					"label": "Remarks",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Assessment notes, adherence counseling, and conclusion including next course of action",
+							"questionInfo": "",
+							"type": "obs",
+							"id": "assNote",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"concept": "23f710cc-7f9c-4255-9b6b-c3e240215dba",
+								"rendering": "textarea",
+								"rows": 18
+							},
+							"hide": {
+								"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent))"
+							}
+						}
+					]
+				},
+				{
+					"label": "Next Appointment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Next appointment",
+							"isExpanded": "true",
+							"questions": [
+								{
+									"label": "Planned phone follow up date:",
+									"questionInfo": "",
+									"type": "obs",
+									"id": "plannedFollowUp",
+									"questionOptions": {
+										"concept": "a92421fd-adab-4f20-aa27-bf99996d7863",
+										"rendering": "date",
+										"showWeeks": true,
+										"weeksList": [
+											2,
+											4,
+											6,
+											8,
+											12,
+											16,
+											24
+										]
+									},
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "true"
+										},
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+											"message": "Return to clinic date should be greater than the encounter date."
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "patientConsent === 'a899b42e-1350-11df-a1f1-0026b9348838' || (hasCallConsent === false && isEmpty(patientConsent))"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

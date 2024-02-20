@@ -1,0 +1,113 @@
+{
+	"name": "Ampath POC Consent Form v 1.0",
+	"pages": [
+		{
+			"label": "Encounter Details:",
+			"sections": [
+				{
+					"label": "Encounter Details:",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Consent Date:",
+							"required": "true",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate"
+						},
+						{
+							"label": "Encounter Provider:",
+							"type": "encounterProvider",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider"
+						},
+						{
+							"label": "Encounter Location:",
+							"required": "true",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						},
+						{
+							"label": "Does patient consent to be called by phone or visited at home for purpose of care?:",
+							"type": "obs",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "9d9ccb6b-73ae-48dd-83f9-12c782ce6685",
+								"conceptMappings": [
+									{
+										"type": "MCL/CIEL",
+										"value": "1710"
+									}
+								],
+								"answers": [
+									{
+										"concept": "a899b35c-1350-11df-a1f1-0026b9348838",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "local",
+												"value": "1065"
+											},
+											{
+												"type": "MCL/CIEL",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "a899b42e-1350-11df-a1f1-0026b9348838",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "MCL/CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "local",
+												"value": "1066"
+											}
+										]
+									}
+								]
+							},
+							"id": "patientConsent"
+						},
+						{
+							"label": "Consent comments:",
+							"type": "obs",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "textarea",
+								"rows": "18",
+								"concept": "a8a06fc6-1350-11df-a1f1-0026b9348838",
+								"conceptMappings": [
+									{
+										"type": "local",
+										"value": "1915"
+									},
+									{
+										"type": "MCL/CIEL",
+										"value": "160632"
+									}
+								]
+							},
+							"id": "conComments"
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"referencedForms": []
+}

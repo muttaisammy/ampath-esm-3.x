@@ -1,0 +1,104 @@
+{
+	"name": "AMPATH POC OVC Exit Form v1.0",
+	"version": "1.1",
+	"encounterType": "uuid",
+	"processor": "EncounterFormProcessor",
+	"form": "uuid",
+	"pages": [
+		{
+			"label": "Encounter Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Exit Reason",
+			"sections": [
+				{
+					"label": "Exit Reason",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Reason for exiting OVC:",
+							"required": "true",
+							"id": "exitCare",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89e3f94-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "3c42c160-ec4e-4772-a9ef-42f79e54b1dc",
+										"label": "Graduated"
+									},
+									{
+										"concept": "c049a429-444c-40c3-a520-a05888d7cac7",
+										"label": "Attrition"
+									},
+									{
+										"concept": "5520f234-258e-49f0-97ab-701b98fab608",
+										"label": "Trasfer out"
+									},
+									{
+										"concept": "a87afeb3-64e7-4d7c-a44b-5784644e649e",
+										"label": "Wrong enrollment"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Detailed explanation for reasons patient is exiting OVC:",
+							"type": "obs",
+							"id": "detailReason",
+							"questionOptions": {
+								"concept": "5e4dc798-2cce-4a1a-97e9-bcf22d64b07c",
+								"rendering": "textarea",
+								"rows": 15
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

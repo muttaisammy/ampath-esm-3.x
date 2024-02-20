@@ -1,0 +1,972 @@
+{
+	"name": "Youth Return Encounter Form v1.6",
+	"uuid": "xxxx",
+	"processor": "EncounterFormProcessor",
+	"referencedForms": [
+		{
+			"formName": "component_vitals",
+			"alias": "vt",
+			"ref": {
+				"uuid": "7f5e06a4-92d1-4fc9-9e05-03b414457d69",
+				"display": "Vitals Component"
+			}
+		},
+		{
+			"formName": "component_immunization-v1.0",
+			"alias": "immn1",
+			"ref": {
+				"uuid": "11b15110-e325-4d0d-bd54-5f55b21301f5",
+				"display": "Immunization v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_feeding-v1.0",
+			"alias": "feed",
+			"ref": {
+				"uuid": "ab38a0ae-47e7-463e-b589-b292d9c5d16f",
+				"display": "Feeding v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_social-history",
+			"alias": "sh",
+			"ref": {
+				"uuid": "12695918-5ce3-409b-9fd7-c6689e200de6",
+				"display": "Social History Component"
+			}
+		},
+		{
+			"formName": "component_art-v1.3",
+			"alias": "art13",
+			"ref": {
+				"uuid": "c0c0ec8f-8bf2-4089-816e-518234d9901f",
+				"display": "Art v1.3 Component"
+			}
+		},
+		{
+			"formName": "component_preclinic-review-v1.0",
+			"alias": "pcr1",
+			"ref": {
+				"uuid": "8fcac059-c86c-4182-85c0-9653e1568ed4",
+				"display": "Preclinic Review v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_pcp-prophy-v1.3",
+			"alias": "pcp13",
+			"ref": {
+				"uuid": "f337f624-1396-40cb-955c-c92c105a8587",
+				"display": "Pcp Prophy v1.3 Component"
+			}
+		},
+		{
+			"formName": "component_tb-prophy-v1.3",
+			"alias": "tbp13",
+			"ref": {
+				"uuid": "76256302-13fb-41ed-9845-afe5770c6c3b",
+				"display": "Tb Prophy v1.3 Component"
+			}
+		},
+		{
+			"formName": "component_tb-treatment-v1.2",
+			"alias": "tbt12",
+			"ref": {
+				"uuid": "9629bd9a-af5f-4ef5-9f4c-92c65bf4e24e",
+				"display": "Tb Treatment v1.2 Component"
+			}
+		},
+		{
+			"formName": "component_crypto",
+			"alias": "cry",
+			"ref": {
+				"uuid": "4ff5104b-b2d0-4403-9691-4020061d3a2c",
+				"display": "Crypto Component"
+			}
+		},
+		{
+			"formName": "component_substance-use-v1.2",
+			"alias": "su12",
+			"ref": {
+				"uuid": "62a9c83d-7fda-4756-94db-db89d46df6a2",
+				"display": "Substance Use v1.2 Component"
+			}
+		},
+		{
+			"formName": "component_other-medication",
+			"alias": "omed",
+			"ref": {
+				"uuid": "46205439-ccbf-4f60-80e1-d765861f6257",
+				"display": "Other Medication Component"
+			}
+		},
+		{
+			"formName": "component_side-effect-v1.4",
+			"alias": "se14",
+			"ref": {
+				"uuid": "bef429bc-4223-4bbe-b807-3e30c8d830ae",
+				"display": "Side Effect v1.4 Component"
+			}
+		},
+		{
+			"formName": "component_hpi",
+			"alias": "hpi",
+			"ref": {
+				"uuid": "b91aef27-cd94-4934-94ac-c168ce539cb3",
+				"display": "Hpi Component"
+			}
+		},
+		{
+			"formName": "component_physical-exams",
+			"alias": "ppe",
+			"ref": {
+				"uuid": "b8538aa0-1820-4302-9274-4d38c410e929",
+				"display": "Physical Exams Component"
+			}
+		},
+		{
+			"formName": "component_lab-results",
+			"alias": "tr",
+			"ref": {
+				"uuid": "759e3a62-9f9e-4f56-9593-24f6cef3a5d4",
+				"display": "Lab Results Component"
+			}
+		},
+		{
+			"formName": "component_lab-results-v1.2",
+			"alias": "tr12",
+			"ref": {
+				"uuid": "7c84ca8c-c55e-4a5f-82d5-30305e8dbee7",
+				"display": "Lab Results v1.2 Component"
+			}
+		},
+		{
+			"formName": "component_problem-list",
+			"alias": "pl",
+			"ref": {
+				"uuid": "7505e278-64cb-44af-a8ce-0482f1d4691f",
+				"display": "Problem List Component"
+			}
+		},
+		{
+			"formName": "component_who-staging-v1.1",
+			"alias": "ws11",
+			"ref": {
+				"uuid": "6fdeb38b-205d-4a36-b3c2-be6f0b5c40aa",
+				"display": "Who Staging v1.1 Component"
+			}
+		},
+		{
+			"formName": "component_lab-orders",
+			"alias": "lo",
+			"ref": {
+				"uuid": "ba985719-b085-419c-a0c7-3f1c3e61dd3e",
+				"display": "Lab Orders Component"
+			}
+		},
+		{
+			"formName": "component_lab-orders-v1.0",
+			"alias": "to",
+			"ref": {
+				"uuid": "61a262b6-3238-4187-9740-dea29ea4f7e4",
+				"display": "Lab Orders v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_lab-orders-v1.2",
+			"alias": "to12",
+			"ref": {
+				"uuid": "854ae18a-5ca3-4ea2-9cac-42b8e6fecf76",
+				"display": "Lab Orders v1.2 Component"
+			}
+		},
+		{
+			"formName": "component_assessment-v1.2",
+			"alias": "ass12",
+			"ref": {
+				"uuid": "2955aa1a-28c7-4585-924c-6380ef9a5a91",
+				"display": "Assessment v1.2 Component"
+			}
+		},
+		{
+			"formName": "component_drug-allergy",
+			"alias": "da",
+			"ref": {
+				"uuid": "6dff3f8b-e4bf-49d4-b101-c8820a373ed3",
+				"display": "Drug Allergy Component"
+			}
+		},
+		{
+			"formName": "component_child-labor",
+			"alias": "cl",
+			"ref": {
+				"uuid": "50976ca8-0b3a-411b-9ed6-150f7f192ee8",
+				"display": "Child Labor Component"
+			}
+		},
+		{
+			"formName": "component_mental-health",
+			"alias": "mh",
+			"ref": {
+				"uuid": "cfc21027-e186-40ca-9661-daf4156eb4ea",
+				"display": "Mental Health Component"
+			}
+		},
+		{
+			"formName": "component_child-abuse",
+			"alias": "ca",
+			"ref": {
+				"uuid": "ab98758f-054c-490a-bc7a-2984c55feaed",
+				"display": "Child Abuse Component"
+			}
+		},
+		{
+			"formName": "component_ob-history-v1.2",
+			"alias": "gynhist12",
+			"ref": {
+				"uuid": "3a6e2b75-cedd-4c6a-9630-b601a6e748b9",
+				"display": "Ob History v1.2 Component"
+			}
+		},
+		{
+			"formName": "component_family-information",
+			"alias": "fi",
+			"ref": {
+				"uuid": "a0de78cc-a78a-4b60-8378-40514ec3e937",
+				"display": "Family Information Component"
+			}
+		},
+		{
+			"formName": "component_family-planning-v1.0",
+			"alias": "fp1",
+			"ref": {
+				"uuid": "68363308-0a91-4541-9934-c3e770416d51",
+				"display": "Family Planning v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_reproductive-health-v1.0",
+			"alias": "rh1",
+			"ref": {
+				"uuid": "22ffeb58-cc48-400e-a595-113156234d7b",
+				"display": "Reproductive Health V1.0 Component"
+			}
+		},
+		{
+			"formName": "component_sti-v1.0",
+			"alias": "sti1",
+			"ref": {
+				"uuid": "6515b019-5264-4a61-a7fd-e891ea03b5f4",
+				"display": "STI v1.0 Component"
+			}
+		},
+		{
+			"formName": "component_education-v1.3",
+			"alias": "edu13",
+			"ref": {
+				"uuid": "51ddd9ed-9441-4f2b-a464-ef4c355e5ea1",
+				"display": "Education V1.3 Component"
+			}
+		},
+		{
+			"formName": "component_nutrition",
+			"alias": "ntrn",
+			"ref": {
+				"uuid": "e421b750-e7fc-4194-b55e-6f2c978e1af5",
+				"display": "Nutrition Component"
+			}
+		},
+		{
+			"formName": "component_referral-v1.3",
+			"alias": "ref13",
+			"ref": {
+				"uuid": "366df3af-2b08-47e4-a00e-813e6ee11b4d",
+				"display": "Referral v1.3 Component"
+			}
+		},
+		{
+			"formName": "component_positive-health-dignity-&-prevention-services-v1.0",
+			"alias": "phdp",
+			"ref": {
+				"uuid": "4da1548d-e098-4658-a847-8d42f45059f4",
+				"display": "PHDP Component"
+			}
+		},
+		{
+			"formName": "component_family-information-v1.1",
+			"alias": "fi11",
+			"ref": {
+				"uuid": "bd55e7f3-9848-4966-bcb5-0fc4e3b8b496",
+				"display": "Family Information v1.1 Component"
+			}
+		},
+		{
+			"ref": {
+				"uuid": "fe2cc2aa-ea65-42a1-a1fc-560fff8d5480",
+				"display": "component_art-v1.4"
+			},
+			"formName": "component_art-v1.4",
+			"alias": "art14"
+		},
+		{
+			"ref": {
+				"uuid": "c297210f-a151-49a5-bf51-d2d726fe459d",
+				"display": "component_enhanced-adherence-v1.0"
+			},
+			"formName": "component_enhanced-adherence-v1.0",
+			"alias": "enhadhere1"
+		},
+		{
+			"ref": {
+				"uuid": "b9e18c55-6547-49ed-8025-f18bacb22e7c",
+				"display": "Lab Results v1.5"
+			},
+			"formName": "component_lab-results-v1.5",
+			"alias": "lr5"
+		},
+		{
+			"ref": {
+				"uuid": "723c1395-9e52-4758-b488-08504e1726ff",
+				"display": "Hospitalization 1.1"
+			},
+			"formName": "component_hospitalization-v1.1",
+			"alias": "hosp11"
+		},
+		{
+			"ref": {
+				"uuid": "83e58620-700d-40b3-be1b-544d4efcd1bd",
+				"display": "Sexual and Reproductive History"
+			},
+			"formName": "component_sexual-and-reproductive-history-v1.1",
+			"alias": "sph11"
+		},
+		{
+			"ref": {
+				"uuid": "b0cbea4c-725a-4a0b-82f3-e5600e5e3086",
+				"display": "Assessment"
+			},
+			"formName": "component_assessment-v1.0",
+			"alias": "ass1"
+		},
+		{
+			"ref": {
+				"uuid": "83eaa418-9d70-4a27-b5cd-f7eed9e11f6f",
+				"display": "DC Plan"
+			},
+			"formName": "component_dc-plan",
+			"alias": "dcplan"
+		}
+	],
+	"pages": [
+		{
+			"label": "Encounter Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date:",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider:",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Pre-Clinical Review",
+			"sections": [
+				{
+					"reference": {
+						"form": "pcr1",
+						"page": "Pre-clinic Review",
+						"section": "Pre-clinic Review",
+						"excludeQuestions": [
+							"hivStatus"
+						]
+					}
+				},
+				{
+					"reference": {
+						"form": "hosp11",
+						"page": "Hospitalization",
+						"section": "Comorbidities"
+					}
+				},
+				{
+					"reference": {
+						"form": "fi11",
+						"page": "Family Information",
+						"section": "OVC Program"
+					}
+				},
+				{
+					"reference": {
+						"form": "edu13",
+						"page": "Education",
+						"section": "Education",
+						"excludeQuestions": [
+							"currInSchool"
+						]
+					}
+				}
+			]
+		},
+		{
+			"label": "Risk Assessment",
+			"sections": [
+				{
+					"reference": {
+						"form": "ntrn",
+						"page": "Nutrition",
+						"section": "Nutrition Meals"
+					}
+				},
+				{
+					"reference": {
+						"form": "ntrn",
+						"page": "Nutrition",
+						"section": "Nutrition Assessment and Diagnosis",
+						"excludeQuestions": [
+							"patientType",
+							"patientCat",
+							"edema",
+							"samMamclients",
+							"coexistingConditions",
+							"anaemiaSeverity",
+							"metabolicDisorders",
+							"allergiesIntolerance",
+							"cd4Count",
+							"foodSecure"
+						]
+					}
+				},
+				{
+					"reference": {
+						"form": "su12",
+						"page": "Substance use",
+						"section": "Substance Abuse"
+					}
+				},
+				{
+					"reference": {
+						"form": "ass12",
+						"page": "Assessment",
+						"section": "Overall risk assessment"
+					}
+				}
+			]
+		},
+		{
+			"label": "Immunization",
+			"sections": [
+				{
+					"reference": {
+						"form": "immn1",
+						"page": "Immunization",
+						"section": "Adult Vaccination"
+					}
+				}
+			]
+		},
+		{
+			"label": "Sexual Repro History",
+			"sections": [
+				{
+					"reference": {
+						"form": "sph11",
+						"page": "Sexual and Reproductive History",
+						"section": "Sexual  History"
+					}
+				},
+				{
+					"reference": {
+						"form": "sph11",
+						"page": "Sexual and Reproductive History",
+						"section": "Reproductive History"
+					}
+				},
+				{
+					"reference": {
+						"form": "sph11",
+						"page": "Sexual and Reproductive History",
+						"section": "Family Planning Profile"
+					}
+				},
+				{
+					"reference": {
+						"form": "gynhist12",
+						"page": "Screening",
+						"section": "Cancer Screening"
+					}
+				},
+				{
+					"reference": {
+						"form": "gynhist12",
+						"page": "OB/Gyn History",
+						"section": "STI"
+					}
+				}
+			]
+		},
+		{
+			"label": "ART Related Meds",
+			"sections": [
+				{
+					"reference": {
+						"form": "art14",
+						"page": "ART ",
+						"section": "ART History",
+						"excludeQuestions": [
+							"current_art_regimen_adult",
+							"artAdherence",
+							"artReasonPoorFair",
+							"artAdherenceOther"
+						]
+					}
+				},
+				{
+					"reference": {
+						"form": "art14",
+						"page": "ART ",
+						"section": "Morisky Adherence"
+					}
+				},
+				{
+					"reference": {
+						"form": "enhadhere1",
+						"page": "Enhanced Adherence",
+						"section": "Enhanced Adherence"
+					}
+				},
+				{
+					"reference": {
+						"form": "pcp13",
+						"page": "PCP Prophylaxis",
+						"section": "PCP Prophylaxis History"
+					}
+				},
+				{
+					"reference": {
+						"form": "tbp13",
+						"page": "TB Prophylaxis",
+						"section": "TB Prophylaxis History"
+					}
+				},
+				{
+					"reference": {
+						"form": "cry",
+						"page": "Cryptococcal prevention",
+						"section": "Cryptococcal Secondary Prevention"
+					}
+				}
+			]
+		},
+		{
+			"label": "TB Screening",
+			"sections": [
+				{
+					"reference": {
+						"form": "tbt12",
+						"page": "TB Treatment",
+						"section": "TB Screening Questions"
+					}
+				},
+				{
+					"reference": {
+						"form": "tbt12",
+						"page": "TB Treatment",
+						"section": "Tuberculosis History"
+					}
+				},
+				{
+					"reference": {
+						"form": "omed",
+						"page": "Other medication",
+						"section": "Other Medications"
+					}
+				}
+			]
+		},
+		{
+			"label": "Drug Allergy",
+			"sections": [
+				{
+					"reference": {
+						"form": "da",
+						"page": "Drug Allergy",
+						"section": "Drug Allergy"
+					}
+				}
+			]
+		},
+		{
+			"label": "Side Effect",
+			"sections": [
+				{
+					"reference": {
+						"form": "se14",
+						"page": "Side Effects/Toxicity",
+						"section": "Side Effects/Toxicity"
+					}
+				}
+			]
+		},
+		{
+			"label": "HPI",
+			"sections": [
+				{
+					"reference": {
+						"form": "hpi",
+						"page": "History presenting illness",
+						"section": "Chief Complaints"
+					}
+				},
+				{
+					"reference": {
+						"form": "pl",
+						"page": "Problem list",
+						"section": "Problem List"
+					}
+				}
+			]
+		},
+		{
+			"label": "Vitals",
+			"sections": [
+				{
+					"reference": {
+						"form": "vt",
+						"page": "Vitals",
+						"section": "Vital Signs"
+					}
+				},
+				{
+					"reference": {
+						"form": "ppe",
+						"page": "Physical Exams",
+						"section": "Physical Exams, Notes"
+					}
+				}
+			]
+		},
+		{
+			"label": "Staging",
+			"sections": [
+				{
+					"reference": {
+						"form": "ws11",
+						"page": "WHO staging",
+						"section": "Ped Staging"
+					}
+				}
+			]
+		},
+		{
+			"label": "Test Results",
+			"sections": [
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "Chemistry Lab Tests"
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "CBC"
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "CD4"
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "ART Drug Sensitivity Test"
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "Viral Load"
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "HIV Test",
+						"excludeQuestions": [
+							"hivPcr"
+						]
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "Urinalysis"
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "Blood Grouping"
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "TB Test"
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "Chest Xray"
+					}
+				},
+				{
+					"reference": {
+						"form": "lr5",
+						"page": "Test Results",
+						"section": "Other Lab Tests"
+					}
+				}
+			]
+		},
+		{
+			"label": "ART Meds Plan",
+			"sections": [
+				{
+					"reference": {
+						"form": "art13",
+						"page": "ART ",
+						"section": "ART Plan",
+						"excludeQuestions": [
+							"artStartedAdult"
+						]
+					}
+				},
+				{
+					"reference": {
+						"form": "pcp13",
+						"page": "PCP Prophylaxis",
+						"section": "PCP Prophylaxis Plan"
+					}
+				},
+				{
+					"reference": {
+						"form": "tbp13",
+						"page": "TB Prophylaxis",
+						"section": "TB Prophylaxis Plan"
+					}
+				},
+				{
+					"reference": {
+						"form": "cry",
+						"page": "Cryptococcal prevention",
+						"section": "Cryptococcal Treatment Plan"
+					}
+				},
+				{
+					"reference": {
+						"form": "tbt12",
+						"page": "TB Treatment",
+						"section": "TB Treatment Plan"
+					}
+				},
+				{
+					"reference": {
+						"form": "omed",
+						"page": "Other medication",
+						"section": "Additional Medication Orders"
+					}
+				}
+			]
+		},
+		{
+			"label": "Investigations",
+			"sections": [
+				{
+					"reference": {
+						"form": "to12",
+						"page": "Test orders",
+						"section": "Test Orders"
+					}
+				}
+			]
+		},
+		{
+			"label": "Plan",
+			"sections": [
+				{
+					"reference": {
+						"form": "phdp",
+						"page": "PHDP",
+						"section": "Positive Health Diginity & Prevention Services"
+					}
+				},
+				{
+					"reference": {
+						"form": "ref13",
+						"page": "Referrals",
+						"section": "Referrals/Diagnosis"
+					}
+				},
+				{
+					"reference": {
+						"form": "ref13",
+						"page": "Referrals",
+						"section": "Transfer Out"
+					}
+				},
+				{
+					"reference": {
+						"form": "ref13",
+						"page": "Referrals",
+						"section": "Referrals, Notes"
+					}
+				},
+				{
+					"reference": {
+						"form": "sph11",
+						"page": "Sexual and Reproductive History",
+						"section": "Family Planning Plan"
+					}
+				},
+				{
+					"reference": {
+						"form": "dcplan",
+						"page": "DC Outcome",
+						"section": "DC Outcome"
+					}
+				},
+				{
+					"reference": {
+						"form": "ass12",
+						"page": "Assessment",
+						"section": "Assessment Notes"
+					}
+				},
+				{
+					"label": "Next Appointment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Medication pick up date:",
+							"type": "obs",
+							"id": "medDate",
+							"questionOptions": {
+								"concept": "318a5e8b-218c-4f66-9106-cd581dec1f95",
+								"rendering": "date",
+								"weeksList": [
+									2,
+									4,
+									6,
+									8,
+									12,
+									16,
+									24,
+									36
+								]
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Medication pick up date should be greater than the encounter date."
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && arrayContains (['7c6f0599-3e3e-4f42-87a2-2ce66f1e96d0'],patientReferrals)",
+									"message": "Patient referred for DC, medication pick up date should be required."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "!((arrayContains( ['824cf3e6-dd16-4767-ba41-2e04dede349e'], visitTypeUuid) && arrayContains (['7c6f0599-3e3e-4f42-87a2-2ce66f1e96d0'],patientReferrals)) || (arrayContains( ['380d79a7-6fb0-41bf-be3d-aa3d25da187c'], visitTypeUuid)))"
+							}
+						},
+						{
+							"label": "Return to clinic date:",
+							"type": "obs",
+							"required": "true",
+							"id": "rtc",
+							"questionOptions": {
+								"concept": "a8a666ba-1350-11df-a1f1-0026b9348838",
+								"rendering": "date",
+								"weeksList": [
+									2,
+									4,
+									6,
+									8,
+									12,
+									16,
+									20,
+									24,
+									36
+								]
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Return to clinic date should be greater than the encounter date."
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

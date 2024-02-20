@@ -1,0 +1,108 @@
+{
+	"name": "AMPATH POC HIV exit care form v1.2",
+	"version": "1.1",
+	"encounterType": "uuid",
+	"processor": "EncounterFormProcessor",
+	"form": "uuid",
+	"pages": [
+		{
+			"label": "Encounter Details",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Facility name (site/satellite clinic required):",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Exit Reason",
+			"sections": [
+				{
+					"label": "Exit Reason",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Reason for exiting care:",
+							"required": "true",
+							"id": "exitCare",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a89e3f94-1350-11df-a1f1-0026b9348838",
+								"answers": [
+									{
+										"concept": "636b7246-51f7-4985-9430-431b09d39bea",
+										"label": "HIV negative"
+									},
+									{
+										"concept": "6daff4ce-bce7-41f5-9141-17e694155180",
+										"label": "Self disengaged"
+									},
+									{
+										"concept": "a89e39f4-1350-11df-a1f1-0026b9348838",
+										"label": "Dead"
+									},
+									{
+										"concept": "a87afeb3-64e7-4d7c-a44b-5784644e649e",
+										"label": "Wrong enrollment"
+									},
+									{
+										"concept": "29d84a06-18be-4f5f-90f9-28c307437ba8",
+										"label": "Completed program"
+									}
+								]
+							},
+							"type": "obs",
+							"validators": []
+						},
+						{
+							"label": "Detailed explanation for reasons patient is exiting HIV care:",
+							"type": "obs",
+							"id": "detailReason",
+							"questionOptions": {
+								"concept": "5e4dc798-2cce-4a1a-97e9-bcf22d64b07c",
+								"rendering": "textarea",
+								"rows": 15
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
