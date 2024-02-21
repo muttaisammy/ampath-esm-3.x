@@ -18,7 +18,6 @@
     "Brand color #2": "#1D491F",
     "Brand color #3": " #2C6D2F"
   },
-
   "@openmrs/esm-form-entry-app": {
     "dataSources": {
       "monthlySchedule": true
@@ -31,10 +30,14 @@
   "@openmrs/esm-patient-chart-app": {
     "extensionSlots": {
       "patient-highlights-bar-slot": {
-        "remove": ["patient-flag-tags"]
+        "remove": [
+          "patient-flag-tags"
+        ]
       },
       "patient-chart-summary-dashboard-slot": {
-        "add": ["programs-overview-widget"],
+        "add": [
+          "programs-overview-widget"
+        ],
         "remove": [
           "patient-clinical-view-overview",
           "immunization-overview-widget",
@@ -52,7 +55,9 @@
   "@openmrs/esm-home-app": {
     "extensionSlots": {
       "homepage-widgets-slot": {
-        "remove": ["home-appointments"]
+        "remove": [
+          "home-appointments"
+        ]
       }
     }
   },
@@ -60,6 +65,13 @@
     "defaultPatientIdentifierTypes": [
       "58a4732e-1359-11df-a1f1-0026b9348838"
     ],
+    "address": {
+      "useAddressHierarchy": {
+        "enabled": true,
+        "useQuickSearch": true,
+        "searchAddressByLevel": true
+      }
+    },
     "fieldConfigurations": {
       "name": {
         "allowUnidentifiedPatients": false,
@@ -87,12 +99,31 @@
     ],
     "sectionDefinitions": [
       {
+        "id": "contact",
+        "name": "Contact Details",
+        "fields": [
+          "countryOfOrigin",
+          "countyOfOrigin",
+          "address1",
+          "address2",
+          "address7",
+          "cityVillage",
+          "address3",
+          "address8",
+          "latitude",
+          "longitude",
+          "phone",
+          "alternatePhone",
+          "email"
+        ]
+      },
+      {
         "id": "demographics-custom",
         "name": "Demographics",
         "fields": [
           "maritalStatus",
           "occupation",
-          "education",
+          "religion",
           "highestLevelOfEducation"
         ]
       },
@@ -116,7 +147,7 @@
         ]
       }
     ],
-  "fieldDefinitions": [
+    "fieldDefinitions": [
       {
         "id": "careGiverName",
         "type": "person attribute",
@@ -133,7 +164,93 @@
         "label": "Relationship",
         "validation": {
           "required": "true"
-        }
+        },
+        "customConceptAnswers": [
+          {
+            "uuid": "7878e432-1359-11df-a1f1-0026b9348838",
+            "label": "Stepchild/Stepparent"
+          },
+          {
+            "uuid": "b31657ef-4784-4e22-96df-d864651aa715",
+            "label": "Peer/Patient"
+          },
+          {
+            "uuid": "af78531e-98ab-41da-be3a-6a871ecbf8c0",
+            "label": "Other non-coded/Other non-coded"
+          },
+          {
+            "uuid": "7a755398-daed-4e64-8efd-b187c661caab",
+            "label": "Nurse/Patient"
+          },
+          {
+            "uuid": "01bc0cf5-d428-427f-be13-305eb9cad7ba",
+            "label": "Guardian/Child"
+          },
+          {
+            "uuid": "7878ea18-1359-11df-a1f1-0026b9348838",
+            "label": "Sexual Partner/Sexual Partner"
+          },
+          {
+            "uuid": "7878e914-1359-11df-a1f1-0026b9348838",
+            "label": "Household Member/Head of Household"
+          },
+          {
+            "uuid": "7878e81a-1359-11df-a1f1-0026b9348838",
+            "label": "Tenant/Renter/Landlord"
+          },
+          {
+            "uuid": "7878e720-1359-11df-a1f1-0026b9348838",
+            "label": "Employee/Employer"
+          },
+          {
+            "uuid": "7878e626-1359-11df-a1f1-0026b9348838",
+            "label": "Friend/Friend"
+          },
+          {
+            "uuid": "7878e52c-1359-11df-a1f1-0026b9348838",
+            "label": "Foster Child/Foster Parent"
+          },
+          {
+            "uuid": "7878d348-1359-11df-a1f1-0026b9348838",
+            "label": "Parent/Child"
+          },
+          {
+            "uuid": "7878e338-1359-11df-a1f1-0026b9348838",
+            "label": "Cousin/Cousin"
+          },
+          {
+            "uuid": "7878e23e-1359-11df-a1f1-0026b9348838",
+            "label": "Co-wife/Co-wife"
+          },
+          {
+            "uuid": "7878e144-1359-11df-a1f1-0026b9348838",
+            "label": "Grandchild/Grandparent"
+          },
+          {
+            "uuid": "7878e040-1359-11df-a1f1-0026b9348838",
+            "label": "Child-in-law/Parent-in-law"
+          },
+          {
+            "uuid": "7878df3c-1359-11df-a1f1-0026b9348838",
+            "label": "Spouse/Spouse"
+          },
+          {
+            "uuid": "7878de42-1359-11df-a1f1-0026b9348838",
+            "label": "Caretaker/Patient"
+          },
+          {
+            "uuid": "7878dd3e-1359-11df-a1f1-0026b9348838",
+            "label": "Aunt/Uncle/Niece/Nephew"
+          },
+          {
+            "uuid": "7878dc30-1359-11df-a1f1-0026b9348838",
+            "label": "Sibling/Sibling"
+          },
+          {
+            "uuid": "7878d898-1359-11df-a1f1-0026b9348838",
+            "label": "Doctor/Patient"
+          }
+        ]
       },
       {
         "id": "careGiverPhoneNumber",
@@ -160,7 +277,93 @@
         "label": "Relationship",
         "validation": {
           "required": "true"
-        }
+        },
+        "customConceptAnswers": [
+          {
+            "uuid": "7878e432-1359-11df-a1f1-0026b9348838",
+            "label": "Stepchild/Stepparent"
+          },
+          {
+            "uuid": "b31657ef-4784-4e22-96df-d864651aa715",
+            "label": "Peer/Patient"
+          },
+          {
+            "uuid": "af78531e-98ab-41da-be3a-6a871ecbf8c0",
+            "label": "Other non-coded/Other non-coded"
+          },
+          {
+            "uuid": "7a755398-daed-4e64-8efd-b187c661caab",
+            "label": "Nurse/Patient"
+          },
+          {
+            "uuid": "01bc0cf5-d428-427f-be13-305eb9cad7ba",
+            "label": "Guardian/Child"
+          },
+          {
+            "uuid": "7878ea18-1359-11df-a1f1-0026b9348838",
+            "label": "Sexual Partner/Sexual Partner"
+          },
+          {
+            "uuid": "7878e914-1359-11df-a1f1-0026b9348838",
+            "label": "Household Member/Head of Household"
+          },
+          {
+            "uuid": "7878e81a-1359-11df-a1f1-0026b9348838",
+            "label": "Tenant/Renter/Landlord"
+          },
+          {
+            "uuid": "7878e720-1359-11df-a1f1-0026b9348838",
+            "label": "Employee/Employer"
+          },
+          {
+            "uuid": "7878e626-1359-11df-a1f1-0026b9348838",
+            "label": "Friend/Friend"
+          },
+          {
+            "uuid": "7878e52c-1359-11df-a1f1-0026b9348838",
+            "label": "Foster Child/Foster Parent"
+          },
+          {
+            "uuid": "7878d348-1359-11df-a1f1-0026b9348838",
+            "label": "Parent/Child"
+          },
+          {
+            "uuid": "7878e338-1359-11df-a1f1-0026b9348838",
+            "label": "Cousin/Cousin"
+          },
+          {
+            "uuid": "7878e23e-1359-11df-a1f1-0026b9348838",
+            "label": "Co-wife/Co-wife"
+          },
+          {
+            "uuid": "7878e144-1359-11df-a1f1-0026b9348838",
+            "label": "Grandchild/Grandparent"
+          },
+          {
+            "uuid": "7878e040-1359-11df-a1f1-0026b9348838",
+            "label": "Child-in-law/Parent-in-law"
+          },
+          {
+            "uuid": "7878df3c-1359-11df-a1f1-0026b9348838",
+            "label": "Spouse/Spouse"
+          },
+          {
+            "uuid": "7878de42-1359-11df-a1f1-0026b9348838",
+            "label": "Caretaker/Patient"
+          },
+          {
+            "uuid": "7878dd3e-1359-11df-a1f1-0026b9348838",
+            "label": "Aunt/Uncle/Niece/Nephew"
+          },
+          {
+            "uuid": "7878dc30-1359-11df-a1f1-0026b9348838",
+            "label": "Sibling/Sibling"
+          },
+          {
+            "uuid": "7878d898-1359-11df-a1f1-0026b9348838",
+            "label": "Doctor/Patient"
+          }
+        ]
       },
       {
         "id": "nextOfKinPhoneNumber",
@@ -180,12 +383,12 @@
           "required": "true"
         }
       },
-     {
+      {
         "id": "maritalStatus",
         "type": "person attribute",
         "uuid": "8d871f2a-c2cc-11de-8d13-0010c6dffd0f",
         "label": "Marital Status",
-          "answerConceptSetUuid": "a899a9f2-1350-11df-a1f1-0026b9348838",
+        "answerConceptSetUuid": "a899a9f2-1350-11df-a1f1-0026b9348838",
         "validation": {
           "required": "true"
         }
@@ -205,10 +408,82 @@
         "type": "person attribute",
         "uuid": "352b0d51-63c6-47d0-a295-156bebee4fd5",
         "label": "Highest Education Level",
-          "answerConceptSetUuid": "a89e48ae-1350-11df-a1f1-0026b9348838",
+        "answerConceptSetUuid": "a89e48ae-1350-11df-a1f1-0026b9348838",
         "validation": {
           "required": "true"
         }
+      },
+      {
+        "id": "religion",
+        "type": "person attribute",
+        "uuid": "4ae16101-cfba-4c08-9c9c-d848e6f609aa",
+        "label": "Religion",
+        "answerConceptSetUuid": "a8b03352-1350-11df-a1f1-0026b9348838",
+        "validation": {
+          "required": "true"
+        }
+      },
+      {
+        "id": "alternatePhone",
+        "type": "person attribute",
+        "uuid": "c725f524-c14a-4468-ac19-4a0e6661c930",
+        "label": "Alternative Phone Number"
+      },
+      {
+        "id": "email",
+        "type": "person attribute",
+        "uuid": "2f65dbcb-3e58-45a3-8be7-fd1dc9aa0faa",
+        "label": "Email"
+      },
+      {
+        "id": "countryOfOrigin",
+        "type": "address",
+        "label": "Country of origin"
+      },
+      {
+        "id": "countyOfOrigin",
+        "type": "address",
+        "label": "County of origin"
+      },
+      {
+        "id": "address1",
+        "type": "address",
+        "label": "County"
+      },
+      {
+        "id": "address2",
+        "type": "address",
+        "label": "Sub County"
+      },
+      {
+        "id": "address7",
+        "type": "address",
+        "label": "Ward"
+      },
+      {
+        "id": "cityVillage",
+        "type": "address",
+        "label": "Estate/Village"
+      },
+      {
+        "id": "address3",
+        "type": "address",
+        "label": "Landmark"
+      },
+      {
+        "id": "address8",
+        "type": "address",
+        "label": "Address"
+      },
+      {
+        "id": "latitude",
+        "type": "address",
+        "label": "Latitude"
+      },
+      {
+        "id": "longitude",
+        "type": "address",
+        "label": "Longitude"
       }
     ]
   },
