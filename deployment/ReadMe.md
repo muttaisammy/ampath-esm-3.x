@@ -1,4 +1,4 @@
-Add Appoitment Service in insert into amrs.appointment_service  select * from openmrs.appointment_service
+# Add Appoitment Service in insert into amrs.appointment_service  select * from openmrs.appointment_service
 
 
 SELECT * FROM openmrs.metadatamapping_metadata_term_mapping;
@@ -14,5 +14,5 @@ values(1,'emr.primaryIdentifierType','org.openmrs.PatientIdentifierType','58a473
 
 -- 1 |         1 | emr.primaryIdentifierType        | org.openmrs.PatientIdentifierType       | 05a29f94-c0ed-11e2-94be-8c13b969e334 | NULL | NULL    |    2 | 2021-05-25 13:35:28 |     2 | 2022-10-28 11:44:04 |    0 | NULL     |    NULL | NULL     | b7c8adf5-c875-4e78-bb4b-fea391b1de55
 
-
+# Tomcat Logs
 sudo service tomcat restart && tail -f /opt/tomcat/latest/logs/* /opt/tomcat/.OpenMRS/amrs/openmrs.log
