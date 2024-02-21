@@ -56,10 +56,10 @@
       "initial": true,
       "entry": true,
       "recorded": false,
-      "size": 4956047,
+      "size": 4956694,
       "sizes": {
         "consume-shared": 294,
-        "javascript": 4934905,
+        "javascript": 4935552,
         "share-init": 252,
         "runtime": 20596
       },
@@ -76,7 +76,7 @@
       "auxiliaryFiles": [
         "main.js.map"
       ],
-      "hash": "65d7b5b8ec6ca0b3",
+      "hash": "13cd52d36bf84e6f",
       "childrenByOrder": {}
     },
     {
@@ -269,9 +269,9 @@
       "initial": false,
       "entry": false,
       "recorded": false,
-      "size": 12548,
+      "size": 12609,
       "sizes": {
-        "javascript": 12548
+        "javascript": 12609
       },
       "names": [],
       "idHints": [],
@@ -285,7 +285,7 @@
       "auxiliaryFiles": [
         "500.js.map"
       ],
-      "hash": "84496c35ec339c5a",
+      "hash": "255f0c2dae25a41a",
       "childrenByOrder": {}
     },
     {
@@ -418,9 +418,9 @@
       "initial": false,
       "entry": false,
       "recorded": false,
-      "size": 491620,
+      "size": 492267,
       "sizes": {
-        "javascript": 491410,
+        "javascript": 492057,
         "consume-shared": 210
       },
       "names": [],
@@ -434,7 +434,7 @@
       "auxiliaryFiles": [
         "693.js.map"
       ],
-      "hash": "7fb7a4cf21dc6f41",
+      "hash": "29c18740c7a9be22",
       "childrenByOrder": {}
     },
     {

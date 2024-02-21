@@ -14,9 +14,9 @@
     "customUrl": ""
   },
   "@openmrs/esm-styleguide": {
-    "Brand color #1": "#183D1A",
-    "Brand color #2": "#1D491F",
-    "Brand color #3": " #2C6D2F"
+    "Brand color #1": "#0055a5",
+    "Brand color #2": "#024D93",
+    "Brand color #3": "#0055a5"
   },
   "@openmrs/esm-form-entry-app": {
     "dataSources": {
@@ -50,7 +50,11 @@
           "offline-tools-patient-chart-actions-dashboard-link"
         ]
       }
+    },
+    "logo": {
+      "src": "https://poc-test-builds.fra1.digitaloceanspaces.com/@brand/logo_white.svg"
     }
+
   },
   "@openmrs/esm-home-app": {
     "extensionSlots": {
@@ -511,5 +515,11 @@
       "weightUuid": "a8a660ca-1350-11df-a1f1-0026b9348838",
       "muacUuid": "a89c6188-1350-11df-a1f1-0026b9348838"
     }
+  },
+  "@openmrs/esm-patient-orders-app":{	
+    "orderEncounterType":	"e481dcd3-e9f4-49ee-9612-db8d2ea6abac"
+  },
+  "@openmrs/esm-patient-medications-app": {
+    "daysDurationUnit":"a899b9c4-1350-11df-a1f1-0026b9348838" 
   }
 }
