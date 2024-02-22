@@ -28,7 +28,11 @@
     "@openmrs/esm-patient-medications-app": "next",
     "@openmrs/esm-patient-test-results-app": "next",
     "@openmrs/esm-dispensing-app": "next",
-    "@openmrs/esm-service-queues-app":"next"
+    "@openmrs/esm-service-queues-app":"next",
+    "@openmrs/esm-laboratory-app":"next",
+    "@openmrs/esm-stock-management-app":"next",
+    "@openmrs/esm-patient-notes-app":"next",
+    "@openmrs/esm-patient-lists-app":"next"
   },
   "spaPath": "/amrs/spa",
   "apiUrl": "/amrs",

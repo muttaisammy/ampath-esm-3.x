@@ -28,6 +28,8 @@
     "showHtmlFormEntryForms": false
   },
   "@openmrs/esm-patient-chart-app": {
+    "showServiceQueueFields": true,
+    "showUpcomingAppointments": true,
     "extensionSlots": {
       "patient-highlights-bar-slot": {
         "remove": [
@@ -521,5 +523,19 @@
   },
   "@openmrs/esm-patient-medications-app": {
     "daysDurationUnit":"a899b9c4-1350-11df-a1f1-0026b9348838" 
-  }
+  },
+  "@openmrs/esm-service-queues-app": {
+    "concepts": {
+      "priorityConceptSetUuid": "a96bb422-5480-46c7-ac42-20714b47199e",
+      "defaultPriorityConceptUuid": "bbd99c12-67e9-4381-8b4c-1f231e86f8e2",
+      "emergencyPriorityConceptUuid": "8e86ff12-ec83-41e8-a534-bb410739d880",
+      "serviceConceptSetUuid": "072541a1-2e09-4ad6-8682-ceb9a307ce0c",
+      "statusConceptSetUuid": "3ab190c1-4592-421e-bc5e-5e0524c9d785",
+      "defaultStatusConceptUuid": "89d01aa5-0ab0-4626-934b-37766b4cd779",
+      "defaultTransitionStatus": "89d01aa5-0ab0-4626-934b-37766b4cd779"
+    }
+  },"@openmrs/esm-laboratory-app": {
+    "enableSendingLabTestsByEmail": true,
+    "laboratorySpecimenTypeConcept": "32fd65f2-881a-4074-9185-9dda5c870f57"
+}
 }
