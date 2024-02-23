@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunk_openmrs_esm_patient_biometrics_app=globalThis.webpackChunk_openmrs_esm_patient_biometrics_app||[]).push([[152,303],{2303:(e,a,t)=>{t.r(a),t.d(a,{default:()=>n,immutable:()=>l});var i=t(3255),s=t(2686);const l=e=>(a,t,i)=>(i.revalidateOnFocus=!1,i.revalidateIfStale=!1,i.revalidateOnReconnect=!1,e(a,t,i)),n=(0,s.withMiddleware)(i.ZP,l)}}]);

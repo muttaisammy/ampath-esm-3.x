@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunk_openmrs_esm_primary_navigation_app=globalThis.webpackChunk_openmrs_esm_primary_navigation_app||[]).push([[757],{2757:a=>{a.exports=JSON.parse('{"apply":"Appliquer","cancel":"Annuler","change":"Changer","changeLanguage":"Changer de langue","notifications":"Notifications","userMenuTooltip":"User"}')}}]);

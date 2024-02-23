@@ -61,7 +61,10 @@ set foreign_key_checks=1;
 edit concept competed mapping to HL_7_medication_dispense_status_source -- concept 1267
 add mapping same as soucre Hl_
 
-##################
+# #################
+It's a must to have a concept called 
+Service 
+Status
 
 
 
