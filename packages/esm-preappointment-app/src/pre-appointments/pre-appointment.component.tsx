@@ -13,9 +13,10 @@ import {
 import React from 'react';
 import { usePreAppointments } from './pre-appointment.resource';
 import { useTranslation } from 'react-i18next';
-import { ErrorState, usePagination } from '@openmrs/esm-framework';
-import { usePaginationInfo } from '@openmrs/esm-patient-common-lib';
+import { ErrorState, useConfig, usePagination } from '@openmrs/esm-framework';
+import { EmptyState, usePaginationInfo } from '@openmrs/esm-patient-common-lib';
 import styles from './pre-appointment.scss';
+import { PreAppointmentsConfig } from '../config-schema';
 
 type PreAppointmentProps = {};
 const PAGE_SIZE = 10;
@@ -36,8 +37,8 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
     { key: 'age', header: 'Age' },
   ];
 
-  const { results, goTo, currentPage } = usePagination(preappoinments, PAGE_SIZE);
-  const { pageSizes } = usePaginationInfo(PAGE_SIZE, preappoinments.length, currentPage, results.length);
+  const { results, goTo, currentPage = 0 } = usePagination(preappoinments, PAGE_SIZE);
+  const { pageSizes = [] } = usePaginationInfo(PAGE_SIZE, preappoinments?.length, currentPage, results?.length ?? 0);
 
   const tableRows = results.map((row) => ({
     id: `${row.person_id}`,
@@ -53,6 +54,17 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
 
   if (error) {
     return <ErrorState error={error} headerTitle={t('preAppointments', 'Pre appointments')} />;
+  }
+
+  if (!preappoinments?.length) {
+    return (
+      <div className={styles.emptyStateContainer}>
+        <EmptyState
+          headerTitle={t('preAppointments', 'Pre appointments')}
+          displayText={t('preAppointments', 'Pre appointments')}
+        />
+      </div>
+    );
   }
 
   return (
@@ -96,16 +108,17 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
           </TableContainer>
         )}
       </DataTable>
+
       <Pagination
         backwardText="Previous page"
         forwardText="Next page"
         itemsPerPageText="Items per page:"
         onChange={({ page }) => goTo(page)}
-        page={currentPage}
+        page={currentPage ?? 0}
         pageSize={PAGE_SIZE}
-        pageSizes={pageSizes}
+        pageSizes={pageSizes ?? []}
         size="md"
-        totalItems={103}
+        totalItems={preappoinments?.length ?? 0}
       />
     </div>
   );
