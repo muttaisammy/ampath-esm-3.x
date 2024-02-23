@@ -1,1 +1,0 @@
-{"version":3,"file":"704.js","mappings":"mNAeA,QAX0B,WACxB,OACE,kBAACA,MAAAA,KACC,kBAACC,EAAAA,GAAUA,CACTC,YAAa,iBACbC,YAAa,mBAIrB,C","sources":["webpack://@openmrs/esm-laboratory-app/./src/lab-tabs/referred-tab.component.tsx"],"names":["div","EmptyState","displayText","headerTitle"],"sourceRoot":""}

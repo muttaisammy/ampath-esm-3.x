@@ -1,1 +1,0 @@
-{"$schema":"https://json.openmrs.org/routes.schema.json","backendDependencies":{"webservices.rest":"^2.2.0"},"extensions":[{"name":"patient-lists-action-menu","component":"patientListsActionMenu","slot":"action-menu-chart-items-slot"}],"version":"7.0.2-pre.3814"}

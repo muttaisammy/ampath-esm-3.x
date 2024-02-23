@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunk_openmrs_esm_login_app=globalThis.webpackChunk_openmrs_esm_login_app||[]).push([[336],{5336:s=>{s.exports=JSON.parse('{"login":"लॉग इन","password":"पासवर्ड","username":"उपयोगकर्ता नाम"}')}}]);

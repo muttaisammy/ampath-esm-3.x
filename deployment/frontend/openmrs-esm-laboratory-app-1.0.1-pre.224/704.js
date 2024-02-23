@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunk_openmrs_esm_laboratory_app=globalThis.webpackChunk_openmrs_esm_laboratory_app||[]).push([[704],{7704:(e,r,t)=>{t.r(r),t.d(r,{default:()=>n});var a=t(7244),s=t.n(a),l=t(516);const n=function(){return s().createElement("div",null,s().createElement(l.ox,{displayText:"referred tests",headerTitle:"Referred tests"}))}}}]);

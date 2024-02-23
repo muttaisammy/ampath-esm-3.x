@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunk_openmrs_esm_laboratory_app=globalThis.webpackChunk_openmrs_esm_laboratory_app||[]).push([[504],{6504:a=>{a.exports=JSON.parse('{"loading":"Cargando"}')}}]);
