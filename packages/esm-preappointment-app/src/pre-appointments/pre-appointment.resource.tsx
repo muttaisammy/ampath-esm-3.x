@@ -1,4 +1,3 @@
-import useSWR from 'swr';
 import { type PreAppointmentsConfig } from '../config-schema';
 import { useConfig } from '@openmrs/esm-framework';
 
@@ -6,13 +5,26 @@ import { useConfig } from '@openmrs/esm-framework';
 // import { openmrsFetch } from '@openmrs/esm-api';
 
 // Add the basic auth base64 string for the API call
-const fetcher = (url, basicAuthBase64) =>
-  fetch(url, { headers: { Authorization: basicAuthBase64 } }).then((r) => r.json());
-
+import useSWR from 'swr';
+import { Buffer } from 'buffer';
+const username = '';
+const password = '';
+const basicAuthBase64 = Buffer.from(`${username}:${password}`).toString('base64');
+const fetcher = async (url) => {
+  try {
+    const response = await fetch(url, {
+      headers: { Authorization: `Basic ${basicAuthBase64}` },
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.statusText}`);
+    }
+    return response.json();
+  } catch (error) {
+    throw new Error(`An error occurred while fetching data: ${error.message}`);
+  }
+};
 export const usePreAppointments = (locationUuid: string, yearWeek: string) => {
-  const { basicAuthBase64 } = useConfig<PreAppointmentsConfig>();
-
   const url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid}&yearWeek=${yearWeek}`;
-  const { data, isLoading, error, isValidating } = useSWR<PreAppointment>(url, () => fetcher(url, basicAuthBase64));
-  return { preappoinments: data?.result ?? [], isLoading, error, isValidating };
+  const { data, error, isValidating } = useSWR(url, fetcher);
+  return { preappointments: data?.result ?? [], isLoading: !data && !error, error, isValidating };
 };
