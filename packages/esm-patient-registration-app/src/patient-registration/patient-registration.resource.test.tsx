@@ -14,8 +14,8 @@ describe('savePatient', () => {
 
   it('appends patient uuid in url if provided', () => {
     mockOpenmrsFetch.mockImplementationOnce((url) => url);
-    savePatient(null, '1234');
-    expect(mockOpenmrsFetch.mock.calls[0][0]).toEqual('/ws/rest/v1/patient/1234');
+    savePatient(null, '12345');
+    expect(mockOpenmrsFetch.mock.calls[0][0]).toEqual('/ws/rest/v1/patient/12345');
   });
 
   it('does not append patient uuid in url', () => {
