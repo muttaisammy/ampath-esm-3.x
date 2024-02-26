@@ -17,6 +17,7 @@
   "configureIdentifiers": "Configure identifiers",
   "contactSection": "Contact Details",
   "contactSupport": "Contact supportt",
+  "continue": "Continue",
   "createNew": "Create New",
   "dateOfBirthLabelText": "Date of Birth",
   "deathDateInputLabel": "Date of Death",
@@ -97,7 +98,6 @@
   "updatePatientErrorSnackbarTitle": "Patient Details Update Failed",
   "updatePatientSuccessSnackbarSubtitle": "The patient's information has been successfully updated",
   "updatePatientSuccessSnackbarTitle": "Patient Details Updated",
-  "useValues": "Use  Values",
   "yearsEstimateRequired": "Years estimate required",
   "yes": "Yes"
 }
