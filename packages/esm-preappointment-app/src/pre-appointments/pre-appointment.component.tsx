@@ -243,11 +243,8 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
                       }}
                       style={{ cursor: 'pointer' }}>
                       {row.cells.map((cell) => {
-                        
-                        return(
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                      
-                      )})}
+                        return <TableCell key={cell.id}>{cell.value}</TableCell>;
+                      })}
                     </TableRow>
                   );
                 })}
