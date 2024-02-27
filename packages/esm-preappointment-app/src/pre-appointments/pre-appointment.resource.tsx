@@ -23,8 +23,19 @@ const fetcher = async (url) => {
     throw new Error(`An error occurred while fetching data: ${error.message}`);
   }
 };
-export const usePreAppointments = (locationUuid: string, yearWeek: string, successCode?: string) => {
-  let url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid}&yearWeek=${yearWeek}`;
+
+interface Location {
+  id: string;
+  text: string;
+}
+
+interface YearWeek {
+  id: string;
+  text: string;
+}
+
+export const usePreAppointments = (locationUuid: Location, yearWeek: YearWeek, successCode?: string) => {
+  let url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid.id}&yearWeek=${yearWeek.id}`;
 
   if (successCode && successCode !== '0') {
     url += `&appointmentSuccess=${successCode}`;
@@ -35,87 +46,58 @@ export const usePreAppointments = (locationUuid: string, yearWeek: string, succe
   return { preappointments: data?.result ?? [], isLoading: !data && !error, error, isValidating };
 };
 
-// // Helper function to get ISO year
-// const getISOYear = (date) => {
-//   const year = date.getFullYear();
-//   const week1 = new Date(year, 0, 4); // January 4th is always in week 1
-//   return year + (date.getTime() < week1.getTime() ? -1 : 0);
-// };
+// Helper function to get ISO year
+const getISOYear = (date) => {
+  const year = date.getFullYear();
+  const week1 = new Date(year, 0, 4); // January 4th is always in week 1
+  return year + (date.getTime() < week1.getTime() ? -1 : 0);
+};
 
-// // Helper function to get ISO week number
-// const getISOWeek = (date) => {
-//   const onejan = new Date(date.getFullYear(), 0, 1);
-//   return Math.ceil(((date.getTime() - onejan.getTime()) / 86400000 + onejan.getDay() + 1) / 7);
-// };
+// Helper function to get ISO week number
+const getISOWeek = (date) => {
+  const onejan = new Date(date.getFullYear(), 0, 1);
+  return Math.ceil(((date.getTime() - onejan.getTime()) / 86400000 + onejan.getDay() + 1) / 7);
+};
 
-// // Helper function to get the start of the ISO week
-// const getStartOfWeek = (date) => {
-//   const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
-//   const startOfWeek = new Date(date.setDate(diff));
-//   return startOfWeek.toDateString();
-// };
+// Helper function to get the start of the ISO week
+const getStartOfWeek = (date) => {
+  const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
+  const startOfWeek = new Date(date.setDate(diff));
+  return startOfWeek.toDateString();
+};
 
-// // Helper function to get the end of the ISO week
-// const getEndOfWeek = (date) => {
-//   const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
-//   const endOfWeek = new Date(date.setDate(diff + 6));
-//   return endOfWeek.toDateString();
-// };
-// export const weeksInYear = () => {
-//   const today = new Date();
-//   const this_year = today.getFullYear();
-//   let startdate = new Date(this_year - 1, 0, 1); // January 1st of last year
-//   let enddate = new Date(today.getFullYear(), today.getMonth(), today.getDate()); // Current date
-
-//   const weeks = [];
-
-//   while (startdate.getTime() <= enddate.getTime()) {
-//     const week = getISOWeek(startdate);
-//     const startofweek = getStartOfWeek(startdate);
-//     const endofweek = getEndOfWeek(startdate);
-
-//     weeks.push({
-//       id: `${getISOYear(startdate)}-W${('0' + week).slice(-2)}`,
-//       text: `${getISOYear(startdate)} W${('0' + week).slice(-2)}-From ${startofweek} to ${endofweek}`,
-//     });
-
-//     startdate.setDate(startdate.getDate() + 7); // Move to the next week
-//   }
-
-//   weeks.push({
-//     id: `${getISOYear(enddate)}-W${('0' + getISOWeek(enddate)).slice(-2)}`,
-//     text: `${getISOYear(enddate)} W${('0' + getISOWeek(enddate)).slice(-2)}-From ${getStartOfWeek(
-//       enddate,
-//     )} to ${getEndOfWeek(enddate)}`,
-//   });
-
-//   return weeks;
-// };
-
-const this_year = moment().year();
-
+// Helper function to get the end of the ISO week
+const getEndOfWeek = (date) => {
+  const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
+  const endOfWeek = new Date(date.setDate(diff + 6));
+  return endOfWeek.toDateString();
+};
 export const weeksInYear = () => {
-  let startdate = new Date(`${this_year - 1}-1-1`);
-  let enddate = moment(new Date()).format('YYYY-MM-DD');
+  const today = new Date();
+  const this_year = today.getFullYear();
+  let startdate = new Date(this_year - 1, 0, 1); // January 1st of last year
+  let enddate = new Date(today.getFullYear(), today.getMonth(), today.getDate()); // Current date
+
   const weeks = [];
-  while (new Date(startdate).getTime() <= new Date(enddate).getTime()) {
-    const week = moment(startdate).format('W');
-    let startofweek = moment(startdate).startOf('isoWeek').format('ll');
-    let endofweek = moment(startdate).endOf('isoWeek').format('ll');
+
+  while (startdate.getTime() <= enddate.getTime()) {
+    const week = getISOWeek(startdate);
+    const startofweek = getStartOfWeek(startdate);
+    const endofweek = getEndOfWeek(startdate);
 
     weeks.push({
-      value: `${moment(startdate).startOf('isoWeek').year()}-W${('0' + week).slice(-2)}`,
-      label: `${moment(startdate).startOf('isoWeek').year()} W${('0' + week).slice(
-        -2,
-      )}-From ${startofweek} to ${endofweek}`,
+      id: `${getISOYear(startdate)}-W${('0' + week).slice(-2)}`,
+      text: `${getISOYear(startdate)} W${('0' + week).slice(-2)}-From ${startofweek} to ${endofweek}`,
     });
-    startdate = moment(startdate).add(7, 'days').format('YYYY-MM-DD');
+
+    startdate.setDate(startdate.getDate() + 7); // Move to the next week
   }
+
   weeks.push({
-    value: `${moment(enddate).startOf('isoWeek').year()}-W${('0' + moment(enddate).format('W')).slice(-2)}`,
-    label: `${moment(enddate).startOf('isoWeek').year()} W${('0' + moment(enddate).format('W')).slice(
-      -2,
-    )}-From ${moment(enddate).startOf('isoWeek').format('ll')} to ${moment(enddate).endOf('isoWeek').format('ll')}`,
+    id: `${getISOYear(enddate)}-W${('0' + getISOWeek(enddate)).slice(-2)}`,
+    text: `${getISOYear(enddate)} W${('0' + getISOWeek(enddate)).slice(-2)}-From ${getStartOfWeek(
+      enddate,
+    )} to ${getEndOfWeek(enddate)}`,
   });
 
   return weeks;

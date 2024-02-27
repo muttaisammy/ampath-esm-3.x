@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-console */
 import {
   DataTable,
@@ -10,6 +11,8 @@ import {
   TableCell,
   DataTableSkeleton,
   Pagination,
+  Dropdown,
+  Button,
 } from '@carbon/react';
 import React from 'react';
 import { usePreAppointments, weeksInYear } from './pre-appointment.resource';
@@ -18,8 +21,8 @@ import { ErrorState, usePagination } from '@openmrs/esm-framework';
 import { usePaginationInfo } from '@openmrs/esm-patient-common-lib';
 import styles from './pre-appointment.scss';
 import { Row } from '@carbon/react';
-import { Dropdown } from '@carbon/react';
-import { Button } from '@carbon/react';
+import { useState } from 'react';
+
 // Define the type of each row in the table
 interface TableRow {
   id: any;
@@ -62,13 +65,22 @@ type PreAppointmentProps = {};
 const PAGE_SIZE = 10;
 // Should be provided by report filter controls
 const testProps = {
-  locationUuid: '08feae7c-1352-11df-a1f1-0026b9348838',
-  yearWeek: '2024-W07',
+  locationUuid: { id: '08feb8ae-1352-11df-a1f1-0026b9348838', text: 'MTRH' },
+  yearWeek: { id: '2024-W07', text: 'Current week we are in' },
 };
-const weeksInYearData = weeksInYear();
+// const weeksInYearData = weeksInYear();
 
 export const PreAppointment: React.FC<PreAppointmentProps> = () => {
+  const [locationUuid, setLocationUuid] = useState(null);
+  const [week, setWeek] = useState(null);
+  const [statusFilter, setSatatusFilter] = useState(null);
+  const handleSubmitFilters = () => {
+    console.log(locationUuid, week, statusFilter);
+  };
+  let patientUuid: any = '';
+
   const { t } = useTranslation();
+  const weeksData = weeksInYear();
   const { preappointments, isLoading, error } = usePreAppointments(testProps.locationUuid, testProps.yearWeek);
   // TODO: Append the rest of table headers for the pre-appointments
   const headers = [
@@ -104,11 +116,12 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
     { key: 'reason_client_not_found', header: 'Reason Client Not Found' },
     { key: 'nearest_center', header: 'Nearest Center' },
     { key: 'covid_19_vaccination_status', header: 'COVID-19 Vaccination Status' },
+    { key: 'uuid', header: 'UUID' },
   ];
   const { results, goTo, currentPage } = usePagination(preappointments ?? [], PAGE_SIZE);
   const { pageSizes } = usePaginationInfo(PAGE_SIZE, preappointments.length, currentPage, results.length);
 
-  console.log(weeksInYear());
+  // console.log(weeksInYear());
 
   const tableRows: TableRow[] = results.map((row: any) => ({
     id: `${row.person_id}`,
@@ -116,6 +129,7 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
     person_name: row.person_name ?? '--',
     age: row.age,
     uuid: row.uuid,
+    patient_uuid: row.patient_uuid,
     ovcid_id: row.ovcid_id,
     upi_number: row.upi_number,
     program: row.program,
@@ -158,39 +172,40 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
     <div className={styles.preAppointment}>
       <Dropdown
         items={[
-          { id: 'option-0', text: 'MTRH' },
-          { id: 'option-1', text: 'Test Site ' },
-          { id: 'option-2', text: 'Webuye' },
+          { id: '08feb8ae-1352-11df-a1f1-0026b9348838', text: 'MTRH' },
+          { id: '08feb8ae-1352-11df-a1f1-0026b9348838', text: 'Test Site ' },
+          { id: '08feb8ae-1352-11df-a1f1-0026b9348838', text: 'Webuye' },
         ]}
         itemToElement={(item) => (item ? <span className="test">{item.text}</span> : '')}
         label="Select Location"
         titleText="Select Location"
+        onChange={({ selectedItem }) => setLocationUuid(selectedItem)}
+        selectedItem={locationUuid}
       />
       <Dropdown
-        items={[
-          { id: '2024-W06', text: '2024 W06-From Mon Jan 29 2024 to Sun Feb 04 2024' },
-          { id: '2024-W07', text: '2024 W07-From Mon Feb 05 2024 to Sun Feb 11 2024' },
-          { id: '2024-W08', text: '2024 W08-From Mon Feb 12 2024 to Sun Feb 18 2024' },
-          { id: '2024-W09', text: '2024 W09-From Mon Feb 19 2024 to Sun Feb 25 2024' },
-          { id: '2024-W09', text: '2024 W09-From Mon Feb 26 2024 to Sun Mar 03 2024' },
-        ]}
+        items={weeksData}
         itemToElement={(item) => (item ? <span className="test">{item.text}</span> : '')}
         label="Select Week"
         titleText="Year Week"
+        onChange={({ selectedItem }) => setWeek(selectedItem)}
+        selectedItem={week}
       />
 
       <Dropdown
         items={[
-          { id: 'option-0', text: 'All' },
-          { id: 'option-1', text: 'Appointment successful' },
-          { id: 'option-2', text: 'Appointment Failed' },
+          { id: '0', text: 'All' },
+          { id: '&successfulOutcome=1', text: 'Follow-up Successful' },
+          { id: '&failedOutcome=1', text: 'Failed Follow-up Attempt' },
+          { id: '&failedOutcome=1', text: 'Follow-up Not Attempted' },
         ]}
         itemToElement={(item) => (item ? <span className="test">{item.text}</span> : '')}
         label="Filter"
         titleText="Filter Type"
+        onChange={({ selectedItem }) => setSatatusFilter(selectedItem)}
+        selectedItem={statusFilter}
       />
 
-      <Button>Generate Patient List</Button>
+      <Button onClick={handleSubmitFilters}>Generate Patient List</Button>
 
       <DataTable rows={tableRows} headers={headers} size="sm" useZebraStyles>
         {({ rows, headers, getHeaderProps, getRowProps, getTableProps, getTableContainerProps }) => (
@@ -212,17 +227,27 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
                   ))}
                 </TableRow>
               </TableHead>
+
               <TableBody>
+                {/* {console.log('yuioioo' + rows[0].values())} */}
                 {rows.map((row, index) => {
                   return (
                     <TableRow
                       key={row.id}
                       {...getRowProps({
                         row,
-                      })}>
-                      {row.cells.map((cell) => (
+                      })}
+                      onClick={() => {
+                        const url = `http://localhost:5500/amrs/spa/patient/aaedad7b-1ce1-4760-8b24-37ae6bec5377/chart/Patient%20Summary`;
+                        window.location.href = url;
+                      }}
+                      style={{ cursor: 'pointer' }}>
+                      {row.cells.map((cell) => {
+                        
+                        return(
                         <TableCell key={cell.id}>{cell.value}</TableCell>
-                      ))}
+                      
+                      )})}
                     </TableRow>
                   );
                 })}
