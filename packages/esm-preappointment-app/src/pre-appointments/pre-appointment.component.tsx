@@ -14,18 +14,18 @@ import {
   Dropdown,
   Button,
 } from '@carbon/react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePreAppointments, weeksInYear } from './pre-appointment.resource';
 import { useTranslation } from 'react-i18next';
-import { ErrorState, usePagination } from '@openmrs/esm-framework';
+import { ErrorState, useLocations, usePagination } from '@openmrs/esm-framework';
 import { usePaginationInfo } from '@openmrs/esm-patient-common-lib';
 import styles from './pre-appointment.scss';
 import { Row } from '@carbon/react';
-import { useState } from 'react';
+// import { useState,useEffect } from 'react';
 
 // Define the type of each row in the table
 interface TableRow {
-  id: any;
+  id: string;
   ccc_number: string;
   person_name: string;
   ovcid_id: string;
@@ -67,22 +67,52 @@ const PAGE_SIZE = 10;
 const testProps = {
   locationUuid: { id: '08feb8ae-1352-11df-a1f1-0026b9348838', text: 'MTRH' },
   yearWeek: { id: '2024-W07', text: 'Current week we are in' },
+  appointmentSuccess: { id: '0', text: 'All' },
 };
-// const weeksInYearData = weeksInYear();
 
 export const PreAppointment: React.FC<PreAppointmentProps> = () => {
-  const [locationUuid, setLocationUuid] = useState(null);
-  const [week, setWeek] = useState(null);
-  const [statusFilter, setSatatusFilter] = useState(null);
+  // const locations = useLocations();
+  const [locationUuid, setLocationUuid] = useState('08feb8ae-1352-11df-a1f1-0026b9348838');
+  const [week, setWeek] = useState('2024-W07');
+  const [statusFilter, setStatusFilter] = useState('0');
+  // const [preappointmentsData, setPreappointmentsData] = useState([]);
+  const [isLoadingStatus, setIsLoadingstatus] = useState(true);
+  const [errorStatus, setErrorStatus] = useState(null);
+  // const { preappointments, isLoading, error } = usePreAppointments(locationUuid, week, statusFilter);
+  // const fetchData = () => {
+  //   try {
+  //     const { preappointments, isLoading, error, url } = usePreAppointments(locationUuid, week, statusFilter);
+  //     if (preappointments) {
+  //       setPreappointmentsData(preappointments);
+  //       setIsLoadingstatus(false);
+  //       setErrorStatus(error);
+  //     }
+  //   } catch (error) {
+  //     console.log('>>>>>>>>>>>>>>>>>>', error);
+
+  //     setIsLoadingstatus(false);
+  //     setErrorStatus(error);
+  //   }
+  // };
+  const { preappointments, isLoading, error } = usePreAppointments(locationUuid, week, statusFilter);
+
+  // fetchData();
+  // useEffect(() => {
+  //   // console.log('****************');
+  //   // const { preappointments, isLoading, error, url } =  usePreAppointments(locationUuid, week, statusFilter);
+  //   // console.log(url);
+  //   fetchData();
+  //   console.log('hggyugyugyugyuf');
+  // }, []);
+
   const handleSubmitFilters = () => {
-    console.log(locationUuid, week, statusFilter);
+    // console.log(locationUuid, week, statusFilter);
+    // fetchData();
   };
-  let patientUuid: any = '';
 
   const { t } = useTranslation();
   const weeksData = weeksInYear();
-  const { preappointments, isLoading, error } = usePreAppointments(testProps.locationUuid, testProps.yearWeek);
-  // TODO: Append the rest of table headers for the pre-appointments
+
   const headers = [
     { key: 'ccc_number', header: 'CCC Number' },
     { key: 'person_name', header: 'Person Name' },
@@ -118,13 +148,12 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
     { key: 'covid_19_vaccination_status', header: 'COVID-19 Vaccination Status' },
     { key: 'uuid', header: 'UUID' },
   ];
-  const { results, goTo, currentPage } = usePagination(preappointments ?? [], PAGE_SIZE);
-  const { pageSizes } = usePaginationInfo(PAGE_SIZE, preappointments.length, currentPage, results.length);
 
-  // console.log(weeksInYear());
+  // const { results, goTo, currentPage } = usePagination(preappointments ?? [], PAGE_SIZE);
+  // const { pageSizes } = usePaginationInfo(PAGE_SIZE, preappointments.length, currentPage, results.length);
 
-  const tableRows: TableRow[] = results.map((row: any) => ({
-    id: `${row.person_id}`,
+  const tableRows: TableRow[] = preappointments.map((row: any) => ({
+    id: row.person_id,
     ccc_number: row.ccc_number,
     person_name: row.person_name ?? '--',
     age: row.age,
@@ -162,12 +191,12 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
     covid_19_vaccination_status: row.covid_19_vaccination_status,
   }));
 
-  if (isLoading) {
-    return <DataTableSkeleton headers={headers} aria-label={t('preAppointments', 'Pre appointments')} />;
-  }
-  if (error) {
-    return <ErrorState error={error} headerTitle={t('preAppointments', 'Pre appointments')} />;
-  }
+  // if (isLoadingStatus) {
+  //   return <DataTableSkeleton headers={headers} aria-label={t('preAppointments', 'Pre appointments')} />;
+  // }
+  // if (errorStatus) {
+  //   return <ErrorState error={errorStatus} headerTitle={t('preAppointments', 'Pre appointments')} />;
+  // }
   return (
     <div className={styles.preAppointment}>
       <Dropdown
@@ -196,19 +225,22 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
           { id: '0', text: 'All' },
           { id: '&successfulOutcome=1', text: 'Follow-up Successful' },
           { id: '&failedOutcome=1', text: 'Failed Follow-up Attempt' },
-          { id: '&failedOutcome=1', text: 'Follow-up Not Attempted' },
+          { id: '&unknownOutcome=0', text: 'Follow-up Not Attempted' },
         ]}
         itemToElement={(item) => (item ? <span className="test">{item.text}</span> : '')}
         label="Filter"
         titleText="Filter Type"
-        onChange={({ selectedItem }) => setSatatusFilter(selectedItem)}
+        onChange={({ selectedItem }) => {
+          console.log('selectedItem from dropdown: ', selectedItem.id);
+          setStatusFilter(selectedItem.id);
+        }}
         selectedItem={statusFilter}
       />
 
       <Button onClick={handleSubmitFilters}>Generate Patient List</Button>
 
-      <DataTable rows={tableRows} headers={headers} size="sm" useZebraStyles>
-        {({ rows, headers, getHeaderProps, getRowProps, getTableProps, getTableContainerProps }) => (
+      <DataTable rows={tableRows} headers={headers} size="sm">
+        {({ rows, headers, getTableProps, getHeaderProps, getRowProps, getTableContainerProps }) => (
           <TableContainer
             title={t('preAppointments', 'Pre-Appointments')}
             description={t('preAppointmentDescription', 'Pre-appointments for the selected week')}
@@ -217,42 +249,43 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
               <TableHead>
                 <TableRow>
                   {headers.map((header) => (
-                    <TableHeader
-                      key={header.key}
-                      {...getHeaderProps({
-                        header,
-                      })}>
-                      {header.header}
-                    </TableHeader>
+                    <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
                   ))}
                 </TableRow>
               </TableHead>
-
               <TableBody>
-                {/* {console.log('yuioioo' + rows[0].values())} */}
-                {rows.map((row, index) => {
-                  return (
+                {rows.map((row) =>
+                  row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value == 0 &&
+                  row.cells.find((cell) => cell.info.header === 'follow_up_type').value != null ? (
+                    styles.partial_followup
+                  ) : (
                     <TableRow
-                      key={row.id}
-                      {...getRowProps({
-                        row,
-                      })}
+                      {...getRowProps({ row })}
                       onClick={() => {
-                        const url = `http://localhost:5500/amrs/spa/patient/aaedad7b-1ce1-4760-8b24-37ae6bec5377/chart/Patient%20Summary`;
+                        const patientId = row.cells.find((cell) => cell.info.header === 'uuid')?.value;
+                        const url = `http://localhost:5500/amrs/spa/patient/${patientId}/chart/Patient%20Summary`;
                         window.location.href = url;
-                      }}
-                      style={{ cursor: 'pointer' }}>
-                      {row.cells.map((cell) => {
-                        return <TableCell key={cell.id}>{cell.value}</TableCell>;
-                      })}
+                      }}>
+                      {row.cells.map((cell) => (
+                        <>
+                          <TableCell key={cell.id}>{cell.value}</TableCell>
+                          {(() => {
+                            // console.log(locationUuid);
+                            // console.log(statusFilter);
+                            // console.log(week);
+                            return null;
+                          })()}
+                        </>
+                      ))}
                     </TableRow>
-                  );
-                })}
+                  ),
+                )}
               </TableBody>
             </Table>
           </TableContainer>
         )}
       </DataTable>
+      {/*       
       <Pagination
         backwardText="Previous page"
         forwardText="Next page"
@@ -263,7 +296,7 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
         pageSizes={pageSizes}
         size="md"
         totalItems={103}
-      />
+      /> */}
     </div>
   );
 };

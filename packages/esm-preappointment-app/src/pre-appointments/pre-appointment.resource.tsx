@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { type PreAppointmentsConfig } from '../config-schema';
 import { useConfig } from '@openmrs/esm-framework';
 
@@ -25,7 +26,7 @@ const fetcher = async (url) => {
 };
 
 interface Location {
-  id: string;
+  id: any;
   text: string;
 }
 
@@ -34,39 +35,43 @@ interface YearWeek {
   text: string;
 }
 
-export const usePreAppointments = (locationUuid: Location, yearWeek: YearWeek, successCode?: string) => {
-  let url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid.id}&yearWeek=${yearWeek.id}`;
+interface AppointmentSuccess {
+  id: any;
+  text: string;
+}
 
+export const usePreAppointments = (locationUuid: string, yearWeek: string, successCode?: string) => {
+  let url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid}&yearWeek=${yearWeek}`;
+
+  console.log('success: ', successCode);
   if (successCode && successCode !== '0') {
-    url += `&appointmentSuccess=${successCode}`;
+    url += successCode;
   }
 
   const { data, error, isValidating } = useSWR(url, fetcher);
 
-  return { preappointments: data?.result ?? [], isLoading: !data && !error, error, isValidating };
+  const result = data?.data?.result;
+
+  return { preappointments: data?.result ?? [], isLoading: !data && !error, error, isValidating, url };
 };
 
-// Helper function to get ISO year
 const getISOYear = (date) => {
   const year = date.getFullYear();
   const week1 = new Date(year, 0, 4); // January 4th is always in week 1
   return year + (date.getTime() < week1.getTime() ? -1 : 0);
 };
 
-// Helper function to get ISO week number
 const getISOWeek = (date) => {
   const onejan = new Date(date.getFullYear(), 0, 1);
   return Math.ceil(((date.getTime() - onejan.getTime()) / 86400000 + onejan.getDay() + 1) / 7);
 };
 
-// Helper function to get the start of the ISO week
 const getStartOfWeek = (date) => {
   const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
   const startOfWeek = new Date(date.setDate(diff));
   return startOfWeek.toDateString();
 };
 
-// Helper function to get the end of the ISO week
 const getEndOfWeek = (date) => {
   const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
   const endOfWeek = new Date(date.setDate(diff + 6));
