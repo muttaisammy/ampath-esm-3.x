@@ -71,7 +71,6 @@ const getStartOfWeek = (date) => {
   const startOfWeek = new Date(date.setDate(diff));
   return startOfWeek.toDateString();
 };
-
 const getEndOfWeek = (date) => {
   const diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
   const endOfWeek = new Date(date.setDate(diff + 6));
