@@ -1,4 +1,4 @@
-## Requirements
+# Requirements
 
 - [ ] This PR has a title that briefly describes the work done including the ticket number. If there is a ticket, make sure your PR title includes a [conventional commit](https://o3-docs.openmrs.org/docs/frontend-modules/contributing.en-US#contributing-guidelines) label. See existing PR titles for inspiration.
 - [ ] My work conforms to the [OpenMRS 3.0 Styleguide](https://om.rs/styleguide) and [design documentation](https://om.rs/o3ui).
