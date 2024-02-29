@@ -144,8 +144,8 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
   const initialLocation = locations?.find((location) => location.uuid === loggedInLocation)?.display;
   const loggedInLocation = session?.sessionLocation?.uuid ?? '';
   const [locationUuid, setLocationUuid] = useState(loggedInLocation);
-  const [selectedWeek, setSelectedWeek] = useState();
-  const [status, setStatus] = useState();
+  const [selectedWeek, setSelectedWeek] = useState(weeks.pop());
+  const [status, setStatus] = useState(Status.ALL);
 
   const { preAppointments, isLoading, error } = usePreAppointments(locationUuid, selectedWeek, status);
   const { paginated, goTo, results, currentPage } = usePagination(preAppointments, pageSize);

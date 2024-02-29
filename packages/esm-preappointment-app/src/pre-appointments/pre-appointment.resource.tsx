@@ -26,10 +26,9 @@ const fetcher = async (url) => {
 
 export const usePreAppointments = (locationUuid: string, yearWeek: any, successCode?: any) => {
   let url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid}&yearWeek=${yearWeek?.id}`;
-
-  // if (successCode) {
-  //   url += successCode.id;
-  // }
+  if (successCode) {
+    url += successCode.id;
+  }
 
   const { data, error, isLoading, isValidating } = useSWR(locationUuid && yearWeek ? url : null, fetcher);
 
