@@ -254,17 +254,25 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) =>
-                  // row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value == 0 &&
-                  // row.cells.find((cell) => cell.info.header === 'follow_up_type').value != null ? (
-                  //   styles.partial_followup
-                  // ) : (
+                {rows.map(
+                  (row) => (
+                    // row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value == 0 &&
+                    // row.cells.find((cell) => cell.info.header === 'follow_up_type').value != null ? (
+                    //   styles.partial_followup
+                    // ) : (
                     <TableRow
-                    className={
-                      (row.cells.find(cell => cell.info.header === 'was_follow_up_successful').value==0 && row.cells.find(cell=>cell.info.header ==='follow_up_type').value !=null)?styles.partial_followup:
-                      (row.cells.find(cell => cell.info.header === 'was_follow_up_successful').value==1 && row.cells.find(cell=>cell.info.header ==='follow_up_type').value !=null)?styles.successfull_followup:
-                      (row.cells.find(cell => cell.info.header === 'was_follow_up_successful').value==1 && row.cells.find(cell=>cell.info.header ==='reschedule_appointment').value !=null)?styles.rescheduled_followup:null
-                    }
+                      className={
+                        row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value == 0 &&
+                        row.cells.find((cell) => cell.info.header === 'follow_up_type').value != null
+                          ? styles.partial_followup
+                          : row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value == 1 &&
+                              row.cells.find((cell) => cell.info.header === 'follow_up_type').value != null
+                            ? styles.successfull_followup
+                            : row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value == 1 &&
+                                row.cells.find((cell) => cell.info.header === 'reschedule_appointment').value != null
+                              ? styles.rescheduled_followup
+                              : null
+                      }
                       {...getRowProps({ row })}
                       onClick={() => {
                         const patientId = row.cells.find((cell) => cell.info.header === 'uuid')?.value;
@@ -283,6 +291,7 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
                         </>
                       ))}
                     </TableRow>
+                  ),
                   // ),
                 )}
               </TableBody>
