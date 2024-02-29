@@ -73,7 +73,7 @@ const testProps = {
 export const PreAppointment: React.FC<PreAppointmentProps> = () => {
   // const locations = useLocations();
   const [locationUuid, setLocationUuid] = useState('08feb8ae-1352-11df-a1f1-0026b9348838');
-  const [week, setWeek] = useState('2024-W07');
+  const [week, setWeek] = useState('2024-W09');
   const [statusFilter, setStatusFilter] = useState('0');
   // const [preappointmentsData, setPreappointmentsData] = useState([]);
   const [isLoadingStatus, setIsLoadingstatus] = useState(true);
@@ -255,11 +255,16 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
               </TableHead>
               <TableBody>
                 {rows.map((row) =>
-                  row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value == 0 &&
-                  row.cells.find((cell) => cell.info.header === 'follow_up_type').value != null ? (
-                    styles.partial_followup
-                  ) : (
+                  // row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value == 0 &&
+                  // row.cells.find((cell) => cell.info.header === 'follow_up_type').value != null ? (
+                  //   styles.partial_followup
+                  // ) : (
                     <TableRow
+                    className={
+                      (row.cells.find(cell => cell.info.header === 'was_follow_up_successful').value==0 && row.cells.find(cell=>cell.info.header ==='follow_up_type').value !=null)?styles.partial_followup:
+                      (row.cells.find(cell => cell.info.header === 'was_follow_up_successful').value==1 && row.cells.find(cell=>cell.info.header ==='follow_up_type').value !=null)?styles.successfull_followup:
+                      (row.cells.find(cell => cell.info.header === 'was_follow_up_successful').value==1 && row.cells.find(cell=>cell.info.header ==='reschedule_appointment').value !=null)?styles.rescheduled_followup:null
+                    }
                       {...getRowProps({ row })}
                       onClick={() => {
                         const patientId = row.cells.find((cell) => cell.info.header === 'uuid')?.value;
@@ -278,7 +283,7 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
                         </>
                       ))}
                     </TableRow>
-                  ),
+                  // ),
                 )}
               </TableBody>
             </Table>

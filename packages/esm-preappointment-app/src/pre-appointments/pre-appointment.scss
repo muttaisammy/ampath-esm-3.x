@@ -1,12 +1,57 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/colors';
-
 .preAppointment {
   margin: spacing.$spacing-05;
   padding: spacing.$spacing-05;
   border: 1px solid colors.$cool-gray-20;
 }
-
 .emptyStateContainer {
   margin: spacing.$spacing-05;
 }
+// .table tr {
+//   td {
+//     background-color: colors.$yellow-20;
+//   }
+// }
+// .table tr:hover{
+//   td {
+//     background-color: colors.$yellow-20-hover !important;
+//   }
+// }
+.successfull_followup {
+  td {
+    background-color: colors.$green-20;
+  }
+}
+.successfull_followup {
+  // td:hover {
+  //   background-color: colors.$green-20-hover !important;
+  // }
+}
+.partial_followup {
+  tr {
+    td {
+      background-color: colors.$magenta-30-hover !important;
+    }
+  }
+  td {
+    background-color: colors.$magenta-30;
+  }
+}
+.rescheduled_followup {
+  td {
+    background-color: colors.$yellow-20;
+  }
+}
+.rescheduled_followup td:hover {
+  background-color: colors.$yellow-20-hover;
+}
+
+
+
+
+
+
+
+
+
