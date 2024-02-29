@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "fhir2": "^1.2.0",
+    "webservices.rest": "^2.24.0"
+  },
+  "extensions": [
+    {
+      "component": "routeLink",
+      "name": "reports-dashboard-link",
+      "slot": "homepage-dashboard-slot",
+      "meta": {
+        "name": "reports",
+        "title": "Reports",
+        "slot": "reports-dashboard-slot"
+      }
+    },
+    {
+      "component": "rootRouter",
+      "name": "reports-dashboard-root",
+      "slot": "reports-dashboard-slot"
+    },
+    {
+      "component": "clinicalDashboard",
+      "name": "clinical-dashboard",
+      "slot": "clinical-dashboard-slot"
+    },
+    {
+      "component": "clinicalDashboard",
+      "name": "clinical-dashboard",
+      "slot": "clinical-dashboard-slot"
+    }
+  ],
+  "pages": []
+}
