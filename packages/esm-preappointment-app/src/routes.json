@@ -4,13 +4,13 @@
     "webservices.rest": "^2.2.0"
   },
   "pages": [
-    
+
   ],
   "extensions": [
     {
       "name": "preappointment-dashboard",
       "component": "preAppointments",
-      "slot": "home-dashboard-slot"
+      "slot": "homepage-widgets-slot"
     }
   ]
 }

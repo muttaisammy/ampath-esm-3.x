@@ -1,42 +1,28 @@
-# AMPATH 3.X 
+# AMPATH O3
 
-This repository contains frontend modules for the AMPATH SPA. These modules relate to pre-appointments and reporting. The modules within this repository include:
+This monorepo houses custom frontend modules used in the AMPATH O3 frontend. These include:
 
-- [Active visits app](packages/esm-preappointment-app)
-- [Appointments app](packages/esm-reporting-app/)
+- [Pre-appointments](packages/esm-preappointment-app)
 
 ## Setup
 
-Check out the developer documentation [here](http://o3-dev.docs.openmrs.org).
+Check out the developer documentation [here](http://o3.docs.openmrs.org).
 
-This monorepo uses [yarn](https://yarnpkg.com).
+Install dependencies by running:
 
-To install the dependancies, run:
-```bash
-yarn install
+```sh
+yarn
 ```
 
-To set up environment variables for the project, follow these steps:
+## Development
 
-1. Create a copy of the .env.example file by running the following command:
+To run a local dev server for a specific frontend module, run:
 
-    ```bash
-    cp example.env .env
-    ```
-
-2. Open the newly created .env file in the root of the project.
-
-3. Add the environment variables you need.
-
-Note: These variables are currently only used for end-to-end tests.
-
-To start a dev server for a specific module, run:
-
-```bash
+```sh
 yarn start --sources 'packages/esm-<insert-package-name>-app'
 ```
 
-This command uses the [openmrs](https://www.npmjs.com/package/openmrs) tooling to fire up a dev server running `esm-patient-management` as well as the specified module.
+Where the argument to `--sources` is the name of the frontend module you want to run. It will run a dev server proxied to a hosted instance of the AMPATH backend by default.
 
 You could provide `yarn start` with as many `sources` arguments as you require. For example, to run the patient registration and patient search modules only, use:
 
@@ -58,7 +44,6 @@ git checkout package.json
 # Run `yarn` to recreate the lockfile
 yarn
 ```
-
 
 ## Contributing
 
@@ -111,6 +96,7 @@ yarn turbo test --force
 ```
 
 ### Unit tests
+
 To run unit tests, use:
 
 ```sh
@@ -147,28 +133,4 @@ The `main` branch of this repo is deployed in a [demo environment](https://openm
 
 ## Configuration
 
-This module is designed to be driven by configuration files.
-
-## Version and release
-
-To increment the version, run the following command:
-
-```sh
-yarn release
-```
-
-You will need to pick the next version number. We use minor changes (e.g. `3.2.0` → `3.3.0`)
-to indicate big new features and breaking changes, and patch changes (e.g. `3.2.0` → `3.2.1`)
-otherwise.
-
-Note that this command will not create a new tag, nor publish the packages.
-After running it, make a PR or merge to `main` with the resulting changeset.
-
-Once the version bump is merged, go to GitHub and
-[draft a new release](https://github.com/openmrs/openmrs-esm-patient-management/releases/new). 
-The tag should be prefixed with `v` (e.g., `v3.2.1`), while the release title
-should just be the version number (e.g., `3.2.1`). The creation of the GitHub release
-will cause GitHub Actions to publish the packages, completing the release process.
-
-> Don't run `npm publish` or `yarn publish`. Use the above process.
-
+This module is designed to be driven by configuration files. Each module has a `config-schema.ts` file at its root. This file contains the schema for the configuration file that the module expects. The distro-level configuration file is located [here](https://github.com/AMPATH/openmrs-config-amrs/blob/main/configuration/config.json). To learn more about configuration, read the [Distro config](https://o3-docs.openmrs.org/docs/configure-o3/overview) and the [Configuration](https://o3-docs.openmrs.org/docs/configuration-system) guides in the official docs.
