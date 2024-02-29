@@ -1,38 +1,41 @@
 @use '@carbon/colors';
 @use '@carbon/layout';
 @use '@carbon/type';
+@use '@carbon/styles/scss/spacing';
 @import '~@openmrs/esm-styleguide/src/vars';
 .preAppointment {
   border: 1px solid colors.$cool-gray-20;
+  // margin: spacing.$spacing-04;
+  // padding: spacing.$spacing-04;
 }
 
-.container {
-  background-color: colors.$white-0;
-  border: 1px solid colors.$gray-20;
-  width: 100%;
-}
+// .container {
+//   background-color: colors.$white-0;
+//   border: 1px solid colors.$gray-20;
+//   width: 100%;
+// }
 
-.filterContainer {
-  display: flex;
-  flex: 1;
-  margin-bottom: 1rem;
+// .filterContainer {
+//   display: flex;
+//   flex: 1;
+//   margin-bottom: 1rem;
 
-  :global(.cds--dropdown--inline) {
-    margin-left: 0.5rem;
-  }
+//   :global(.cds--dropdown--inline) {
+//     margin-left: 0.5rem;
+//   }
 
-  :global(.cds--dropdown__wrapper--inline) {
-    gap: 0;
-  }
+//   :global(.cds--dropdown__wrapper--inline) {
+//     gap: 0;
+//   }
 
-  :global(.cds--list-box__menu-icon) {
-    height: 1rem;
-  }
-}
+//   :global(.cds--list-box__menu-icon) {
+//     height: 1rem;
+//   }
+// }
 
-.statusFilter {
-  margin-left: 1rem;
-}
+// .statusFilter {
+//   margin-left: 1rem;
+// }
 
 .headerContainer {
   display: flex;
@@ -64,88 +67,80 @@
   }
 }
 
-.tableContainer {
-  padding: 0;
+// .tableContainer {
+//   padding: 0;
 
-  :global(.cds--data-table-content) {
-    border: 1px solid colors.$gray-20;
-    border-bottom: none;
-    overflow: visible;
-  }
+//   :global(.cds--data-table-content) {
+//     border: 1px solid colors.$gray-20;
+//     border-bottom: none;
+//     overflow: visible;
+//   }
 
-  :global(.cds--table-toolbar) {
-    position: relative;
-    height: 2rem;
-    min-height: 0rem;
-    overflow: visible;
-    top: 0;
-  }
+//   :global(.cds--table-toolbar) {
+//     position: relative;
+//     height: 2rem;
+//     min-height: 0rem;
+//     overflow: visible;
+//     top: 0;
+//   }
 
-  &:global(.cds--data-table-container) {
-    padding-top: 0rem;
-  }
-}
-.emptyStateContainer {
-  margin: layout.$spacing-05;
-}
-
-.content {
-  @include type.type-style('heading-compact-02');
-  color: colors.$gray-70;
-  margin-bottom: 0.5rem;
-}
-
-.tileContainer {
-  background-color: colors.$white-0;
-  border: 1px solid colors.$cool-gray-20;
-  padding: 5rem 0;
-}
-
-.tile {
-  margin: auto;
-  width: fit-content;
-}
-
-.tileContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-// .table tr {
-//   td {
-//     background-color: colors.$yellow-20;
+//   &:global(.cds--data-table-container) {
+//     padding-top: 0rem;
 //   }
 // }
-// .table tr:hover{
-//   td {
-//     background-color: colors.$yellow-20-hover !important;
-//   }
+// .emptyStateContainer {
+//   margin: layout.$spacing-05;
 // }
-.successfull_followup {
-  td {
-    background-color: colors.$green-20;
+
+// .content {
+//   @include type.type-style('heading-compact-02');
+//   color: colors.$gray-70;
+//   margin-bottom: 0.5rem;
+// }
+
+// .tileContainer {
+//   background-color: colors.$white-0;
+//   border: 1px solid colors.$cool-gray-20;
+//   padding: 5rem 0;
+// }
+
+// .tile {
+//   margin: auto;
+//   width: fit-content;
+// }
+
+// .tileContent {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// }
+
+.successfull_followup td {
+  background-color: colors.$green-20;
+}
+.successfull_followup:hover td {
+  background-color: colors.$green-20-hover !important;
+}
+
+.partial_followup td {
+  background-color: colors.$magenta-30;
+}
+.partial_followup:hover td {
+  background-color: colors.$magenta-30-hover !important;
+}
+.rescheduled_followup td {
+  background-color: colors.$yellow-20;
+}
+.rescheduled_followup:hover td {
+  background-color: colors.$yellow-20-hover !important;
+}
+.gridRow {
+  padding: 0px;
+
+  :global(.cds--number) {
+    display: inline-block;
   }
 }
-.successfull_followup {
-  // td:hover {
-  //   background-color: colors.$green-20-hover !important;
-  // }
-}
-.partial_followup {
-  tr {
-    td {
-      background-color: colors.$magenta-30-hover !important;
-    }
-  }
-  td {
-    background-color: colors.$magenta-30;
-  }
-}
-.rescheduled_followup {
-  td {
-    background-color: colors.$yellow-20;
-  }
-}
-.rescheduled_followup td:hover {
-  background-color: colors.$yellow-20-hover;
+.filterButton {
+  margin-top: 1.5rem;
 }

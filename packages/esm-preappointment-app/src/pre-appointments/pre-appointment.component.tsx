@@ -14,8 +14,9 @@ import {
   Tile,
   Dropdown,
   Button,
+  Column,
+  Grid,
 } from '@carbon/react';
-import { usePreAppointments, getWeeksInYear, getCurrentWeek } from './pre-appointment.resource';
 import {
   ConfigurableLink,
   isDesktop,
@@ -26,6 +27,7 @@ import {
 } from '@openmrs/esm-framework';
 import { ErrorState, usePaginationInfo } from '@openmrs/esm-patient-common-lib';
 import { CustomPagination } from '../custom-pagination.component';
+import { usePreAppointments, weeksCalculation } from './pre-appointment.resource';
 import styles from './pre-appointment.scss';
 
 // Define the type of each row in the table
@@ -79,72 +81,26 @@ const Status = {
 
 const PAGE_SIZE = 10;
 
-// Should be provided by report filter controls
-const testProps = {
-  locationUuid: { id: '08feb8ae-1352-11df-a1f1-0026b9348838', text: 'MTRH' },
-  yearWeek: { id: '2024-W07', text: 'Current week we are in' },
-  appointmentSuccess: { id: '0', text: 'All' },
-};
-
 export const PreAppointment: React.FC<PreAppointmentProps> = () => {
-  // const locations = useLocations();
-  // const [locationUuid, setLocationUuid] = useState('08feb8ae-1352-11df-a1f1-0026b9348838');
-  const [week, setWeek] = useState('2024-W09');
-  const [statusFilter, setStatusFilter] = useState('0');
-  // const [preappointmentsData, setPreappointmentsData] = useState([]);
-  const [isLoadingStatus, setIsLoadingstatus] = useState(true);
-  const [errorStatus, setErrorStatus] = useState(null);
-  // const { preappointments, isLoading, error } = usePreAppointments(locationUuid, week, statusFilter);
-  // const fetchData = () => {
-  //   try {
-  //     const { preappointments, isLoading, error, url } = usePreAppointments(locationUuid, week, statusFilter);
-  //     if (preappointments) {
-  //       setPreappointmentsData(preappointments);
-  //       setIsLoadingstatus(false);
-  //       setErrorStatus(error);
-  //     }
-  //   } catch (error) {
-  //     console.log('>>>>>>>>>>>>>>>>>>', error);
-
-  //     setIsLoadingstatus(false);
-  //     setErrorStatus(error);
-  //   }
-  // };
-  // const { preappointments, isLoading, error } = usePreAppointments(locationUuid, week, statusFilter);
-
-  // fetchData();
-  // useEffect(() => {
-  //   // console.log('****************');
-  //   // const { preappointments, isLoading, error, url } =  usePreAppointments(locationUuid, week, statusFilter);
-  //   // console.log(url);
-  //   fetchData();
-  //   console.log('hggyugyugyugyuf');
-  // }, []);
-
-  const handleSubmitFilters = () => {
-    // console.log(locationUuid, week, statusFilter);
-    // fetchData();
-  };
-
   const { t } = useTranslation();
   const session = useSession();
   const layout = useLayoutType();
   const responsiveSize = isDesktop ? 'sm' : 'lg';
 
-  const statuses: Array<{ id: string; text: string; value: Values<typeof Status> }> = [
-    { id: 'all', text: 'All', value: Status.ALL },
-    { id: 'successful-followup', text: 'Successful followup', value: Status.SUCCESSFULL_FOLLOW_UP },
-    { id: 'failed-followup', text: 'Failed followup attempt', value: Status.FAILED_OUTCOME },
-    { id: 'followup-not-attempted', text: 'Followup not attempted', value: Status.UNKNOWN_OUTCOME },
+  const statuses: Array<{ value: string; text: string; id: Values<typeof Status> }> = [
+    { value: 'all', text: 'All', id: Status.ALL },
+    { value: 'successful-followup', text: 'Successful followup', id: Status.SUCCESSFULL_FOLLOW_UP },
+    { value: 'failed-followup', text: 'Failed followup attempt', id: Status.FAILED_OUTCOME },
+    { value: 'followup-not-attempted', text: 'Followup not attempted', id: Status.UNKNOWN_OUTCOME },
   ];
 
-  const weeks = getWeeksInYear();
+  const weeks = weeksCalculation();
   const pageSize = 5;
   const locations = useLocations('Login Location');
   const initialLocation = locations?.find((location) => location.uuid === loggedInLocation)?.display;
   const loggedInLocation = session?.sessionLocation?.uuid ?? '';
   const [locationUuid, setLocationUuid] = useState(loggedInLocation);
-  const [selectedWeek, setSelectedWeek] = useState(weeks.pop());
+  const [selectedWeek, setSelectedWeek] = useState(weeks[0]);
   const [status, setStatus] = useState(Status.ALL);
 
   const { preAppointments, isLoading, error } = usePreAppointments(locationUuid, selectedWeek, status);
@@ -213,22 +169,40 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
   }
 
   return (
-    <>
-      <div className={styles.flexContainer}>
-        <div className={styles.filterContainer}>
+    <div className={styles.preAppointment}>
+      <div className={styles.headerContainer}>
+        <div className={isDesktop(layout) ? styles.desktopHeading : styles.tabletHeading}>
+          <h4>{t('preAppointments', 'Pre-appointments')}</h4>
+        </div>
+      </div>
+      <br />
+      <Grid className={styles.gridRow}>
+        <Column lg={16}>
           <Dropdown
-            aria-label="Filter by week"
-            className={styles.weekFilter}
-            initialSelectedItem={getCurrentWeek()}
+            items={locations}
+            itemToString={(item) => item.display}
+            label="Select Location"
+            titleText="Select Location"
+            initialSelectedItem={locationUuid}
+            onChange={({ selectedItem }) => setLocationUuid(selectedItem)}
+            selectedItem={locationUuid}
+          />
+        </Column>
+      </Grid>
+      <Grid className={styles.gridRow}>
+        <Column lg={5}>
+          <Dropdown
             items={weeks}
-            itemToString={(item) => (item ? item.text : '')}
-            label="Select a week"
+            itemToElement={(item) => (item ? <span className="test">{item.text}</span> : '')}
+            itemToString={(item) => item.text}
+            label="Select Week"
+            titleText="Year Week"
+            initialSelectedItem={selectedWeek}
             onChange={({ selectedItem }) => setSelectedWeek(selectedItem)}
             selectedItem={selectedWeek}
-            titleText="Filter by week:"
-            type="inline"
           />
-
+        </Column>
+        <Column lg={5}>
           <Dropdown
             aria-label="Filter by status"
             className={styles.statusFilter}
@@ -239,16 +213,16 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
             onChange={({ selectedItem }) => setStatus(selectedItem)}
             selectedItem={status}
             titleText="Filter by status:"
-            type="inline"
+            // type="inline"
           />
-        </div>
-        <div className={styles.headerContainer}>
-          <div className={isDesktop(layout) ? styles.desktopHeading : styles.tabletHeading}>
-            <h4>{t('preAppointments', 'Pre-appointments')}</h4>
-          </div>
-        </div>
-      </div>
-      <DataTable rows={tableRows} headers={headers} size={responsiveSize} useZebraStyles>
+        </Column>
+        <Column lg={5}>
+          {/* <Button onClick={handleSubmitFilters} className={styles.filterButton} size='md'>Generate Patient List</Button> */}
+        </Column>
+      </Grid>
+
+      <br />
+      <DataTable rows={tableRows} headers={headers} size={responsiveSize}>
         {({ rows, headers, getTableProps, getHeaderProps, getRowProps, getTableContainerProps }) => (
           <>
             <TableContainer className={styles.tableContainer} {...getTableContainerProps()}>
@@ -271,7 +245,25 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
 
                     return (
                       <React.Fragment key={index}>
-                        <TableRow {...getRowProps({ row })}>
+                        <TableRow
+                          {...getRowProps({ row })}
+                          className={`
+                            ${
+                              row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value === 0 &&
+                              row.cells.find((cell) => cell.info.header === 'follow_up_type').value !== null
+                                ? styles.partial_followup
+                                : row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value ===
+                                      1 &&
+                                    row.cells.find((cell) => cell.info.header === 'follow_up_type').value !== null
+                                  ? styles.successfull_followup
+                                  : row.cells.find((cell) => cell.info.header === 'was_follow_up_successful').value ==
+                                        1 &&
+                                      row.cells.find((cell) => cell.info.header === 'reschedule_appointment').value !=
+                                        null
+                                    ? styles.rescheduled_followup
+                                    : null
+                            }
+                        `}>
                           {row.cells.map((cell) => (
                             <TableCell key={cell.id} data-testid={cell.id}>
                               {cell.info.header === 'person_name' && currentAppointment.uuid ? (
@@ -316,6 +308,6 @@ export const PreAppointment: React.FC<PreAppointmentProps> = () => {
           pageSize={pageSize}
         />
       )}
-    </>
+    </div>
   );
 };
