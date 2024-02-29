@@ -1,8 +1,8 @@
 import useSWR from 'swr';
 import { Buffer } from 'buffer';
 const moment = require('moment');
-const username = 'fkamau';
-const password = 'Th1ng1r@1';
+const username = '';
+const password = '';
 const basicAuthBase64 = Buffer.from(`${username}:${password}`).toString('base64');
 
 interface YearWeek {
