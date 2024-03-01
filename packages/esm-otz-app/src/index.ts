@@ -22,12 +22,6 @@ export function startupApp() {
   defineConfigSchema(moduleName, configSchema);
 }
 
-// export const otzPatientChartDashboard = getSyncLifecycle(createDashboardGroup(otzPatientChartMeta), options);
-// export const otzDashboardTabs = getSyncLifecycle(OTZHomePatientTabs, {
-//   featureName: 'otz-home-tabs',
-//   moduleName,
-// });
-
 export const otzLeftPanelLink = getSyncLifecycle(
   createLeftPanelLink({
     name: 'otz',
