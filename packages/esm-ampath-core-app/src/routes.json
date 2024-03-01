@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json.openmrs.org/routes.schema.json",
+    "backendDependencies": {
+      "webservices.rest": "^2.24.0"
+    },
+    "pages": [
+
+    ],
+    "extensions": [
+      {
+        "name": "clinical-view-section",
+        "component": "clinicalViewPatientDashboard",
+        "slot": "patient-chart-dashboard-slot",
+        "order": 20
+      }
+    ]
+  }
