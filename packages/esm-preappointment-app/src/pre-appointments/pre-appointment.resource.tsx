@@ -1,18 +1,67 @@
 import useSWR from 'swr';
-import { type PreAppointmentsConfig } from '../config-schema';
-import { useConfig } from '@openmrs/esm-framework';
+import { Buffer } from 'buffer';
+const moment = require('moment');
+const username = '';
+const password = '';
+const basicAuthBase64 = Buffer.from(`${username}:${password}`).toString('base64');
 
-// Should use openmrsFetch to fetch data from the backend
-// import { openmrsFetch } from '@openmrs/esm-api';
+interface YearWeek {
+  id: string;
+  text: string;
+}
 
-// Add the basic auth base64 string for the API call
-const fetcher = (url, basicAuthBase64) =>
-  fetch(url, { headers: { Authorization: basicAuthBase64 } }).then((r) => r.json());
+const fetcher = async (url) => {
+  try {
+    const response = await fetch(url, {
+      headers: { Authorization: `Basic ${basicAuthBase64}` },
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.statusText}`);
+    }
+    return response.json();
+  } catch (error) {
+    throw new Error(`An error occurred while fetching data: ${error.message}`);
+  }
+};
 
-export const usePreAppointments = (locationUuid: string, yearWeek: string) => {
-  const { basicAuthBase64 } = useConfig<PreAppointmentsConfig>();
+export const usePreAppointments = (locationUuid: string, yearWeek: any, successCode?: any) => {
+  let url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid}&yearWeek=${yearWeek?.id}`;
+  if (successCode.id !== '' && successCode) {
+    url += successCode.id;
+  }
 
-  const url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid}&yearWeek=${yearWeek}`;
-  const { data, isLoading, error, isValidating } = useSWR<PreAppointment>(url, () => fetcher(url, basicAuthBase64));
-  return { preappoinments: data?.result ?? [], isLoading, error, isValidating };
+  const { data, error, isLoading, isValidating } = useSWR(url, fetcher);
+
+  const preAppointments = data ? (data as any)?.result : [];
+
+  return {
+    preAppointments: preAppointments,
+    isLoading,
+    isValidating,
+    error,
+  };
+};
+
+export const weeksCalculation = () => {
+  const this_year = moment().year();
+  let startdate = new Date(`${this_year - 1}-1-1`);
+  let enddate = moment(new Date()).format('YYYY-MM-DD');
+  const weeks = [];
+  while (new Date(startdate).getTime() <= new Date(enddate).getTime()) {
+    const week = moment(startdate).format('W');
+    let startofweek = moment(startdate).startOf('isoWeek').format('ll');
+    let endofweek = moment(startdate).endOf('isoWeek').format('ll');
+
+    weeks.push({
+      id: `${moment(startdate).startOf('isoWeek').year()}-W${('0' + week).slice(-2)}`,
+      text: `${moment(startdate).startOf('isoWeek').year()} W${('0' + week).slice(-2)}-From ${startofweek} to ${endofweek}`,
+    });
+    startdate = moment(startdate).add(7, 'days').format('YYYY-MM-DD');
+  }
+  weeks.push({
+    id: `${moment(enddate).startOf('isoWeek').year()}-W${('0' + moment(enddate).format('W')).slice(-2)}`,
+    text: `${moment(enddate).startOf('isoWeek').year()} W${('0' + moment(enddate).format('W')).slice(-2)}-From ${moment(enddate).startOf('isoWeek').format('ll')} to ${moment(enddate).endOf('isoWeek').format('ll')}`,
+  });
+
+  return weeks.reverse();
 };

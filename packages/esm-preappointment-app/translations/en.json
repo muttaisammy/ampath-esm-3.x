@@ -1,4 +1,5 @@
 {
-  "preAppointmentDescription": "Pre-appointments for the selected week",
+  "checkFilters": "Check the filters above",
+  "noMatchingRecordsToDisplay": "No matching records to display",
   "preAppointments": "Pre-Appointments"
 }
