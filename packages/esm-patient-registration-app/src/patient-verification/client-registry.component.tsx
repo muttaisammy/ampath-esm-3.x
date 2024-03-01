@@ -35,7 +35,7 @@ export const ClientRegistry: React.FC<ClientRegistryProps> = ({ setInitialFormVa
       <Dropdown
         id="default"
         titleText="Verification ID Type"
-        label="Select verification ID Typee"
+        label="Select verification ID Type"
         items={identifierTypes}
         onChange={({ selectedItem }) => handleOnChange(selectedItem?.id, 'identifierType')}
         itemToString={(item) => (item ? item.text : '')}
