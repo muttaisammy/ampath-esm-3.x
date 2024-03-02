@@ -1,0 +1,10 @@
+{
+  "cancel": "Cancel",
+  "clearSearchInput": "Clear search input",
+  "errorRejectingOrder', 'Error Rejecting the order": "",
+  "notes": "Enter Comments ",
+  "postOrder": "Post Order To EID",
+  "postToEid": "Post To EID",
+  "searchByPatientIdOrName": "Search by patient ID or name",
+  "successfullyPosted": "You have successfully posted an Order with OrderNumber"
+}

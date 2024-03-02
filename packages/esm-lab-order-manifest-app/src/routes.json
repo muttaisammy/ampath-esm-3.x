@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": "^2.2.0"
+  },
+  "pages": [
+
+  ],
+  "extensions": [
+    {
+      "name": "lab-order-manifest-component",
+      "slot": "lab-panels-slot",
+      "component": "manifestOrdersComponent",
+      "meta": {
+        "name": "worklistPanelSlot",
+        "title": "Ref Lab Orders"
+      }
+    },
+    {
+      "name": "post-lab-order-to-eid-component",
+      "component": "postOrderToEidDialog"
+    },
+    {
+      "name": "post-eid-order-button",
+      "component": "postOrderToEidButton",
+      "slot": "order-actions-slot"
+    }
+  ]
+}
