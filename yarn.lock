@@ -40,6 +40,23 @@ __metadata:
   linkType: hard
 
 "@ampath/esm-3.x-app@workspace:.":
+"@ampath/esm-care-panel-app@workspace:packages/esm-care-panel-app":
+  version: 0.0.0-use.local
+  resolution: "@ampath/esm-care-panel-app@workspace:packages/esm-care-panel-app"
+  dependencies:
+    "@carbon/react": "npm:~1.37.0"
+    lodash-es: "npm:^4.17.15"
+    webpack: "npm:^5.74.0"
+  peerDependencies:
+    "@openmrs/esm-framework": 5.x
+    react: ^18.1.0
+    react-i18next: 11.x
+    react-router-dom: 6.x
+    swr: 2.x
+  languageName: unknown
+  linkType: soft
+
+"@ampath/esm-patient-registration-app@workspace:packages/esm-patient-registration-app":
   version: 0.0.0-use.local
   resolution: "@ampath/esm-3.x-app@workspace:."
   dependencies:
@@ -110,71 +127,6 @@ __metadata:
     zod: "npm:^3.22.2"
   languageName: unknown
   linkType: soft
-
-"@ampath/esm-patient-registration-app@workspace:packages/esm-patient-registration-app":
-  version: 0.0.0-use.local
-  resolution: "@ampath/esm-patient-registration-app@workspace:packages/esm-patient-registration-app"
-  dependencies:
-    "@carbon/react": "npm:~1.37.0"
-    core-js-pure: "npm:^3.34.0"
-    formik: "npm:^2.1.5"
-    geopattern: "npm:^1.2.3"
-    lodash-es: "npm:^4.17.15"
-    react-avatar: "npm:^5.0.3"
-    uuid: "npm:^8.3.2"
-    webpack: "npm:^5.74.0"
-    yup: "npm:^0.29.1"
-  peerDependencies:
-    "@openmrs/esm-framework": 5.x
-    dayjs: 1.x
-    react: 18.x
-    react-i18next: 11.x
-    react-router-dom: 6.x
-    swr: 2.x
-  languageName: unknown
-  linkType: soft
-
-"@ampath/esm-preappointment-app@workspace:packages/esm-preappointment-app":
-  version: 0.0.0-use.local
-  resolution: "@ampath/esm-preappointment-app@workspace:packages/esm-preappointment-app"
-  dependencies:
-    "@carbon/react": "npm:~1.37.0"
-    lodash-es: "npm:^4.17.15"
-    webpack: "npm:^5.74.0"
-  peerDependencies:
-    "@openmrs/esm-framework": 5.x
-    react: ^18.1.0
-    react-i18next: 11.x
-    react-router-dom: 6.x
-    swr: 2.x
-  languageName: unknown
-  linkType: soft
-
-"@ampath/esm-report-app@workspace:packages/esm-report-app":
-  version: 0.0.0-use.local
-  resolution: "@ampath/esm-report-app@workspace:packages/esm-report-app"
-  dependencies:
-    "@carbon/react": "npm:~1.37.0"
-    lodash-es: "npm:^4.17.15"
-    webpack: "npm:^5.74.0"
-  peerDependencies:
-    "@openmrs/esm-framework": 5.x
-    react: ^18.1.0
-    react-i18next: 11.x
-    react-router-dom: 6.x
-    swr: 2.x
-  languageName: unknown
-  linkType: soft
-
-"@ampproject/remapping@npm:^2.2.0":
-  version: 2.2.1
-  resolution: "@ampproject/remapping@npm:2.2.1"
-  dependencies:
-    "@jridgewell/gen-mapping": "npm:^0.3.0"
-    "@jridgewell/trace-mapping": "npm:^0.3.9"
-  checksum: 10/e15fecbf3b54c988c8b4fdea8ef514ab482537e8a080b2978cc4b47ccca7140577ca7b65ad3322dcce65bc73ee6e5b90cbfe0bbd8c766dad04d5c62ec9634c42
-  languageName: node
-  linkType: hard
 
 "@apideck/better-ajv-errors@npm:^0.3.1":
   version: 0.3.6
