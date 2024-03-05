@@ -50,7 +50,7 @@ export const ClientRegistry: React.FC<ClientRegistryProps> = ({ setInitialFormVa
       />
       {clientRegistryData.isSubmitting ? (
         <InlineLoading
-          description={`${t('searchRegistry', 'Searching registry')} ...`}
+          description={`${t('searchRegistry', 'Searching Central Registry')} ...`}
           iconDescription="searching registry ..."
           status="active"
         />
