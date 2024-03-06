@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": "^2.2.0"
+  },
+  "pages": [
+    {
+      "component": "root",
+      "route": "otz"
+    }
+  ],
+  "extensions": [
+    {
+      "component": "root",
+      "name": "otz-root",
+      "slot": "otz-dashboard-slot"
+    },
+    {
+      "component": "otzLeftPanelLink",
+      "name": "otz-left-panel-link",
+      "slot": "homepage-dashboard-slot",
+      "meta": {
+        "name": "otz",
+        "title": "OTZ",
+        "slot": "otz-dashboard-slot",
+        "config": {
+          "columns": 1,
+          "type": "grid",
+          "programme": "otz",
+          "dashboardTitle": "OTZ Dashboard"
+        }
+      }
+    },
+    {
+      "name": "otz-home-tiles-ext",
+      "slot": "otz-home-tiles-slot",
+      "component": "otzDashboardTiles"
+    },
+    {
+      "name": "otz-home-tabs-ext",
+      "slot": "otz-home-tabs-slot",
+      "component": "otzDashboardTabs"
+    }
+  ]
+}
