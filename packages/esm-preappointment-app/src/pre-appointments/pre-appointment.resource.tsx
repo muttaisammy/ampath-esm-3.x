@@ -1,9 +1,11 @@
 import useSWR from 'swr';
 import { Buffer } from 'buffer';
+import { useConfig } from '@openmrs/esm-framework';
 const moment = require('moment');
 const username = '';
 const password = '';
-const basicAuthBase64 = Buffer.from(`${username}:${password}`).toString('base64');
+const { basicAuthBase64 } = useConfig();
+//const basicAuthBase644 = Buffer.from(`${username}:${password}`).toString('base64');
 
 interface YearWeek {
   id: string;
