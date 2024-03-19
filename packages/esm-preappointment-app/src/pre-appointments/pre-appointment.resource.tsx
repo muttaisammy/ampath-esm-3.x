@@ -1,9 +1,11 @@
 import useSWR from 'swr';
 import { Buffer } from 'buffer';
+import { useConfig } from '@openmrs/esm-framework';
 const moment = require('moment');
 const username = '';
 const password = '';
-const basicAuthBase64 = Buffer.from(`${username}:${password}`).toString('base64');
+const { basicAuthBase64 } = useConfig();
+//const basicAuthBase644 = Buffer.from(`${username}:${password}`).toString('base64');
 
 interface YearWeek {
   id: string;
@@ -28,6 +30,7 @@ export const usePreAppointments = (locationUuid: string, yearWeek: any, successC
   let url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid}&yearWeek=${yearWeek?.id}`;
   if (successCode.id !== '' && successCode) {
     url += successCode.id;
+    alert('text');
   }
 
   const { data, error, isLoading, isValidating } = useSWR(url, fetcher);
