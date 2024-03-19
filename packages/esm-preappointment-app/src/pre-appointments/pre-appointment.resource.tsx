@@ -30,7 +30,6 @@ export const usePreAppointments = (locationUuid: string, yearWeek: any, successC
   let url = `https://ngx.ampath.or.ke/etl-latest/etl/ml-weekly-predictions?locationUuids=${locationUuid}&yearWeek=${yearWeek?.id}`;
   if (successCode.id !== '' && successCode) {
     url += successCode.id;
-    alert('text');
   }
 
   const { data, error, isLoading, isValidating } = useSWR(url, fetcher);
