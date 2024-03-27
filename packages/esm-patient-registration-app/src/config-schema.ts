@@ -80,7 +80,7 @@ export const builtInSections: Array<SectionDefinition> = [
   {
     id: 'demographics',
     name: 'Basic Info',
-    fields: ['name', 'gender', 'dob', 'id'],
+    fields: ['name', 'gender', 'dob'],
   },
   { id: 'contact', name: 'Contact Details', fields: ['address', 'phone'] },
   { id: 'death', name: 'Death Info', fields: [] },
