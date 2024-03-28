@@ -40,6 +40,56 @@
       "name": "otz-home-tabs-ext",
       "slot": "otz-home-tabs-slot",
       "component": "otzDashboardTabs"
+    },
+
+    {
+      "name": "otz-dashboard-link",
+      "slot": "dashboard-slot",
+      "component": "otzFolderLink",
+      "meta": {
+        "slot": "ohri-otz-dashboard-slot",
+        "isFolder": true,
+        "title": "OTZ Program"
+      }
+    },
+    {
+      "name": "ohri-otz",
+      "slot": "patient-chart-dashboard-slot",
+      "component": "patientChartTptDashboard",
+      "order": 24
+    },
+    {
+      "name": "otz-patient-summary",
+      "slot": "ohri-otz-slot",
+      "component": "otzPatientSummaryDashboardLink",
+      "meta": {
+        "slot": "otz-patient-summary-slot",
+        "columns": 1,
+        "path": "otz-patient-summary",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "otz-patient-summary-ext",
+      "slot": "otz-patient-summary-slot",
+      "component": "otzPatientSummaryDashboard"
+    },
+
+    {
+      "name": "otz-program-management-summary",
+      "slot": "ohri-otz-slot",
+      "component": "otzProgramManagementDashboardLink",
+      "meta": {
+        "slot": "otz-program-management-summary-slot",
+        "columns": 1,
+        "path": "otz-program-management",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "otz-program-management-summary-ext",
+      "slot": "otz-program-management-summary-slot",
+      "component": "otzProgramManagementDashboard"
     }
   ]
 }

@@ -13,3 +13,25 @@ export const otzDashboardMeta = {
   title: 'OTZ clubs',
   dashboardIcon: Coronavirus,
 };
+
+export const otzPatientClinicalChartMeta = {
+  title: 'OTZ Program',
+  slotName: 'ohri-otz-slot',
+  isExpanded: false,
+};
+
+export const otzPatientSummaryMeta = {
+  slot: 'otz-patient-summary-slot',
+  columns: 1,
+  title: 'OTZ Patient Summary',
+  path: 'otz-patient-summary',
+  layoutMode: 'anchored',
+};
+
+export const otzProgramManagementDashboardMeta = {
+  slot: 'otz-program-management-summary-slot',
+  columns: 1,
+  title: 'OTZ Services',
+  path: 'otz-program-management',
+  layoutMode: 'anchored',
+};
