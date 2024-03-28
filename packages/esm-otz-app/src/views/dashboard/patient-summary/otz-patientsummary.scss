@@ -1,0 +1,24 @@
+/* otz-patientsummary.scss */
+.summary-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title {
+  text-align: left;
+  padding: 20px;
+}
+
+.tile {
+  width: 100%;
+  height: 200px;
+  background-color: #F0EDED;
+  margin-bottom: 10px;
+}
+
+.table {
+  width: 100%;
+  height: 200px;
+  border: 10px solid #ccc;
+}
