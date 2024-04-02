@@ -1,11 +1,9 @@
 {
-  "assessments": "Assessments",
-  "cases": "Cases",
+  "eligibleNotEnrolled": "Eligible Not Enrolled",
+  "missedAppointments": "Missed Appointments",
   "otz": "OTZ Dashboard",
-  "outcomes": "Outcomes",
-  "peopleTestedPositive": "People tested positive",
-  "peopleVaccinated": "People vaccinated",
-  "PeopleWithCovidOutcome": "People with covid outcome",
-  "testsConducted": "Completed assessments",
-  "vaccinations": "Vaccinations"
+  "tileHeader": "Tile Header Placeholder",
+  "totalActive": "Total active",
+  "totalEnrolled": "Total Enrolled",
+  "vlEligible": "ELigible for Viral Load Testing"
 }
