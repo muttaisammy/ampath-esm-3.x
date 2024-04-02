@@ -1,18 +1,18 @@
 import React from 'react';
 import { Tile } from '@carbon/react';
 import styles from './otz-summary-tile.scss';
-import { useTranslation } from 'react-i18next';
+interface SummaryTileProps {
+  headerTitle: string;
+}
 
-const OTZSummaryTile: React.FC = () => {
-  const { t } = useTranslation();
-
+const OTZSummaryTile: React.FC<SummaryTileProps> = ({ headerTitle }) => {
   return (
     <React.Fragment>
       <Tile className={styles.tileContainer}>
         <div>
           <div className={styles.tileContent}>
             <div className={styles.tileHeader}>
-              <header>{t('tileHeader', 'Tile Header Placeholder')}</header>
+              <header>{headerTitle}</header>
             </div>
             <div className={styles.displayDetails}>
               <div>Patients</div>

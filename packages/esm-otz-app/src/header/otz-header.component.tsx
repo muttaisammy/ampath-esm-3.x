@@ -15,7 +15,6 @@ export const OTZHeader: React.FC = () => {
       <div className={styles['left-justified-items']}>
         <OTZIllustration />
         <div className={styles['page-labels']}>
-          {/* <p>{t('laboratory', 'Laboratory')}</p> */}
           <p className={styles['page-name']}>{t('otz', 'OTZ Dashboard')}</p>
         </div>
       </div>
