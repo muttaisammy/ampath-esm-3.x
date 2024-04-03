@@ -1,16 +1,22 @@
 import React from 'react';
-import styles from './otz-patientsummary.scss';
+import { EmptyState } from '@openmrs/esm-patient-common-lib';
+import { useTranslation } from 'react-i18next';
 
 const OtzPatientSummary: React.FC = () => {
+  const { t } = useTranslation();
+
+  const headerClinicalViews = t('clinicalViews', 'clinical Views');
+  const headerAppointments = t('appointments', 'Appointments');
+  const headerViralLoads = t('viralLoads', 'viral Loads');
+
   return (
-    <div className={styles['summary-container']}>
-      <h3>Clinical Details</h3>
-      <div className={styles.tile}>coming soon</div>
-      <h3>Appointments</h3>
-      <div className={styles.tile}>coming soon</div>
-      <h3>Viral Loads</h3>
-      <div className={styles.tile}>coming soon</div>
-    </div>
+    <>
+      <EmptyState displayText={headerClinicalViews} headerTitle={headerClinicalViews} />
+
+      <EmptyState displayText={headerAppointments} headerTitle={headerAppointments} />
+
+      <EmptyState displayText={headerViralLoads} headerTitle={headerViralLoads} />
+    </>
   );
 };
 
