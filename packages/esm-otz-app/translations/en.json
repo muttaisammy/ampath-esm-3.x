@@ -15,4 +15,17 @@
   "vlEligibilityDisplay": "patients eligible for viral load testing",
   "vlEligibilityHeader": "Eligible for Viral Load Testing",
   "vlEligible": "ELigible for Viral Load Testing"
+  "appointments": "Appointments",
+  "assessments": "Assessments",
+  "cases": "Cases",
+  "clinicalViews": "clinical Views",
+  "otz": "OTZ Dashboard",
+  "otzEnrolment": "OTZ Enrolment",
+  "outcomes": "Outcomes",
+  "peopleTestedPositive": "People tested positive",
+  "peopleVaccinated": "People vaccinated",
+  "PeopleWithCovidOutcome": "People with covid outcome",
+  "testsConducted": "Completed assessments",
+  "vaccinations": "Vaccinations",
+  "viralLoads": "viral Loads"
 }
